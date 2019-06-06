@@ -1,6 +1,7 @@
 .c9
 .cache
 dist/*
+.DS_Store
 
 # Logs
 logs
