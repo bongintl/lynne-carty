@@ -12,6 +12,8 @@ html {
     height: 80px * .7;
     object-fit: contain;
     z-index: 100;
+    contain: layout;
+    will-change: transform;
 }
 .color {
     width: 100%;
@@ -57,4 +59,10 @@ svg {
     height: 100%;
     top: 0;
     left: 0;
+}
+
+.rafMeter {
+    position: fixed;
+    z-index: 100;
+    background: white;
 }
