@@ -5,9 +5,6 @@ var createVAO = require('gl-vao');
 var vert = `
     precision highp float;
     attribute vec2 position;
-    uniform vec2 resolution;
-    uniform vec2 offset;
-    uniform vec2 size;
     void main () {
         vec2 p = mix( offset, offset + size, position * .5 + .5 );
         gl_Position = vec4( p * 2. - 1., 0., 1. );
