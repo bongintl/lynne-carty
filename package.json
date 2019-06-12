@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build:static": "cp -r src/static/* src/content src/assets dist && cp src/cms.yml dist/admin/config.yml",
-    "build": "mkdir -p dist && npm run build:static"
+    "build": "mkdir -p dist && npm run build:static && parcel build src/index.html -d dist"
   },
   "keywords": [],
   "author": "",
