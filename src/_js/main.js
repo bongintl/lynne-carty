@@ -7,6 +7,8 @@ import { nodes, tags, byTag, colors } from './nodes';
 
 var shader = createShader();
 document.body.appendChild( shader.canvas );
+shader.resize( window.innerWidth, window.innerHeight );
+window.addEventListener( 'resize', () => shader.resize( window.innerWidth, window.innerHeight ) );
 
 var container = document.querySelector('main');
 var sum = xs => xs.reduce( ( a, b ) => a + b, 0 );

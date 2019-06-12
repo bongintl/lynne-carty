@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "parcel watch src/index.html -d dist",
-    "build": "parcel build src/index.html -d dist"
+    "build:static": "cp -r src/static/* src/content src/assets dist && cp src/cms.yml dist/admin/config.yml",
+    "dev": "parcel serve src/index.html -d dist --port 8080 --public-url ./",
+    "build": "parcel build src/index.html -d dist --public-url ./"
   },
   "keywords": [],
   "author": "",

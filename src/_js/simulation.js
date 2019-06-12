@@ -3,8 +3,6 @@ import * as d3force from 'd3-force';
 import intersection from 'lodash/intersection';
 import isEqual from 'lodash/isEqual';
 
-// var arraysEqual = ( a1, a2 ) => a1.length === a2.length && a1.every( ( x, i ) => x === a2[ i ] );
-
 var slider = html`
     <input type="range" min="0" max="1" step="0.01" style="position: fixed" value=0.5>
 `
@@ -21,9 +19,9 @@ export default nodes => {
             })
         }
     }
-    return d3force.forceSimulation( nodes )
-        .velocityDecay(0.2)
-        .force('links', d3force.forceLink( links ).distance( _ => 80 ).strength( ({ source, target }) => {
+    var linkForce = d3force.forceLink( links )
+        .distance( ({ source, target }) => source.r + target.r )
+        .strength( ({ source, target }) => {
             var d = Math.sqrt( Math.pow( source.x - target.x, 2 ) + Math.pow( source.y - target.y, 2 ) );
             var f = d * .00001;
             var intersections = intersection( source.tags, target.tags ).length
@@ -31,7 +29,11 @@ export default nodes => {
             if ( isEqual( source.tags, target.tags ) ) f *= 2;
             if ( intersections.length === 0 ) f = -.00001
             return f * slider.value;
-        }))
+        })
+    
+    return d3force.forceSimulation( nodes )
+        .velocityDecay(0.2)
+        .force('links', linkForce )
         // .force("cx", d3force.forceX( 0 ).strength(0.02))
         // .force("cy", d3force.forceY( 0 ).strength(0.02))
         .force("collide", d3force.forceCollide().radius(function(d) { return d.r + 0.5; }).strength(0.5).iterations(2))

@@ -1,4 +1,4 @@
-import filenames from '../../work_small/*.{png,gif,jpg}';
+import filenames from './assets/*.{png,gif,jpg}';
 import uniq from 'lodash/uniq';
 import flatten from 'lodash/flatten';
 import tinycolor from 'tinycolor2';
@@ -10,12 +10,14 @@ export var nodes = Object.keys( filenames ).map( ( name, i ) => {
         tags: tags.split('+').sort(),
         name: rest.join('-'),
         src,
-        r: 40,
+        r: window.innerWidth * .02,
         x: Math.random() * window.innerWidth,
         y: Math.random() * window.innerHeight,
         id: i
     };
 })
+
+window.addEventListener( 'resize', () => nodes.forEach( n => n.radius = window.innerWidth * .02 ) );
 
 export var tags = uniq( flatten( nodes.map( ({ tags }) => tags ) ) );
 export var byTag = Object.fromEntries( tags.map( tag => [
@@ -23,11 +25,18 @@ export var byTag = Object.fromEntries( tags.map( tag => [
     nodes.filter( n => n.tags.includes( tag ) )
 ]))
 
-var c = () => Math.random();
-var COLORS = [ '#FFDC98', '#BCDBFF', '#E2BCFF', '#C9FFBC', '#BABABA', '#FFBCF0', '#FFABAB' ].map( tinycolor )
+var COLORS = [
+    '#FF0000',
+    '#FF9838',
+    '#BDFF00',
+    '#FC49CA',
+    '#00C2FF',
+    '#FCFF80',
+    '#AD00FF'
+].map( tinycolor )
 
 export var colors = Object.fromEntries( tags.map( ( tag, i ) => [
     tag,
-    // COLORS[ i ]
-    tinycolor.fromRatio({ h: i / tags.length, s: 1, l: .5 })
+    COLORS[ i ]
+    // tinycolor.fromRatio({ h: i / tags.length, s: 1, l: .5 })
 ]))
