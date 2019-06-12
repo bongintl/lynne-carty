@@ -1,7 +1,6 @@
 import html from 'nanohtml';
 import morph from 'nanomorph';
 import createShader from './gl/blobs';
-// import renderShapes from './shapes'
 
 import createSimulation from './simulation';
 import { nodes, tags, byTag, colors } from './nodes';
@@ -58,28 +57,7 @@ var render = () => {
     var cx = window.innerWidth / 2 - mean( nodes.map( n => n.x ) );
     var cy = window.innerHeight / 2 - mean( nodes.map( n => n.y ) );
     nodes
-        // .filter( n => filter === null || n.tags.includes( filter ) )
         .forEach( ( n, i ) => update( imgs[ i ], [ cx + n.x, cy + n.y ] ) )
-    // morph( container, html`
-    //     <main>
-    //         ${ nodes
-    //             .filter( n => filter === null || n.tags.includes( filter ) )
-    //             .map( ( n, i ) => html`
-    //             <img
-    //                 class="thumbnail"
-    //                 id="node_${ i }"
-    //                 src="${ n.src }"
-    //                 style="
-    //                     transform:
-    //                         translate(-50%, -50%)
-    //                         translate( ${ cx + n.x }px, ${ cy + n.y }px )
-    //                 "
-    //             >
-    //                 <img >
-    //             </div>
-    //         `) }
-    //     </main>
-    // ` )
     shader.render( nodes, cx, cy );
 }
 
