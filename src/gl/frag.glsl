@@ -35,19 +35,5 @@ float edge () {
 }
 
 void main () {
-    float v = sample( gl_FragCoord.xy );
-    float alpha = step( 1., v ) * .5;
-    vec4 fill = vec4( color * alpha, alpha );
-    float edge = edge();
-    vec4 stroke = vec4( vec3( 0. ), 1. );
-    // gl_FragColor = mix( fill, stroke, edge );
-    gl_FragColor = vec4( color, 1. ) * edge;
-    // if (v > 1.0) {
-    //     gl_FragColor = vec4(v, 0., 0.0, 1.0);
-    // } else {
-    //     gl_FragColor = vec4(v, 0.0, 0.0, 1.0);
-    // }
-    // gl_FragColor = vec4( vec3( alpha ), 1. );
-    // alpha = alpha > 1. ? 1. : 0.;
-    // gl_FragColor = vec4( color * alpha, alpha );
+    gl_FragColor = vec4( color, 1. ) * edge();
 }

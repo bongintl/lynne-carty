@@ -1,4 +1,4 @@
-import filenames from '../../work_small/*.{png,gif,jpg}';
+import filenames from './assets/*.{png,gif,jpg}';
 import uniq from 'lodash/uniq';
 import flatten from 'lodash/flatten';
 import tinycolor from 'tinycolor2';
