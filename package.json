@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build:cms": "parcel build src/cms/index.html -d dist/admin --public-url ./admin/ && cp src/cms/config.yml dist/admin/config.yml",
+    "build:cms": "parcel build src/cms/index.html -d dist/admin --public-url /admin/ && cp src/cms/config.yml dist/admin/config.yml",
     "dev:cms": "parcel serve src/cms/index.html -d dist/admin --port 8080",
     "build:static": "cp -r src/static/* src/content src/assets dist && cp src/cms.yml dist/admin/config.yml",
     "build": "mkdir -p dist && npm run build:cms"
