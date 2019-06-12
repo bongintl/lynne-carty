@@ -4,8 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build:cms": "parcel build src/cms/index.html -d dist/admin --public-url ./admin/ && cp src/cms/config.yml dist/admin/config.yml",
+    "dev:cms": "parcel serve src/cms/index.html -d dist/admin --port 8080",
     "build:static": "cp -r src/static/* src/content src/assets dist && cp src/cms.yml dist/admin/config.yml",
-    "build": "mkdir -p dist && npm run build:static && parcel build src/index.html -d dist"
+    "build": "mkdir -p dist && npm run build:cms"
   },
   "keywords": [],
   "author": "",
@@ -18,6 +20,7 @@
     "gl-vao": "^1.3.0",
     "glslify": "^7.0.0",
     "lodash": "^4.17.11",
+    "netlify-cms": "^2.9.1",
     "parcel-bundler": "^1.12.3",
     "tinycolor2": "^1.4.1"
   },
