@@ -1,0 +1,6 @@
+title: Work
+pages: true
+sections:
+  pages:
+    type: pages
+    layout: cards
