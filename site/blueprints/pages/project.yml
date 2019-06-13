@@ -1,0 +1,24 @@
+title: Project
+columns:
+  -
+    width: 3/4
+    sections:
+      content:
+        type: fields
+        fields:
+          thumbnail:
+            label: Thumbnail
+            type: files
+            multiple: false
+            layout: cards
+            size: small
+          tags:
+            label: Tags
+            type: tags
+            options: query
+            query: page.siblings.pluck( "tags", ",", true )
+  -
+    width: 1/4
+    sections:
+      files:
+        type: files

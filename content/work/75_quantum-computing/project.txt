@@ -1,0 +1,11 @@
+Title: Quantum Computing
+
+----
+
+Thumbnail:
+
+- DESIGN-quantum-computing.jpg
+
+----
+
+Tags: Design

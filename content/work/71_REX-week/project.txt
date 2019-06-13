@@ -1,0 +1,11 @@
+Title: Rex Week
+
+----
+
+Thumbnail:
+
+- DESIGN-REX-week.jpg
+
+----
+
+Tags: Design

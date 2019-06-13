@@ -1,0 +1,11 @@
+Title: Strano
+
+----
+
+Thumbnail:
+
+- DESIGN-Strano.jpg
+
+----
+
+Tags: Design

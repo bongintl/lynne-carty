@@ -1,0 +1,11 @@
+title: Site
+
+sections:
+    work:
+        type: pages
+        headline: Work
+        parent: site.find("work")
+        create: project
+        layout: cards
+        size: tiny
+        limit: 600

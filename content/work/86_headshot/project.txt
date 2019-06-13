@@ -1,0 +1,11 @@
+Title: Headshot
+
+----
+
+Thumbnail:
+
+- LYNNE-headshot.jpg
+
+----
+
+Tags: Lynne
