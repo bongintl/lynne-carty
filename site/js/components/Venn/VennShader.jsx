@@ -71,17 +71,16 @@ var Renderer = ({ positions, radius, data }) => {
         gl.enable( gl.SCISSOR_TEST );
         shader.uniforms.radius = radius;
         shader.uniforms.resolution = [ gl.canvas.width, gl.canvas.height ];
-        tags.forEach( ( tag, i ) => {
-            var projects = byTag[ tag ];
-            var nodes = projects.map( project => positions[ project.i ] );
-            shader.uniforms.count = nodes.length;
-            nodes.forEach( ( node, i ) => {
-                shader.uniforms.positions[ i ] = [ node.x, node.y ];
+        tags.forEach( tag => {
+            var ps = byTag[ tag ].map( i => positions[ i ] );
+            shader.uniforms.count = ps.length;
+            ps.forEach( ( position, i ) => {
+                shader.uniforms.positions[ i ] = [ position.x, position.y ];
             })
             var { r, g, b } = colors[ tag ].toRgb();
             shader.uniforms.color = [ r / 255, g / 255, b / 255 ];
-            var xs = nodes.map( n => n.x );
-            var ys = nodes.map( n => n.y );
+            var xs = ps.map( n => n.x );
+            var ys = ps.map( n => n.y );
             var minX = Math.floor( Math.min( ...xs ) ) - radius * 4;
             var minY = Math.floor( Math.min( ...ys ) ) - radius * 4;
             var maxX = Math.floor( Math.max( ...xs ) ) + radius * 4;

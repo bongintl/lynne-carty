@@ -7,25 +7,28 @@ import COLORS from '~/colors';
 
 var load = () => fetch('/work.json')
     .then( r => r.json() )
-    .then( work => {
-        work = work.map( ( project, i ) => ({ ...project, i }) );
-        var tags = uniq( flatten( work.map( ({ tags }) => tags ) ) )
-        var byTag = Object.fromEntries( tags.map( tag => [
-            tag,
-            work.filter( n => n.tags.includes( tag ) )
+    .then( ({ projects, tags }) => ({
+        projects,
+        tags: tags.map( ({ name }) => name ),
+        byTag: Object.fromEntries( tags.map( tag => [
+            tag.name,
+            projects
+                .map( ( project, i ) => ({ project, i }) )
+                .filter( ({ project }) => project.tags.includes( tag.name ) )
+                .map(( { project, i }) => i )
+        ])),
+        colors: Object.fromEntries( tags.map( tag => [
+            tag.name,
+            tinycolor( tag.color )
         ]))
-        var colors = Object.fromEntries( tags.map( ( tag, i ) => [
-            tag,
-            tinycolor( COLORS[ i ] )
-        ]))
-        return { work, tags, byTag, colors }
-    })
+    }))
     
 var Home = () => {
     var [ data, setData ] = useState( null );
     useEffect( () => {
         load().then( data => setData( data ) );
     }, [] )
+    console.log( data )
     if ( !data ) return null;
     return <Venn data={ data }/>
 }
