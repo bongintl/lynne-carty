@@ -25,3 +25,4 @@ columns:
       pages:
         type: pages
         layout: cards
+        limit: 6
