@@ -13,7 +13,8 @@ echo json_encode(
                     'url' => (string) $project -> url(),
                     'thumbnail' => $project -> thumbnail() -> isNotEmpty()
                         ? $project -> thumbnail() -> toFile() -> resize( 200 ) -> url()
-                        : null
+                        : null,
+                    'tags' => $project -> tags() -> split()
                 ];
             })
     )

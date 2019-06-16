@@ -4,9 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "parcel serve src/index.html -d dist --port 8080",
-    "build": "parcel build src/index.html -d dist"
+    "watch:js": "parcel watch site/js/main.js -d assets",
+    "build:js": "parcel build site/js/main.js -d assets",
+    "watch:sass": "npm run build:sass && onchange 'site/scss/**/*.scss' -- npm run build:sass",
+    "build:sass": "node-sass site/scss/style.scss --output assets",
+    "dev": "npm run watch:js & npm run watch:sass",
+    "build": "npm run build:js && npm run build:sass"
   },
   "keywords": [],
   "author": "",
@@ -22,8 +25,12 @@
     "lodash": "^4.17.11",
     "nanohtml": "^1.6.3",
     "nanomorph": "^5.4.0",
+    "node-sass": "^4.12.0",
+    "onchange": "^6.0.0",
     "parcel-bundler": "^1.12.3",
     "rafmeter": "^0.2.1",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
     "tinycolor2": "^1.4.1",
     "yaml": "^1.6.0"
   },
