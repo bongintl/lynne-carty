@@ -12,11 +12,16 @@ columns:
             multiple: false
             layout: cards
             size: small
+            required: true
           tags:
             label: Tags
             type: tags
+            accept: options
             options: query
-            query: page.siblings.pluck( "tags", ",", true )
+            query:
+              fetch: page.parent.tags.toStructure
+              text: "{{ structureItem.name }}"
+              value: "{{ structureItem.name }}"
   -
     width: 1/4
     sections:

@@ -1,0 +1,63 @@
+html {
+  font-family: sans-serif;
+  background: #DFDFDF; }
+
+.thumbnail {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+  z-index: 100;
+  contain: layout;
+  will-change: transform;
+  cursor: pointer;
+  transition: width .1s, height .1s; }
+  .thumbnail:hover {
+    width: 80px;
+    height: 80px; }
+
+.color {
+  width: 100%; }
+
+canvas {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  pointer-events: none; }
+
+.legend {
+  list-style: none;
+  display: block;
+  position: fixed; }
+  .legend li {
+    border: 1px solid var(--color);
+    color: var(--color);
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 50%;
+    padding: .5em 1.5em;
+    text-align: center;
+    display: block;
+    width: auto;
+    cursor: pointer; }
+  .legend:hover li {
+    color: transparent; }
+  .legend:hover li:hover {
+    color: var(--color); }
+
+svg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0; }
+
+.rafMeter {
+  position: fixed;
+  z-index: 100;
+  background: white; }
