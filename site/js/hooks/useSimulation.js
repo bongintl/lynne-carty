@@ -26,7 +26,7 @@ export default ( data, radius, initialPositions ) => {
             }
         }
         var simulation = d3force.forceSimulation( nodes )
-            .alphaDecay( 0.01 )
+            .alphaDecay( 0.0 )
             .velocityDecay( 0.2 )
             .force( 'links',
                 d3force.forceLink( links )
@@ -40,7 +40,7 @@ export default ( data, radius, initialPositions ) => {
                 d3force.forceCollide()
                     .radius( radius )
                     .strength( 0.5 )
-                    .iterations( 2 )
+                    .iterations( 5 )
             )
             .on( 'tick', () => {
                 var cx = mean( nodes.map( n => n.x ) );

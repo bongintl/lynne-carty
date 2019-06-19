@@ -3,7 +3,8 @@ import Venn from './Venn.jsx';
 import Wave from './Wave.jsx';
 import Color from './Color.jsx';
 import tinycolor from 'tinycolor2';
-
+import getColor from '~/utils/getColor';
+import useFetch from '~/hooks/useFetch';
 import useWindowSize from '~/hooks/useWindowSize';
 
 var useRadius = () => {
@@ -12,11 +13,24 @@ var useRadius = () => {
         parseFloat( getComputedStyle( document.documentElement ).getPropertyValue('--radius') )
     ), [ windowSize ] );
 }
-
-var load = () => fetch('/work.json')
-    .then( r => r.json() )
-    .then( ({ projects, tags }) => {
-        projects = projects.map( ( project, i ) => ({ ...project, i }) )
+    
+var useData = () => {
+    var data = useFetch( '/work.json' );
+    var [ projectColors, setProjectColors ] = useState( null );
+    useEffect( () => {
+        if ( !data ) return;
+        Promise.all( data.projects
+            .map( project => getColor( project.pixel ) )
+        ).then( setProjectColors )
+    }, [ data ] )
+    return useMemo(() => {
+        if ( data === null || projectColors === null ) return null;
+        var { projects, tags } = data;
+        projects = projects.map( ( project, i ) => ({
+            ...project,
+            i,
+            color: projectColors[ i ]
+        }) )
         return {
             projects,
             tags: tags.map( ({ name }) => name ),
@@ -32,7 +46,8 @@ var load = () => fetch('/work.json')
                 tinycolor( tag.color )
             ]))
         }
-    })
+    }, [ data, projectColors ] );
+}
     
 var views = {
     venn: Venn,
@@ -42,11 +57,8 @@ var views = {
     
 var Home = () => {
     var [ view, setView ] = useState('venn');
-    var [ data, setData ] = useState( null );
+    var data = useData();
     var radius = useRadius();
-    useEffect( () => {
-        load().then( setData );
-    }, [] )
     console.log( data )
     if ( !data ) return null;
     var View = views[ view ];

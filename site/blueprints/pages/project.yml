@@ -19,7 +19,7 @@ columns:
             accept: options
             options: query
             query:
-              fetch: page.parent.tags.toStructure
+              fetch: site.find('work').tags.toStructure
               text: "{{ structureItem.name }}"
               value: "{{ structureItem.name }}"
   -

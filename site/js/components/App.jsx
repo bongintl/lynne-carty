@@ -1,12 +1,12 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import Home from './Home';
-import Project from './Project';
+import Page from './Page';
 
 var App = () => (
     <Router>
-        <Home/>
-        <Route path=":view/:project" component={ Project }/>
+        <Route path="/" exact component={ Home }/>
+        <Route path="/:page" component={ Page }/>
     </Router>
 )
 

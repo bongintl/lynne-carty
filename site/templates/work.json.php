@@ -5,6 +5,7 @@ $projects = array_values(
         // -> pages()
         // -> find( 'work' )
         -> children()
+        -> listed()
         -> published()
         -> flip()
         -> toArray( function ( $project ) {
