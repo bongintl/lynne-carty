@@ -46,11 +46,10 @@ var Grid = () => {
 }
 
 var ColorThumbnail = ({ project }) => {
-    var color = useColor( project.pixel );
     var windowSize = useWindowSize();
-    if ( color === null ) return null;
-    var { h, l } = color;
-    if ( h === 0 ) h = Math.random() * 360
+    var rand = useMemo( Math.random, [] );
+    var { h, l } = project.color;
+    if ( h === 0 ) h = rand * 360
     var x = ( h / 360 ) * windowSize[ 0 ];
     var y = l * windowSize[ 1 ];
     return <Thumbnail project={ project } position={ { x, y } }/>

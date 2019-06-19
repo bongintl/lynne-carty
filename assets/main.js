@@ -29621,7 +29621,54 @@ if ("development" !== "production") {
     style: _propTypes.default.object
   });
 }
-},{"@babel/runtime/helpers/esm/inheritsLoose":"../../node_modules/@babel/runtime/helpers/esm/inheritsLoose.js","react":"../../node_modules/react/index.js","react-router":"../../node_modules/react-router/esm/react-router.js","history":"../../node_modules/history/esm/history.js","prop-types":"../../node_modules/prop-types/index.js","tiny-warning":"../../node_modules/tiny-warning/dist/tiny-warning.esm.js","@babel/runtime/helpers/esm/extends":"../../node_modules/@babel/runtime/helpers/esm/extends.js","@babel/runtime/helpers/esm/objectWithoutPropertiesLoose":"../../node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js","tiny-invariant":"../../node_modules/tiny-invariant/dist/tiny-invariant.esm.js"}],"../../node_modules/bit-twiddle/twiddle.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/esm/inheritsLoose":"../../node_modules/@babel/runtime/helpers/esm/inheritsLoose.js","react":"../../node_modules/react/index.js","react-router":"../../node_modules/react-router/esm/react-router.js","history":"../../node_modules/history/esm/history.js","prop-types":"../../node_modules/prop-types/index.js","tiny-warning":"../../node_modules/tiny-warning/dist/tiny-warning.esm.js","@babel/runtime/helpers/esm/extends":"../../node_modules/@babel/runtime/helpers/esm/extends.js","@babel/runtime/helpers/esm/objectWithoutPropertiesLoose":"../../node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js","tiny-invariant":"../../node_modules/tiny-invariant/dist/tiny-invariant.esm.js"}],"components/GL.jsx":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = exports.GLContext = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
+var GLContext = (0, _react.createContext)();
+exports.GLContext = GLContext;
+
+var GL = (_ref) => {
+  let {
+    size,
+    children
+  } = _ref,
+      rest = _objectWithoutProperties(_ref, ["size", "children"]);
+
+  var ref = (0, _react.useRef)();
+  var [gl, setGL] = (0, _react.useState)(null);
+  (0, _react.useLayoutEffect)(() => {
+    setGL(ref.current.getContext('webgl'));
+  }, [ref.current]);
+  (0, _react.useLayoutEffect)(() => {
+    if (!gl) return;
+    gl.viewport(0, 0, size[0], size[1]);
+  }, [ref.current, size]);
+  return _react.default.createElement(GLContext.Provider, {
+    value: gl,
+    t: true
+  }, _react.default.createElement("canvas", _extends({
+    ref: ref,
+    width: size[0],
+    height: size[1]
+  }, rest)), gl && children);
+};
+
+var _default = GL;
+exports.default = _default;
+},{"react":"../../node_modules/react/index.js"}],"../../node_modules/bit-twiddle/twiddle.js":[function(require,module,exports) {
 /**
  * Bit twiddling hacks for JavaScript.
  *
@@ -36597,8 +36644,8 @@ function createShader(
 
 module.exports = createShader
 
-},{"./lib/create-uniforms":"../../node_modules/gl-shader/lib/create-uniforms.js","./lib/create-attributes":"../../node_modules/gl-shader/lib/create-attributes.js","./lib/reflect":"../../node_modules/gl-shader/lib/reflect.js","./lib/shader-cache":"../../node_modules/gl-shader/lib/shader-cache.js","./lib/runtime-reflect":"../../node_modules/gl-shader/lib/runtime-reflect.js","./lib/GLError":"../../node_modules/gl-shader/lib/GLError.js"}],"gl/frag.glsl":[function(require,module,exports) {
-module.exports = "precision highp float;\n#define GLSLIFY 1\n\nuniform vec2 resolution;\nuniform vec2 positions[ 100 ];\nuniform float radius;\nuniform vec3 color;\nuniform int count;\n\nfloat sample ( vec2 coord ) {\n    float x = coord.x;\n    float y = coord.y;\n    float v = 0.0;\n    for ( int i = 0; i < 100; i++ ) {\n        vec2 position = positions[ i ];\n        position.y = resolution.y - position.y;\n        float dx = position.x - x;\n        float dy = position.y - y;\n        v += radius * radius / ( dx*dx + dy*dy );\n        if ( i == count - 1 ) break;\n    }\n    return v;\n}\n\nfloat edge () {\n    vec2 px = vec2( .5 );\n    float up = step( 1., sample( gl_FragCoord.xy + vec2( 0., px.y ) ) );\n    float down = step( 1., sample( gl_FragCoord.xy + vec2( 0., -px.y ) ) );\n    float left = step( 1., sample( gl_FragCoord.xy + vec2( -px.x, 0. ) ) );\n    float right = step( 1., sample( gl_FragCoord.xy + vec2( px.x, 0. ) ) );\n    if ( up == down && up == left && up == right ) {\n        return 0.;\n    } else {\n        return 1.;\n    }\n}\n\nvoid main () {\n    gl_FragColor = vec4( color, 1. ) * edge();\n}";
+},{"./lib/create-uniforms":"../../node_modules/gl-shader/lib/create-uniforms.js","./lib/create-attributes":"../../node_modules/gl-shader/lib/create-attributes.js","./lib/reflect":"../../node_modules/gl-shader/lib/reflect.js","./lib/shader-cache":"../../node_modules/gl-shader/lib/shader-cache.js","./lib/runtime-reflect":"../../node_modules/gl-shader/lib/runtime-reflect.js","./lib/GLError":"../../node_modules/gl-shader/lib/GLError.js"}],"gl/venn.frag.glsl":[function(require,module,exports) {
+module.exports = "precision highp float;\n#define GLSLIFY 1\n\nuniform vec2 resolution;\nuniform vec2 positions[ MAX ];\nuniform float radius;\nuniform vec3 color;\nuniform int count;\n\nfloat sample ( vec2 coord ) {\n    float x = coord.x;\n    float y = coord.y;\n    float v = 0.0;\n    for ( int i = 0; i < MAX; i++ ) {\n        vec2 position = positions[ i ];\n        position.y = resolution.y - position.y;\n        float dx = position.x - x;\n        float dy = position.y - y;\n        v += radius * radius / ( dx*dx + dy*dy );\n        if ( i == count - 1 ) break;\n    }\n    return v;\n}\n\nfloat edge () {\n    vec2 px = vec2( .5 );\n    float up = step( 1., sample( gl_FragCoord.xy + vec2( 0., px.y ) ) );\n    float down = step( 1., sample( gl_FragCoord.xy + vec2( 0., -px.y ) ) );\n    float left = step( 1., sample( gl_FragCoord.xy + vec2( -px.x, 0. ) ) );\n    float right = step( 1., sample( gl_FragCoord.xy + vec2( px.x, 0. ) ) );\n    if ( up == down && up == left && up == right ) {\n        return 0.;\n    } else {\n        return 1.;\n    }\n}\n\nvoid main () {\n    gl_FragColor = vec4( color, 1. ) * edge();\n}";
 },{}],"../../node_modules/tinycolor2/tinycolor.js":[function(require,module,exports) {
 var define;
 // TinyColor v1.4.1
@@ -37831,13 +37878,15 @@ exports.default = void 0;
 
 var _react = _interopRequireWildcard(require("react"));
 
+var _GL = _interopRequireWildcard(require("./GL"));
+
 var _glBuffer = _interopRequireDefault(require("gl-buffer"));
 
 var _glVao = _interopRequireDefault(require("gl-vao"));
 
 var _glShader = _interopRequireDefault(require("gl-shader"));
 
-var _frag = _interopRequireDefault(require("~/gl/frag.glsl"));
+var _vennFrag = _interopRequireDefault(require("~/gl/venn.frag.glsl"));
 
 var _tinycolor = _interopRequireDefault(require("tinycolor2"));
 
@@ -37846,12 +37895,6 @@ var _useWindowSize = _interopRequireDefault(require("~/hooks/useWindowSize"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
-
-function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
-
-function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
-
-var GLContext = (0, _react.createContext)();
 
 var backgroundColor = (() => {
   var color = window.getComputedStyle(document.documentElement).backgroundColor;
@@ -37871,32 +37914,6 @@ var vert = `
     }
 `;
 
-var GL = (_ref) => {
-  let {
-    size,
-    children
-  } = _ref,
-      rest = _objectWithoutProperties(_ref, ["size", "children"]);
-
-  var ref = (0, _react.useRef)();
-  var [gl, setGL] = (0, _react.useState)(null);
-  (0, _react.useLayoutEffect)(() => {
-    setGL(ref.current.getContext('webgl'));
-  }, [ref.current]);
-  (0, _react.useLayoutEffect)(() => {
-    if (!gl) return;
-    gl.viewport(0, 0, size[0], size[1]);
-  }, [ref.current, size]);
-  return _react.default.createElement(GLContext.Provider, {
-    value: gl,
-    t: true
-  }, _react.default.createElement("canvas", _extends({
-    ref: ref,
-    width: size[0],
-    height: size[1]
-  }, rest)), gl && children);
-};
-
 var Renderer = ({
   positions,
   radius,
@@ -37907,7 +37924,7 @@ var Renderer = ({
     tags,
     colors
   } = data;
-  var gl = (0, _react.useContext)(GLContext);
+  var gl = (0, _react.useContext)(_GL.GLContext);
   var triangle = (0, _react.useMemo)(() => {
     var position = (0, _glBuffer.default)(gl, new Float32Array([-1, -1, -1, 3, 3, -1]));
     return (0, _glVao.default)(gl, [{
@@ -37915,9 +37932,9 @@ var Renderer = ({
       type: gl.FLOAT,
       size: 2
     }]);
-  }, [gl]); // var maxNodes
-
-  var shader = (0, _react.useMemo)(() => (0, _glShader.default)(gl, vert, _frag.default), [gl]);
+  }, [gl]);
+  var maxNodes = (0, _react.useMemo)(() => Math.min(gl.getParameter(gl.MAX_FRAGMENT_UNIFORM_VECTORS), Math.max(...Object.values(byTag).map(ts => ts.length))), [data]);
+  var shader = (0, _react.useMemo)(() => (0, _glShader.default)(gl, vert, `#define MAX ${maxNodes}\n` + _vennFrag.default), [gl, maxNodes]);
   (0, _react.useLayoutEffect)(() => {
     gl.clearColor(...backgroundColor);
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT | gl.STENCIL_BUFFER_BIT);
@@ -37962,7 +37979,7 @@ var VennShader = ({
   data
 }) => {
   var windowSize = (0, _useWindowSize.default)();
-  return _react.default.createElement(GL, {
+  return _react.default.createElement(_GL.default, {
     size: windowSize
   }, _react.default.createElement(Renderer, {
     positions: positions,
@@ -37973,7 +37990,7 @@ var VennShader = ({
 
 var _default = VennShader;
 exports.default = _default;
-},{"react":"../../node_modules/react/index.js","gl-buffer":"../../node_modules/gl-buffer/buffer.js","gl-vao":"../../node_modules/gl-vao/vao.js","gl-shader":"../../node_modules/gl-shader/index.js","~/gl/frag.glsl":"gl/frag.glsl","tinycolor2":"../../node_modules/tinycolor2/tinycolor.js","~/hooks/useWindowSize":"hooks/useWindowSize.js"}],"../../node_modules/d3-force/src/center.js":[function(require,module,exports) {
+},{"react":"../../node_modules/react/index.js","./GL":"components/GL.jsx","gl-buffer":"../../node_modules/gl-buffer/buffer.js","gl-vao":"../../node_modules/gl-vao/vao.js","gl-shader":"../../node_modules/gl-shader/index.js","~/gl/venn.frag.glsl":"gl/venn.frag.glsl","tinycolor2":"../../node_modules/tinycolor2/tinycolor.js","~/hooks/useWindowSize":"hooks/useWindowSize.js"}],"../../node_modules/d3-force/src/center.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -43758,14 +43775,14 @@ var _default = (data, radius, initialPositions) => {
       }
     }
 
-    var simulation = d3force.forceSimulation(nodes).alphaDecay(0.01).velocityDecay(0.2).force('links', d3force.forceLink(links).distance(radius * 2).strength(({
+    var simulation = d3force.forceSimulation(nodes).alphaDecay(0.0).velocityDecay(0.2).force('links', d3force.forceLink(links).distance(radius * 2).strength(({
       source,
       target,
       strength
     }) => {
       var d = Math.sqrt(Math.pow(source.x - target.x, 2) + Math.pow(source.y - target.y, 2));
       return strength * d * 0.000003;
-    })).force("collide", d3force.forceCollide().radius(radius).strength(0.5).iterations(2)).on('tick', () => {
+    })).force("collide", d3force.forceCollide().radius(radius).strength(0.5).iterations(5)).on('tick', () => {
       var cx = mean(nodes.map(n => n.x));
       var cy = mean(nodes.map(n => n.y));
       var hw = windowSize[0] / 2;
@@ -44619,14 +44636,13 @@ var Grid = () => {
 var ColorThumbnail = ({
   project
 }) => {
-  var color = (0, _useColor.default)(project.pixel);
   var windowSize = (0, _useWindowSize.default)();
-  if (color === null) return null;
+  var rand = (0, _react.useMemo)(Math.random, []);
   var {
     h,
     l
-  } = color;
-  if (h === 0) h = Math.random() * 360;
+  } = project.color;
+  if (h === 0) h = rand * 360;
   var x = h / 360 * windowSize[0];
   var y = l * windowSize[1];
   return _react.default.createElement(_Thumbnail.default, {
@@ -44647,7 +44663,68 @@ var Color = ({
 
 var _default = Color;
 exports.default = _default;
-},{"react":"../../node_modules/react/index.js","./Thumbnail.jsx":"components/Thumbnail.jsx","~/hooks/useWindowSize":"hooks/useWindowSize.js","lodash/range":"../../node_modules/lodash/range.js","~/hooks/useColor":"hooks/useColor.js"}],"components/Home.jsx":[function(require,module,exports) {
+},{"react":"../../node_modules/react/index.js","./Thumbnail.jsx":"components/Thumbnail.jsx","~/hooks/useWindowSize":"hooks/useWindowSize.js","lodash/range":"../../node_modules/lodash/range.js","~/hooks/useColor":"hooks/useColor.js"}],"utils/getColor.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _tinycolor = _interopRequireDefault(require("tinycolor2"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var cache = {};
+var canvas = document.createElement('canvas');
+canvas.width = canvas.height = 1;
+var ctx = canvas.getContext('2d');
+
+var _default = src => new Promise(resolve => {
+  var image = new Image();
+
+  image.onload = () => {
+    ctx.drawImage(image, 0, 0);
+    var {
+      data
+    } = ctx.getImageData(0, 0, 1, 1);
+    var [r, g, b] = data;
+    var color = (0, _tinycolor.default)({
+      r,
+      g,
+      b
+    }).toHsl();
+    cache[src] = color;
+    resolve(color);
+  };
+
+  image.src = src;
+});
+
+exports.default = _default;
+},{"tinycolor2":"../../node_modules/tinycolor2/tinycolor.js"}],"hooks/useFetch.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var {
+  useState,
+  useEffect
+} = require('react');
+
+var _default = url => {
+  var [data, setData] = useState(null);
+  useEffect(() => {
+    fetch(url).then(r => r.json()).then(setData);
+  }, [url]);
+  return data;
+};
+
+exports.default = _default;
+},{"react":"../../node_modules/react/index.js"}],"components/Home.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -44665,6 +44742,10 @@ var _Color = _interopRequireDefault(require("./Color.jsx"));
 
 var _tinycolor = _interopRequireDefault(require("tinycolor2"));
 
+var _getColor = _interopRequireDefault(require("~/utils/getColor"));
+
+var _useFetch = _interopRequireDefault(require("~/hooks/useFetch"));
+
 var _useWindowSize = _interopRequireDefault(require("~/hooks/useWindowSize"));
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -44678,30 +44759,41 @@ var useRadius = () => {
   return (0, _react.useMemo)(() => parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--radius')), [windowSize]);
 };
 
-var load = () => fetch('/work.json').then(r => r.json()).then(({
-  projects,
-  tags
-}) => {
-  projects = projects.map((project, i) => _extends({}, project, {
-    i
-  }));
-  return {
-    projects,
-    tags: tags.map(({
-      name
-    }) => name),
-    byTag: Object.fromEntries(tags.map(tag => [tag.name, projects.map((project, i) => ({
-      project,
-      i
-    })).filter(({
-      project
-    }) => project.tags.includes(tag.name)).map(({
-      project,
-      i
-    }) => i)])),
-    colors: Object.fromEntries(tags.map(tag => [tag.name, (0, _tinycolor.default)(tag.color)]))
-  };
-});
+var useData = () => {
+  var data = (0, _useFetch.default)('/work.json');
+  var [projectColors, setProjectColors] = (0, _react.useState)(null);
+  (0, _react.useEffect)(() => {
+    if (!data) return;
+    Promise.all(data.projects.map(project => (0, _getColor.default)(project.pixel))).then(setProjectColors);
+  }, [data]);
+  return (0, _react.useMemo)(() => {
+    if (data === null || projectColors === null) return null;
+    var {
+      projects,
+      tags
+    } = data;
+    projects = projects.map((project, i) => _extends({}, project, {
+      i,
+      color: projectColors[i]
+    }));
+    return {
+      projects,
+      tags: tags.map(({
+        name
+      }) => name),
+      byTag: Object.fromEntries(tags.map(tag => [tag.name, projects.map((project, i) => ({
+        project,
+        i
+      })).filter(({
+        project
+      }) => project.tags.includes(tag.name)).map(({
+        project,
+        i
+      }) => i)])),
+      colors: Object.fromEntries(tags.map(tag => [tag.name, (0, _tinycolor.default)(tag.color)]))
+    };
+  }, [data, projectColors]);
+};
 
 var views = {
   venn: _Venn.default,
@@ -44711,11 +44803,8 @@ var views = {
 
 var Home = () => {
   var [view, setView] = (0, _react.useState)('venn');
-  var [data, setData] = (0, _react.useState)(null);
+  var data = useData();
   var radius = useRadius();
-  (0, _react.useEffect)(() => {
-    load().then(setData);
-  }, []);
   console.log(data);
   if (!data) return null;
   var View = views[view];
@@ -44733,7 +44822,7 @@ var Home = () => {
 
 var _default = Home;
 exports.default = _default;
-},{"react":"../../node_modules/react/index.js","./Venn.jsx":"components/Venn.jsx","./Wave.jsx":"components/Wave.jsx","./Color.jsx":"components/Color.jsx","tinycolor2":"../../node_modules/tinycolor2/tinycolor.js","~/hooks/useWindowSize":"hooks/useWindowSize.js"}],"components/Project.jsx":[function(require,module,exports) {
+},{"react":"../../node_modules/react/index.js","./Venn.jsx":"components/Venn.jsx","./Wave.jsx":"components/Wave.jsx","./Color.jsx":"components/Color.jsx","tinycolor2":"../../node_modules/tinycolor2/tinycolor.js","~/utils/getColor":"utils/getColor.js","~/hooks/useFetch":"hooks/useFetch.js","~/hooks/useWindowSize":"hooks/useWindowSize.js"}],"components/Page.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -44743,16 +44832,25 @@ exports.default = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
+var _reactRouterDom = require("react-router-dom");
+
+var _useFetch = _interopRequireDefault(require("~/hooks/useFetch"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var Project = props => {
-  console.log(props);
-  return null;
+var Page = ({
+  match
+}) => {
+  var data = (0, _useFetch.default)(match.params.page + '.json');
+  console.log(data);
+  return _react.default.createElement("div", null, match.params.page, _react.default.createElement(_reactRouterDom.Link, {
+    to: "/"
+  }, "Back"));
 };
 
-var _default = Project;
+var _default = Page;
 exports.default = _default;
-},{"react":"../../node_modules/react/index.js"}],"components/App.jsx":[function(require,module,exports) {
+},{"react":"../../node_modules/react/index.js","react-router-dom":"../../node_modules/react-router-dom/esm/react-router-dom.js","~/hooks/useFetch":"hooks/useFetch.js"}],"components/App.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -44766,18 +44864,22 @@ var _reactRouterDom = require("react-router-dom");
 
 var _Home = _interopRequireDefault(require("./Home"));
 
-var _Project = _interopRequireDefault(require("./Project"));
+var _Page = _interopRequireDefault(require("./Page"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var App = () => _react.default.createElement(_reactRouterDom.BrowserRouter, null, _react.default.createElement(_Home.default, null), _react.default.createElement(_reactRouterDom.Route, {
-  path: ":view/:project",
-  component: _Project.default
+var App = () => _react.default.createElement(_reactRouterDom.BrowserRouter, null, _react.default.createElement(_reactRouterDom.Route, {
+  path: "/",
+  exact: true,
+  component: _Home.default
+}), _react.default.createElement(_reactRouterDom.Route, {
+  path: "/:page",
+  component: _Page.default
 }));
 
 var _default = App;
 exports.default = _default;
-},{"react":"../../node_modules/react/index.js","react-router-dom":"../../node_modules/react-router-dom/esm/react-router-dom.js","./Home":"components/Home.jsx","./Project":"components/Project.jsx"}],"main.js":[function(require,module,exports) {
+},{"react":"../../node_modules/react/index.js","react-router-dom":"../../node_modules/react-router-dom/esm/react-router-dom.js","./Home":"components/Home.jsx","./Page":"components/Page.jsx"}],"main.js":[function(require,module,exports) {
 "use strict";
 
 var _react = _interopRequireDefault(require("react"));
@@ -44817,7 +44919,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "42929" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "41467" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

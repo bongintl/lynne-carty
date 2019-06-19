@@ -1,12 +1,11 @@
-import React, { createContext, useRef, useState, useLayoutEffect, useContext, useMemo } from 'react'
+import React, { useLayoutEffect, useContext, useMemo } from 'react'
+import GL, { GLContext } from './GL';
 import createBuffer from 'gl-buffer';
 import createVAO from 'gl-vao';
 import createShader from 'gl-shader';
-import frag from '~/gl/frag.glsl'
+import frag from '~/gl/venn.frag.glsl'
 import tinycolor from 'tinycolor2';
 import useWindowSize from '~/hooks/useWindowSize';
-
-var GLContext = createContext();
 
 var backgroundColor = (() => {
     var color = window.getComputedStyle( document.documentElement ).backgroundColor;
@@ -21,24 +20,6 @@ var vert = `
         gl_Position = vec4( position, 0., 1. );
     }
 `
-
-var GL = ({ size, children, ...rest }) => {
-    var ref = useRef();
-    var [ gl, setGL ] = useState( null );
-    useLayoutEffect( () => {
-        setGL( ref.current.getContext( 'webgl' ) );
-    }, [ ref.current ] );
-    useLayoutEffect( () => {
-        if ( !gl ) return;
-        gl.viewport( 0, 0, size[ 0 ], size[ 1 ] );
-    }, [ ref.current, size ] );
-    return (
-        <GLContext.Provider value={ gl }t>
-            <canvas ref={ ref } width={ size[ 0 ] } height={ size[ 1 ] } { ...rest }/>
-            { gl && children }
-        </GLContext.Provider>
-    )
-}
 
 var Renderer = ({ positions, radius, data }) => {
     var { byTag, tags, colors } = data;
@@ -55,10 +36,13 @@ var Renderer = ({ positions, radius, data }) => {
             size: 2
         }]);
     }, [ gl ] )
-    // var maxNodes
+    var maxNodes = useMemo( () => Math.min(
+        gl.getParameter( gl.MAX_FRAGMENT_UNIFORM_VECTORS ),
+        Math.max( ...Object.values( byTag ).map( ts => ts.length ) )
+    ), [ data ] )
     var shader = useMemo( () => (
-        createShader( gl, vert, frag )
-    ), [ gl ] )
+        createShader( gl, vert, `#define MAX ${ maxNodes }\n` + frag )
+    ), [ gl, maxNodes ] )
     useLayoutEffect( () => {
         gl.clearColor( ...backgroundColor );
         gl.clear( gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT | gl.STENCIL_BUFFER_BIT );
