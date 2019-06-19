@@ -15,6 +15,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "color-thief": "^2.2.5",
     "d3": "^3.5.17",
     "d3-force": "^2.0.1",
     "fpsmeter": "^0.3.1",
@@ -31,12 +32,15 @@
     "rafmeter": "^0.2.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-router-dom": "^5.0.1",
     "tinycolor2": "^1.4.1",
     "yaml": "^1.6.0"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
     "babel-preset-env": "^1.7.0",
-    "sass": "^1.20.3"
+    "babel-preset-stage-2": "^6.24.1",
+    "sass": "^1.20.3",
+    "styled-jsx": "^3.2.1"
   }
 }

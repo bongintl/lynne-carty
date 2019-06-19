@@ -1,3 +1,13 @@
+:root {
+  --radius: 20px; }
+  @media (min-width: 768px) {
+    :root {
+      --radius: 40px; } }
+
+* {
+  margin: 0;
+  padding: 0; }
+
 html {
   font-family: sans-serif;
   background: #DFDFDF; }
@@ -7,8 +17,8 @@ html {
   position: absolute;
   top: 0;
   left: 0;
-  width: 56px;
-  height: 56px;
+  width: calc( var( --radius ) * .7 * 2);
+  height: calc( var( --radius ) * .7 * 2);
   object-fit: contain;
   z-index: 100;
   contain: layout;
@@ -16,11 +26,14 @@ html {
   cursor: pointer;
   transition: width .1s, height .1s; }
   .thumbnail:hover {
-    width: 80px;
-    height: 80px; }
+    width: calc( var( --radius ) * 2);
+    height: calc( var( --radius ) * 2); }
 
 .color {
   width: 100%; }
+
+main {
+  height: 100%; }
 
 canvas {
   position: absolute;
@@ -33,10 +46,12 @@ canvas {
 .legend {
   list-style: none;
   display: block;
-  position: fixed; }
+  position: fixed;
+  left: 3em;
+  bottom: 2em; }
   .legend li {
     border: 1px solid var(--color);
-    color: var(--color);
+    color: transparent;
     border-width: 1px;
     border-style: solid;
     border-radius: 50%;
@@ -45,10 +60,8 @@ canvas {
     display: block;
     width: auto;
     cursor: pointer; }
-  .legend:hover li {
-    color: transparent; }
-  .legend:hover li:hover {
-    color: var(--color); }
+    .legend li.selected {
+      color: var(--color); }
 
 svg {
   position: absolute;
@@ -61,3 +74,16 @@ svg {
   position: fixed;
   z-index: 100;
   background: white; }
+
+.year-number {
+  font-size: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  position: absolute;
+  top: 0;
+  left: 0; }
+
+nav {
+  position: fixed;
+  z-index: 2000; }

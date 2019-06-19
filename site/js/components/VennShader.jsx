@@ -81,10 +81,10 @@ var Renderer = ({ positions, radius, data }) => {
             shader.uniforms.color = [ r / 255, g / 255, b / 255 ];
             var xs = ps.map( n => n.x );
             var ys = ps.map( n => n.y );
-            var minX = Math.floor( Math.min( ...xs ) ) - radius * 4;
-            var minY = Math.floor( Math.min( ...ys ) ) - radius * 4;
-            var maxX = Math.floor( Math.max( ...xs ) ) + radius * 4;
-            var maxY = Math.floor( Math.max( ...ys ) ) + radius * 4;
+            var minX = Math.floor( Math.min( ...xs ) ) - radius * 10;
+            var minY = Math.floor( Math.min( ...ys ) ) - radius * 10;
+            var maxX = Math.floor( Math.max( ...xs ) ) + radius * 10;
+            var maxY = Math.floor( Math.max( ...ys ) ) + radius * 10;
             gl.scissor( minX, gl.canvas.height - maxY, maxX - minX, maxY - minY );
             gl.drawArrays( gl.TRIANGLES, 0, 3 );
         })

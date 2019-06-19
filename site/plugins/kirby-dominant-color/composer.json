@@ -1,0 +1,13 @@
+{
+    "name": "benwest/kirby-dominant-color",
+    "type": "kirby-plugin",
+    "require": {
+        "league/color-extractor": "^0.3.2"
+    },
+    "authors": [
+        {
+            "name": "Ben West",
+            "email": "ben@bewe.me"
+        }
+    ]
+}

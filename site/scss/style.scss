@@ -1,3 +1,17 @@
+:root {
+    --radius: 20px;
+    @media ( min-width: 768px ) {
+        --radius: 40px;
+    }
+    
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
 html {
     font-family: sans-serif;
     background: #DFDFDF
@@ -8,8 +22,8 @@ html {
     position: absolute;
     top: 0;
     left: 0;
-    width: 80px * .7;
-    height: 80px * .7;
+    width: calc( var( --radius ) * .7 * 2 );
+    height: calc( var( --radius ) * .7 * 2 );
     object-fit: contain;
     z-index: 100;
     contain: layout;
@@ -17,13 +31,17 @@ html {
     cursor: pointer;
     transition: width .1s, height .1s;
     &:hover {
-        width: 80px;
-        height: 80px;
+        width: calc( var( --radius ) * 2 );
+        height: calc( var( --radius ) * 2 );
     }
 }
 .color {
     width: 100%;
     // display: none;
+}
+
+main {
+    height: 100%;
 }
 
 canvas {
@@ -39,9 +57,11 @@ canvas {
     list-style: none;
     display: block;
     position: fixed;
+    left: 3em;
+    bottom: 2em;
     li {
         border: 1px solid var(--color);
-        color: var(--color);
+        color: transparent;
         border-width: 1px;
         border-style: solid;
         border-radius: 50%;
@@ -50,12 +70,9 @@ canvas {
         display: block;
         width: auto;
         cursor: pointer;
-    }
-    &:hover li {
-        color: transparent;
-    }
-    &:hover li:hover {
-        color: var(--color);
+        &.selected {
+            color: var(--color);
+        }
     }
 }
 
@@ -71,4 +88,19 @@ svg {
     position: fixed;
     z-index: 100;
     background: white;
+}
+
+.year-number {
+    font-size: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+nav {
+    position: fixed;
+    z-index: 2000;
 }

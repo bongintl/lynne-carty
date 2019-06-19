@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import Home from './components/Home/Home.jsx'
+import App from './components/App.jsx'
 
-ReactDOM.render( <Home/>, document.querySelector( 'main' ) );
+ReactDOM.render( <App/>, document.querySelector( 'main' ) );
