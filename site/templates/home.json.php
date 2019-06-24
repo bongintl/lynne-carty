@@ -2,8 +2,6 @@
 
 $projects = array_values(
     $site
-        // -> pages()
-        // -> find( 'work' )
         -> children()
         -> listed()
         -> published()
@@ -23,8 +21,7 @@ $projects = array_values(
         })
 );
 
-$tags = $pages
-    -> find( 'work' )
+$tags = $site
     -> tags()
     -> toStructure()
     -> toArray();

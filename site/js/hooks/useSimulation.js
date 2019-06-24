@@ -9,6 +9,24 @@ var sum = xs => xs.reduce( ( a, b ) => a + b, 0 );
 var mean = xs => sum( xs ) / xs.length;
 var clamp = ( x, min, max ) => Math.max( Math.min( x, max ), min );
 
+// var forceGroup = groups => {
+//     var nodes;
+//     var strength = .2;
+//     var force = alpha => {
+//         groups.forEach( is => {
+//             var ns = is.map( i => nodes[ i ] );
+//             var cx = mean( ns.map( n => n.x ) );
+//             var cy = mean( ns.map( n => n.y ) );
+//             ns.forEach( node => {
+//                 node.x += ( cx - node.x ) * strength;
+//                 node.y += ( cy - node.y ) * strength;
+//             })
+//         })
+//     }
+//     force.initialize = ns => nodes = ns;
+//     return force;
+// }
+
 export default ( data, radius, initialPositions ) => {
     var [ nodes, setNodes ] = useState( () => cloneDeep( initialPositions ) );
     var windowSize = useWindowSize();
@@ -26,16 +44,18 @@ export default ( data, radius, initialPositions ) => {
             }
         }
         var simulation = d3force.forceSimulation( nodes )
-            .alphaDecay( 0.0 )
+            .alphaDecay( 0.005 )
             .velocityDecay( 0.2 )
             .force( 'links',
                 d3force.forceLink( links )
                     .distance( radius * 2 )
                     .strength( ({ source, target, strength }) => {
-                        var d = Math.sqrt( Math.pow( source.x - target.x, 2 ) + Math.pow( source.y - target.y, 2 ) );
-                        return strength * d * 0.000003;
+                        // var d = Math.sqrt( Math.pow( source.x - target.x, 2 ) + Math.pow( source.y - target.y, 2 ) );
+                        // return strength * d * 0.000003;
+                        return strength * .002;
                     })
             )
+            // .force( 'group', forceGroup( Object.values( data.byTag ) ) )
             .force( "collide",
                 d3force.forceCollide()
                     .radius( radius )
@@ -50,18 +70,10 @@ export default ( data, radius, initialPositions ) => {
                 nodes.forEach( n => {
                     n.x = clamp( n.x, cx - hw + radius, cx + hw - radius );
                     n.y = clamp( n.y, cy - hh + radius, cy + hh - radius );
-                    // n.x -= dx;
-                    // n.y -= dy;
-                    // n.y = Math.max( n.y, radius );
                 })
                 setNodes([ ...nodes ]);
             })
-        // data.tags.forEach( tag => {
-        //     simulation.force( tag,
-        //         d3force.forceManyBody()
-        //             .strength( ( n, i ) => data.projects[ i ].tags.includes( tag ) ? 20 : 0 )
-        //     )
-        // })
+        
         return () => {
             simulation.on( 'tick', null );
             simulation.stop();

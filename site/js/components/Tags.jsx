@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import VennShader from './VennShader.jsx';
+import useWindowSize from '~/hooks/useWindowSize';
 import useSimulation from '~/hooks/useSimulation';
 import Thumbnail from './Thumbnail'
 
@@ -15,7 +16,7 @@ var Legend = ({ tags, colors, filter, setFilter }) => {
             { tags.map( tag => (
                 <li
                     key={ tag }
-                    className={ ( filter === null || filter === tag ) && 'selected' }
+                    className={ ( filter === null || filter === tag ) ? 'selected' : undefined }
                     style={{ '--color': colors[ tag ] }}
                     onMouseEnter={ () => setFilter( tag ) }
                     onMouseLeave={ () => setFilter( selected ) }
@@ -28,9 +29,6 @@ var Legend = ({ tags, colors, filter, setFilter }) => {
 
 var Venn = ({ data, radius, initialPositions = data.projects.map( randomPosition ) }) => {
     var [ filter, setFilter ] = useState( null );
-    // var [ hover, setHover ] = useState( null );
-    // var [ active, setActive ] = useState( null );
-    // var filter = hover || active;
     var positions = useSimulation( data, radius, initialPositions );
     return (
         <React.Fragment>
@@ -44,7 +42,16 @@ var Venn = ({ data, radius, initialPositions = data.projects.map( randomPosition
             }
         </React.Fragment>
     )
+}
+
+var Grid = data => {
     
+}
+
+var Tags = props => {
+    return useWindowSize[ 0 ] < 768
+        ? <Grid { ...props }/>
+        : <Venn { ...props }/>
 }
 
 export default Venn;

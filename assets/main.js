@@ -29635,24 +29635,37 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
-function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+
+function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
+
+function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
 
 var GLContext = (0, _react.createContext)();
 exports.GLContext = GLContext;
 
-var GL = (_ref) => {
-  let {
-    size,
-    children
-  } = _ref,
+var GL = function GL(_ref) {
+  var size = _ref.size,
+      children = _ref.children,
       rest = _objectWithoutProperties(_ref, ["size", "children"]);
 
   var ref = (0, _react.useRef)();
-  var [gl, setGL] = (0, _react.useState)(null);
-  (0, _react.useLayoutEffect)(() => {
+
+  var _useState = (0, _react.useState)(null),
+      _useState2 = _slicedToArray(_useState, 2),
+      gl = _useState2[0],
+      setGL = _useState2[1];
+
+  (0, _react.useLayoutEffect)(function () {
     setGL(ref.current.getContext('webgl'));
   }, [ref.current]);
-  (0, _react.useLayoutEffect)(() => {
+  (0, _react.useLayoutEffect)(function () {
     if (!gl) return;
     gl.viewport(0, 0, size[0], size[1]);
   }, [ref.current, size]);
@@ -37854,15 +37867,29 @@ exports.default = void 0;
 
 var _react = require("react");
 
-var _default = () => {
-  var [windowSize, setWindowSize] = (0, _react.useState)([window.innerWidth, window.innerHeight]);
-  (0, _react.useEffect)(() => {
-    var onResize = () => {
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+
+function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+var _default = function _default() {
+  var _useState = (0, _react.useState)([window.innerWidth, window.innerHeight]),
+      _useState2 = _slicedToArray(_useState, 2),
+      windowSize = _useState2[0],
+      setWindowSize = _useState2[1];
+
+  (0, _react.useEffect)(function () {
+    var onResize = function onResize() {
       setWindowSize([window.innerWidth, window.innerHeight]);
     };
 
     window.addEventListener('resize', onResize);
-    return () => window.removeEventListener('resize', onResize);
+    return function () {
+      return window.removeEventListener('resize', onResize);
+    };
   }, []);
   return windowSize;
 };
@@ -37896,36 +37923,37 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
-var backgroundColor = (() => {
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
+var backgroundColor = function () {
   var color = window.getComputedStyle(document.documentElement).backgroundColor;
-  var {
-    r,
-    g,
-    b
-  } = (0, _tinycolor.default)(color).toRgb();
+
+  var _tinycolor$toRgb = (0, _tinycolor.default)(color).toRgb(),
+      r = _tinycolor$toRgb.r,
+      g = _tinycolor$toRgb.g,
+      b = _tinycolor$toRgb.b;
+
   return [r / 255, g / 255, b / 255, 1];
-})();
+}();
 
-var vert = `
-    precision highp float;
-    attribute vec2 position;
-    void main () {
-        gl_Position = vec4( position, 0., 1. );
-    }
-`;
+var vert = "\n    precision highp float;\n    attribute vec2 position;\n    void main () {\n        gl_Position = vec4( position, 0., 1. );\n    }\n";
+var vert = "\n    precision highp float;\n    attribute vec2 position;\n    void main () {\n        gl_Position = vec4( position, 0., 1. );\n    }\n";
 
-var Renderer = ({
-  positions,
-  radius,
-  data
-}) => {
-  var {
-    byTag,
-    tags,
-    colors
-  } = data;
+var Renderer = function Renderer(_ref) {
+  var positions = _ref.positions,
+      radius = _ref.radius,
+      data = _ref.data;
+  var byTag = data.byTag,
+      tags = data.tags,
+      colors = data.colors;
   var gl = (0, _react.useContext)(_GL.GLContext);
-  var triangle = (0, _react.useMemo)(() => {
+  var triangle = (0, _react.useMemo)(function () {
     var position = (0, _glBuffer.default)(gl, new Float32Array([-1, -1, -1, 3, 3, -1]));
     return (0, _glVao.default)(gl, [{
       buffer: position,
@@ -37933,10 +37961,16 @@ var Renderer = ({
       size: 2
     }]);
   }, [gl]);
-  var maxNodes = (0, _react.useMemo)(() => Math.min(gl.getParameter(gl.MAX_FRAGMENT_UNIFORM_VECTORS), Math.max(...Object.values(byTag).map(ts => ts.length))), [data]);
-  var shader = (0, _react.useMemo)(() => (0, _glShader.default)(gl, vert, `#define MAX ${maxNodes}\n` + _vennFrag.default), [gl, maxNodes]);
-  (0, _react.useLayoutEffect)(() => {
-    gl.clearColor(...backgroundColor);
+  var maxNodes = (0, _react.useMemo)(function () {
+    return Math.min(gl.getParameter(gl.MAX_FRAGMENT_UNIFORM_VECTORS), Math.max.apply(Math, _toConsumableArray(Object.values(byTag).map(function (ts) {
+      return ts.length;
+    }))));
+  }, [data]);
+  var shader = (0, _react.useMemo)(function () {
+    return (0, _glShader.default)(gl, vert, "#define MAX ".concat(maxNodes, "\n") + _vennFrag.default);
+  }, [gl, maxNodes]);
+  (0, _react.useLayoutEffect)(function () {
+    gl.clearColor.apply(gl, _toConsumableArray(backgroundColor));
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT | gl.STENCIL_BUFFER_BIT);
     gl.enable(gl.BLEND);
     gl.disable(gl.DEPTH_TEST);
@@ -37947,24 +37981,31 @@ var Renderer = ({
     gl.enable(gl.SCISSOR_TEST);
     shader.uniforms.radius = radius;
     shader.uniforms.resolution = [gl.canvas.width, gl.canvas.height];
-    tags.forEach(tag => {
-      var ps = byTag[tag].map(i => positions[i]);
+    tags.forEach(function (tag) {
+      var ps = byTag[tag].map(function (i) {
+        return positions[i];
+      });
       shader.uniforms.count = ps.length;
-      ps.forEach((position, i) => {
+      ps.forEach(function (position, i) {
         shader.uniforms.positions[i] = [position.x, position.y];
       });
-      var {
-        r,
-        g,
-        b
-      } = colors[tag].toRgb();
+
+      var _colors$tag$toRgb = colors[tag].toRgb(),
+          r = _colors$tag$toRgb.r,
+          g = _colors$tag$toRgb.g,
+          b = _colors$tag$toRgb.b;
+
       shader.uniforms.color = [r / 255, g / 255, b / 255];
-      var xs = ps.map(n => n.x);
-      var ys = ps.map(n => n.y);
-      var minX = Math.floor(Math.min(...xs)) - radius * 10;
-      var minY = Math.floor(Math.min(...ys)) - radius * 10;
-      var maxX = Math.floor(Math.max(...xs)) + radius * 10;
-      var maxY = Math.floor(Math.max(...ys)) + radius * 10;
+      var xs = ps.map(function (n) {
+        return n.x;
+      });
+      var ys = ps.map(function (n) {
+        return n.y;
+      });
+      var minX = Math.floor(Math.min.apply(Math, _toConsumableArray(xs))) - radius * 5;
+      var minY = Math.floor(Math.min.apply(Math, _toConsumableArray(ys))) - radius * 5;
+      var maxX = Math.floor(Math.max.apply(Math, _toConsumableArray(xs))) + radius * 5;
+      var maxY = Math.floor(Math.max.apply(Math, _toConsumableArray(ys))) + radius * 5;
       gl.scissor(minX, gl.canvas.height - maxY, maxX - minX, maxY - minY);
       gl.drawArrays(gl.TRIANGLES, 0, 3);
     });
@@ -37973,11 +38014,10 @@ var Renderer = ({
   return null;
 };
 
-var VennShader = ({
-  positions,
-  radius,
-  data
-}) => {
+var VennShader = function VennShader(_ref2) {
+  var positions = _ref2.positions,
+      radius = _ref2.radius,
+      data = _ref2.data;
   var windowSize = (0, _useWindowSize.default)();
   return _react.default.createElement(_GL.default, {
     size: windowSize
@@ -43747,16 +43787,63 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
-var sum = xs => xs.reduce((a, b) => a + b, 0);
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
 
-var mean = xs => sum(xs) / xs.length;
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
 
-var clamp = (x, min, max) => Math.max(Math.min(x, max), min);
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
 
-var _default = (data, radius, initialPositions) => {
-  var [nodes, setNodes] = (0, _react.useState)(() => (0, _cloneDeep.default)(initialPositions));
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+
+function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+var sum = function sum(xs) {
+  return xs.reduce(function (a, b) {
+    return a + b;
+  }, 0);
+};
+
+var mean = function mean(xs) {
+  return sum(xs) / xs.length;
+};
+
+var clamp = function clamp(x, min, max) {
+  return Math.max(Math.min(x, max), min);
+}; // var forceGroup = groups => {
+//     var nodes;
+//     var strength = .2;
+//     var force = alpha => {
+//         groups.forEach( is => {
+//             var ns = is.map( i => nodes[ i ] );
+//             var cx = mean( ns.map( n => n.x ) );
+//             var cy = mean( ns.map( n => n.y ) );
+//             ns.forEach( node => {
+//                 node.x += ( cx - node.x ) * strength;
+//                 node.y += ( cy - node.y ) * strength;
+//             })
+//         })
+//     }
+//     force.initialize = ns => nodes = ns;
+//     return force;
+// }
+
+
+var _default = function _default(data, radius, initialPositions) {
+  var _useState = (0, _react.useState)(function () {
+    return (0, _cloneDeep.default)(initialPositions);
+  }),
+      _useState2 = _slicedToArray(_useState, 2),
+      nodes = _useState2[0],
+      setNodes = _useState2[1];
+
   var windowSize = (0, _useWindowSize.default)();
-  (0, _react.useLayoutEffect)(() => {
+  (0, _react.useLayoutEffect)(function () {
     var links = [];
 
     for (var i = 0; i < nodes.length; i++) {
@@ -43770,48 +43857,51 @@ var _default = (data, radius, initialPositions) => {
         if (strength > 0) links.push({
           source: n1,
           target: n2,
-          strength
+          strength: strength
         });
       }
     }
 
-    var simulation = d3force.forceSimulation(nodes).alphaDecay(0.0).velocityDecay(0.2).force('links', d3force.forceLink(links).distance(radius * 2).strength(({
-      source,
-      target,
-      strength
-    }) => {
-      var d = Math.sqrt(Math.pow(source.x - target.x, 2) + Math.pow(source.y - target.y, 2));
-      return strength * d * 0.000003;
-    })).force("collide", d3force.forceCollide().radius(radius).strength(0.5).iterations(5)).on('tick', () => {
-      var cx = mean(nodes.map(n => n.x));
-      var cy = mean(nodes.map(n => n.y));
+    var simulation = d3force.forceSimulation(nodes).alphaDecay(0.005).velocityDecay(0.2).force('links', d3force.forceLink(links).distance(radius * 2).strength(function (_ref) {
+      var source = _ref.source,
+          target = _ref.target,
+          strength = _ref.strength;
+      // var d = Math.sqrt( Math.pow( source.x - target.x, 2 ) + Math.pow( source.y - target.y, 2 ) );
+      // return strength * d * 0.000003;
+      return strength * .002;
+    })) // .force( 'group', forceGroup( Object.values( data.byTag ) ) )
+    .force("collide", d3force.forceCollide().radius(radius).strength(0.5).iterations(5)).on('tick', function () {
+      var cx = mean(nodes.map(function (n) {
+        return n.x;
+      }));
+      var cy = mean(nodes.map(function (n) {
+        return n.y;
+      }));
       var hw = windowSize[0] / 2;
       var hh = windowSize[1] / 2;
-      nodes.forEach(n => {
+      nodes.forEach(function (n) {
         n.x = clamp(n.x, cx - hw + radius, cx + hw - radius);
-        n.y = clamp(n.y, cy - hh + radius, cy + hh - radius); // n.x -= dx;
-        // n.y -= dy;
-        // n.y = Math.max( n.y, radius );
+        n.y = clamp(n.y, cy - hh + radius, cy + hh - radius);
       });
-      setNodes([...nodes]);
-    }); // data.tags.forEach( tag => {
-    //     simulation.force( tag,
-    //         d3force.forceManyBody()
-    //             .strength( ( n, i ) => data.projects[ i ].tags.includes( tag ) ? 20 : 0 )
-    //     )
-    // })
-
-    return () => {
+      setNodes(_toConsumableArray(nodes));
+    });
+    return function () {
       simulation.on('tick', null);
       simulation.stop();
     };
   }, [data, windowSize, radius]);
-  var cx = windowSize[0] / 2 - mean(nodes.map(n => n.x));
-  var cy = windowSize[1] / 2 - mean(nodes.map(n => n.y));
-  return nodes.map(n => ({
-    x: n.x + cx,
-    y: n.y + cy
+  var cx = windowSize[0] / 2 - mean(nodes.map(function (n) {
+    return n.x;
   }));
+  var cy = windowSize[1] / 2 - mean(nodes.map(function (n) {
+    return n.y;
+  }));
+  return nodes.map(function (n) {
+    return {
+      x: n.x + cx,
+      y: n.y + cy
+    };
+  });
 };
 
 exports.default = _default;
@@ -43829,28 +43919,25 @@ var _reactRouterDom = require("react-router-dom");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var Thumbnail = ({
-  project,
-  position: {
-    x,
-    y
-  }
-}) => _react.default.createElement(_reactRouterDom.Link, {
-  to: project.url
-}, _react.default.createElement("img", {
-  className: "thumbnail",
-  src: project.thumbnail,
-  style: {
-    transform: `
-                    translate(-50%, -50%)
-                    translate( ${x}px, ${y}px )
-                `
-  }
-}));
+var Thumbnail = function Thumbnail(_ref) {
+  var project = _ref.project,
+      _ref$position = _ref.position,
+      x = _ref$position.x,
+      y = _ref$position.y;
+  return _react.default.createElement(_reactRouterDom.Link, {
+    to: project.url
+  }, _react.default.createElement("img", {
+    className: "thumbnail",
+    src: project.thumbnail,
+    style: {
+      transform: "\n                    translate(-50%, -50%)\n                    translate( ".concat(x, "px, ").concat(y, "px )\n                ")
+    }
+  }));
+};
 
 var _default = Thumbnail;
 exports.default = _default;
-},{"react":"../../node_modules/react/index.js","react-router-dom":"../../node_modules/react-router-dom/esm/react-router-dom.js"}],"components/Venn.jsx":[function(require,module,exports) {
+},{"react":"../../node_modules/react/index.js","react-router-dom":"../../node_modules/react-router-dom/esm/react-router-dom.js"}],"components/Tags.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -43862,6 +43949,8 @@ var _react = _interopRequireWildcard(require("react"));
 
 var _VennShader = _interopRequireDefault(require("./VennShader.jsx"));
 
+var _useWindowSize = _interopRequireDefault(require("~/hooks/useWindowSize"));
+
 var _useSimulation = _interopRequireDefault(require("~/hooks/useSimulation"));
 
 var _Thumbnail = _interopRequireDefault(require("./Thumbnail"));
@@ -43870,40 +43959,64 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
-var randomPosition = () => ({
-  x: Math.random() * window.innerWidth,
-  y: Math.random() * window.innerHeight
-});
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
 
-var Legend = ({
-  tags,
-  colors,
-  filter,
-  setFilter
-}) => {
-  var [selected, setSelected] = (0, _react.useState)(null);
-  return _react.default.createElement("ul", {
-    className: "legend"
-  }, tags.map(tag => _react.default.createElement("li", {
-    key: tag,
-    className: (filter === null || filter === tag) && 'selected',
-    style: {
-      '--color': colors[tag]
-    },
-    onMouseEnter: () => setFilter(tag),
-    onMouseLeave: () => setFilter(selected),
-    onClick: () => setSelected(selected === tag ? null : tag)
-  }, tag)));
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+
+function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+var randomPosition = function randomPosition() {
+  return {
+    x: Math.random() * window.innerWidth,
+    y: Math.random() * window.innerHeight
+  };
 };
 
-var Venn = ({
-  data,
-  radius,
-  initialPositions = data.projects.map(randomPosition)
-}) => {
-  var [filter, setFilter] = (0, _react.useState)(null); // var [ hover, setHover ] = useState( null );
-  // var [ active, setActive ] = useState( null );
-  // var filter = hover || active;
+var Legend = function Legend(_ref) {
+  var tags = _ref.tags,
+      colors = _ref.colors,
+      filter = _ref.filter,
+      setFilter = _ref.setFilter;
+
+  var _useState = (0, _react.useState)(null),
+      _useState2 = _slicedToArray(_useState, 2),
+      selected = _useState2[0],
+      setSelected = _useState2[1];
+
+  return _react.default.createElement("ul", {
+    className: "legend"
+  }, tags.map(function (tag) {
+    return _react.default.createElement("li", {
+      key: tag,
+      className: filter === null || filter === tag ? 'selected' : undefined,
+      style: {
+        '--color': colors[tag]
+      },
+      onMouseEnter: function onMouseEnter() {
+        return setFilter(tag);
+      },
+      onMouseLeave: function onMouseLeave() {
+        return setFilter(selected);
+      },
+      onClick: function onClick() {
+        return setSelected(selected === tag ? null : tag);
+      }
+    }, tag);
+  }));
+};
+
+var Venn = function Venn(_ref2) {
+  var data = _ref2.data,
+      radius = _ref2.radius,
+      _ref2$initialPosition = _ref2.initialPositions,
+      initialPositions = _ref2$initialPosition === void 0 ? data.projects.map(randomPosition) : _ref2$initialPosition;
+
+  var _useState3 = (0, _react.useState)(null),
+      _useState4 = _slicedToArray(_useState3, 2),
+      filter = _useState4[0],
+      setFilter = _useState4[1];
 
   var positions = (0, _useSimulation.default)(data, radius, initialPositions);
   return _react.default.createElement(_react.default.Fragment, null, _react.default.createElement(_VennShader.default, {
@@ -43915,16 +44028,26 @@ var Venn = ({
     colors: data.colors,
     filter: filter,
     setFilter: setFilter
-  }), data.projects.filter(project => filter === null || project.tags.includes(filter)).map((project, i) => _react.default.createElement(_Thumbnail.default, {
-    key: project.url,
-    project: project,
-    position: positions[project.i]
-  })));
+  }), data.projects.filter(function (project) {
+    return filter === null || project.tags.includes(filter);
+  }).map(function (project, i) {
+    return _react.default.createElement(_Thumbnail.default, {
+      key: project.url,
+      project: project,
+      position: positions[project.i]
+    });
+  }));
+};
+
+var Grid = function Grid(data) {};
+
+var Tags = function Tags(props) {
+  return _useWindowSize.default[0] < 768 ? _react.default.createElement(Grid, props) : _react.default.createElement(Venn, props);
 };
 
 var _default = Venn;
 exports.default = _default;
-},{"react":"../../node_modules/react/index.js","./VennShader.jsx":"components/VennShader.jsx","~/hooks/useSimulation":"hooks/useSimulation.js","./Thumbnail":"components/Thumbnail.jsx"}],"../../node_modules/lodash/_baseSlice.js":[function(require,module,exports) {
+},{"react":"../../node_modules/react/index.js","./VennShader.jsx":"components/VennShader.jsx","~/hooks/useWindowSize":"hooks/useWindowSize.js","~/hooks/useSimulation":"hooks/useSimulation.js","./Thumbnail":"components/Thumbnail.jsx"}],"../../node_modules/lodash/_baseSlice.js":[function(require,module,exports) {
 /**
  * The base implementation of `_.slice` without an iteratee call guard.
  *
@@ -44418,7 +44541,7 @@ function flatten(array) {
 
 module.exports = flatten;
 
-},{"./_baseFlatten":"../../node_modules/lodash/_baseFlatten.js"}],"components/Wave.jsx":[function(require,module,exports) {
+},{"./_baseFlatten":"../../node_modules/lodash/_baseFlatten.js"}],"components/Time.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -44430,7 +44553,7 @@ var _react = _interopRequireWildcard(require("react"));
 
 var _Thumbnail = _interopRequireDefault(require("./Thumbnail"));
 
-var _useWindowSize = _interopRequireDefault(require("~/hooks/useWindowSize"));
+var _useWindowSize3 = _interopRequireDefault(require("~/hooks/useWindowSize"));
 
 var _chunk = _interopRequireDefault(require("lodash/chunk"));
 
@@ -44442,46 +44565,78 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
-var useScrollTop = () => {
-  var [scrollTop, setScrollTop] = (0, _react.useState)(window.pageYOffset);
-  (0, _react.useEffect)(() => {
-    var onScroll = () => setScrollTop(window.pageYOffset);
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+
+function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+var useScrollTop = function useScrollTop() {
+  var _useState = (0, _react.useState)(window.pageYOffset),
+      _useState2 = _slicedToArray(_useState, 2),
+      scrollTop = _useState2[0],
+      setScrollTop = _useState2[1];
+
+  (0, _react.useEffect)(function () {
+    var onScroll = function onScroll() {
+      return setScrollTop(window.pageYOffset);
+    };
 
     window.addEventListener('scroll', onScroll);
-    return () => window.removeEventListener('scroll', onScroll);
+    return function () {
+      return window.removeEventListener('scroll', onScroll);
+    };
   });
   return scrollTop;
 };
 
-var useWave = (n, radius) => {
-  var [ww, wh] = (0, _useWindowSize.default)();
-  return (0, _range.default)(0, n).map(i => {
+var useWave = function useWave(n, radius) {
+  var _useWindowSize = (0, _useWindowSize3.default)(),
+      _useWindowSize2 = _slicedToArray(_useWindowSize, 2),
+      ww = _useWindowSize2[0],
+      wh = _useWindowSize2[1];
+
+  return (0, _range.default)(0, n).map(function (i) {
     var y = radius * 2 + i * radius * 2;
     var t = (y - radius * 2) / (wh - radius * 2);
     var a = t * Math.PI;
     var x = ww / 2 + Math.sin(a) * Math.min(300, ww / 2 * .9);
     return {
-      x,
-      y
+      x: x,
+      y: y
     };
   });
 };
 
-var Wave = ({
-  data,
-  radius
-}) => {
-  // var scrollTop = useScrollTop();
-  var items = (0, _flatten.default)((0, _chunk.default)(data.projects, 10).map((projects, i) => [...String(2019 - i).split('').map(number => ({
-    type: 'number',
-    number,
-    year: 2019 - i
-  })), ...projects.map(project => ({
-    type: 'project',
-    project
-  }))]));
+var Wave = function Wave(_ref) {
+  var data = _ref.data,
+      radius = _ref.radius;
+  var items = (0, _flatten.default)((0, _chunk.default)(_toConsumableArray(data.projects).reverse(), 10).map(function (projects, i) {
+    return [].concat(_toConsumableArray(String(2019 - i).split('').map(function (number) {
+      return {
+        type: 'number',
+        number: number,
+        year: 2019 - i
+      };
+    })), _toConsumableArray(projects.map(function (project) {
+      return {
+        type: 'project',
+        project: project
+      };
+    })));
+  }));
   var positions = useWave(items.length, radius);
-  return items.map((item, i) => {
+  return items.map(function (item, i) {
     switch (item.type) {
       case 'project':
         return _react.default.createElement(_Thumbnail.default, {
@@ -44493,21 +44648,20 @@ var Wave = ({
       case 'number':
         return _react.default.createElement("div", {
           className: "year-number",
-          key: `${item.year}_${i}`,
+          key: "".concat(item.year, "_").concat(i),
           style: {
-            transform: `
-                                translate(-50%, -50%)
-                                translate( ${positions[i].x}px, ${positions[i].y}px )
-                            `
+            transform: "\n                                translate(-50%, -50%)\n                                translate( ".concat(positions[i].x, "px, ").concat(positions[i].y, "px )\n                            ")
           }
         }, item.number);
     }
   });
-  return data.projects.map((project, i) => _react.default.createElement(_Thumbnail.default, {
-    key: project.url,
-    project: project,
-    position: positions[i]
-  }));
+  return data.projects.map(function (project, i) {
+    return _react.default.createElement(_Thumbnail.default, {
+      key: project.url,
+      project: project,
+      position: positions[i]
+    });
+  });
 };
 
 var _default = Wave;
@@ -44526,35 +44680,54 @@ var _tinycolor = _interopRequireDefault(require("tinycolor2"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+
+function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 var cache = {};
 var canvas = document.createElement('canvas');
 canvas.width = canvas.height = 1;
 var ctx = canvas.getContext('2d');
 
-var getColor = src => new Promise(resolve => {
-  var image = new Image();
+var getColor = function getColor(src) {
+  return new Promise(function (resolve) {
+    var image = new Image();
 
-  image.onload = () => {
-    ctx.drawImage(image, 0, 0);
-    var {
-      data
-    } = ctx.getImageData(0, 0, 1, 1);
-    var [r, g, b] = data;
-    var color = (0, _tinycolor.default)({
-      r,
-      g,
-      b
-    }).toHsl();
-    cache[src] = color;
-    resolve(color);
-  };
+    image.onload = function () {
+      ctx.drawImage(image, 0, 0);
 
-  image.src = src;
-});
+      var _ctx$getImageData = ctx.getImageData(0, 0, 1, 1),
+          data = _ctx$getImageData.data;
 
-var _default = src => {
-  var [color, setColor] = (0, _react.useState)(cache[src] || null);
-  (0, _react.useEffect)(() => {
+      var _data = _slicedToArray(data, 3),
+          r = _data[0],
+          g = _data[1],
+          b = _data[2];
+
+      var color = (0, _tinycolor.default)({
+        r: r,
+        g: g,
+        b: b
+      }).toHsl();
+      cache[src] = color;
+      resolve(color);
+    };
+
+    image.src = src;
+  });
+};
+
+var _default = function _default(src) {
+  var _useState = (0, _react.useState)(cache[src] || null),
+      _useState2 = _slicedToArray(_useState, 2),
+      color = _useState2[0],
+      setColor = _useState2[1];
+
+  (0, _react.useEffect)(function () {
     if (!cache[src]) getColor(src).then(setColor);
   }, []);
   return color;
@@ -44583,83 +44756,124 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
-var hueGradient = (lightness, steps = 7) => (0, _range.default)(0, steps).map(i => `hsl( ${i / (steps - 1) * 360}, 100%, ${lightness * 100}% )`).join(', ');
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
 
-var lightnessGradient = (hue, steps = 3) => (0, _range.default)(0, steps).map(i => `hsl( ${hue * 360}, 100%, ${i / (steps - 1) * 100}% )`).join(', ');
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
 
-var Row = ({
-  y,
-  rows
-}) => _react.default.createElement("div", {
-  key: `row_${y}`,
-  style: {
-    position: 'absolute',
-    left: 0,
-    top: `${y / rows * 100}%`,
-    width: '100%',
-    height: '1px',
-    background: `linear-gradient( to right, ${hueGradient(1 - y / rows)} )`
-  }
-});
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
 
-var Column = ({
-  x,
-  columns
-}) => _react.default.createElement("div", {
-  key: `col_${x}`,
-  style: {
-    position: 'absolute',
-    left: `${x / columns * 100}%`,
-    top: 0,
-    width: '1px',
-    height: '100%',
-    background: `linear-gradient( to top, ${lightnessGradient(x / columns)} )`
-  }
-});
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
 
-var Grid = () => {
-  var cellSize = 50;
-  var windowSize = (0, _useWindowSize.default)();
-  var columns = Math.floor(windowSize[0] / cellSize);
-  var rows = Math.floor(windowSize[1] / cellSize);
-  return (0, _react.useMemo)(() => [...(0, _range.default)(1, rows).map(y => _react.default.createElement(Row, {
-    key: `row_${y}`,
-    y: y,
-    rows: rows
-  })), ...(0, _range.default)(1, columns).map(x => _react.default.createElement(Column, {
-    key: `col_${x}`,
-    x: x,
-    columns: columns
-  }))], [columns, rows]);
+var map = function map(x, oldMin, oldMax, newMin, newMax) {
+  return newMin + (x - oldMin) / (oldMax - oldMin) * (newMax - newMin);
 };
 
-var ColorThumbnail = ({
-  project
-}) => {
-  var windowSize = (0, _useWindowSize.default)();
-  var rand = (0, _react.useMemo)(Math.random, []);
-  var {
-    h,
-    l
-  } = project.color;
-  if (h === 0) h = rand * 360;
-  var x = h / 360 * windowSize[0];
-  var y = l * windowSize[1];
-  return _react.default.createElement(_Thumbnail.default, {
-    project: project,
-    position: {
-      x,
-      y
+var hueGradient = function hueGradient(lightness) {
+  var steps = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 7;
+  return (0, _range.default)(0, steps).map(function (i) {
+    return "hsl( ".concat(i / (steps - 1) * 360, ", 100%, ").concat(lightness * 100, "% )");
+  }).join(', ');
+};
+
+var lightnessGradient = function lightnessGradient(hue) {
+  var steps = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 3;
+  return (0, _range.default)(0, steps).map(function (i) {
+    return "hsl( ".concat(hue * 360, ", 100%, ").concat(i / (steps - 1) * 100, "% )");
+  }).join(', ');
+};
+
+var Row = function Row(_ref) {
+  var y = _ref.y,
+      t = _ref.t;
+  return _react.default.createElement("div", {
+    key: "row_".concat(y),
+    style: {
+      position: 'absolute',
+      left: 0,
+      top: y + 'px',
+      width: '100%',
+      height: '1px',
+      background: "linear-gradient( to right, ".concat(hueGradient(1 - t), " )")
     }
   });
 };
 
-var Color = ({
-  data
-}) => _react.default.createElement(_react.default.Fragment, null, _react.default.createElement(Grid, null), data.projects.map(project => _react.default.createElement(ColorThumbnail, {
-  key: project.url,
-  project: project
-})));
+var Column = function Column(_ref2) {
+  var x = _ref2.x,
+      t = _ref2.t;
+  return _react.default.createElement("div", {
+    key: "col_".concat(x),
+    style: {
+      position: 'absolute',
+      left: x + 'px',
+      top: 0,
+      width: '1px',
+      height: '100%',
+      background: "linear-gradient( to top, ".concat(lightnessGradient(t), " )")
+    }
+  });
+};
+
+var Grid = function Grid(_ref3) {
+  var radius = _ref3.radius;
+  var cellSize = 50;
+  var windowSize = (0, _useWindowSize.default)();
+  return (0, _react.useMemo)(function () {
+    var columns = Math.floor(windowSize[0] / cellSize);
+    var rows = Math.floor(windowSize[1] / cellSize);
+    return [].concat(_toConsumableArray((0, _range.default)(0, rows).map(function (row) {
+      var y = map(row, 0, rows - 1, radius, windowSize[1] - radius);
+      var t = map(row, 0, rows - 1, 0, 1);
+      return _react.default.createElement(Row, {
+        key: "row_".concat(row),
+        y: y,
+        t: t
+      });
+    })), _toConsumableArray((0, _range.default)(0, columns).map(function (column) {
+      var x = map(column, 0, columns - 1, radius, windowSize[0] - radius);
+      var t = map(column, 0, columns - 1, 0, 1);
+      return _react.default.createElement(Column, {
+        key: "col_".concat(column),
+        x: x,
+        t: t
+      });
+    })));
+  }, [windowSize]);
+};
+
+var ColorThumbnail = function ColorThumbnail(_ref4) {
+  var project = _ref4.project,
+      radius = _ref4.radius;
+  var windowSize = (0, _useWindowSize.default)();
+  var rand = (0, _react.useMemo)(Math.random, []);
+  var _project$color = project.color,
+      h = _project$color.h,
+      l = _project$color.l;
+  if (h === 0) h = rand * 360;
+  var x = map(h, 0, 360, radius, windowSize[0] - radius);
+  var y = map(l, 0, 1, radius, windowSize[1] - radius);
+  return _react.default.createElement(_Thumbnail.default, {
+    project: project,
+    position: {
+      x: x,
+      y: y
+    }
+  });
+};
+
+var Color = function Color(_ref5) {
+  var data = _ref5.data,
+      radius = _ref5.radius;
+  return _react.default.createElement(_react.default.Fragment, null, _react.default.createElement(Grid, {
+    radius: radius
+  }), data.projects.map(function (project) {
+    return _react.default.createElement(ColorThumbnail, {
+      key: project.url,
+      project: project,
+      radius: radius
+    });
+  }));
+};
 
 var _default = Color;
 exports.default = _default;
@@ -44675,31 +44889,46 @@ var _tinycolor = _interopRequireDefault(require("tinycolor2"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+
+function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 var cache = {};
 var canvas = document.createElement('canvas');
 canvas.width = canvas.height = 1;
 var ctx = canvas.getContext('2d');
 
-var _default = src => new Promise(resolve => {
-  var image = new Image();
+var _default = function _default(src) {
+  return new Promise(function (resolve) {
+    var image = new Image();
 
-  image.onload = () => {
-    ctx.drawImage(image, 0, 0);
-    var {
-      data
-    } = ctx.getImageData(0, 0, 1, 1);
-    var [r, g, b] = data;
-    var color = (0, _tinycolor.default)({
-      r,
-      g,
-      b
-    }).toHsl();
-    cache[src] = color;
-    resolve(color);
-  };
+    image.onload = function () {
+      ctx.drawImage(image, 0, 0);
 
-  image.src = src;
-});
+      var _ctx$getImageData = ctx.getImageData(0, 0, 1, 1),
+          data = _ctx$getImageData.data;
+
+      var _data = _slicedToArray(data, 3),
+          r = _data[0],
+          g = _data[1],
+          b = _data[2];
+
+      var color = (0, _tinycolor.default)({
+        r: r,
+        g: g,
+        b: b
+      }).toHsl();
+      cache[src] = color;
+      resolve(color);
+    };
+
+    image.src = src;
+  });
+};
 
 exports.default = _default;
 },{"tinycolor2":"../../node_modules/tinycolor2/tinycolor.js"}],"hooks/useFetch.js":[function(require,module,exports) {
@@ -44710,15 +44939,28 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var {
-  useState,
-  useEffect
-} = require('react');
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
 
-var _default = url => {
-  var [data, setData] = useState(null);
-  useEffect(() => {
-    fetch(url).then(r => r.json()).then(setData);
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+
+function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+var _require = require('react'),
+    useState = _require.useState,
+    useEffect = _require.useEffect;
+
+var _default = function _default(url) {
+  var _useState = useState(null),
+      _useState2 = _slicedToArray(_useState, 2),
+      data = _useState2[0],
+      setData = _useState2[1];
+
+  useEffect(function () {
+    fetch(url).then(function (r) {
+      return r.json();
+    }).then(setData);
   }, [url]);
   return data;
 };
@@ -44734,9 +44976,9 @@ exports.default = void 0;
 
 var _react = _interopRequireWildcard(require("react"));
 
-var _Venn = _interopRequireDefault(require("./Venn.jsx"));
+var _Tags = _interopRequireDefault(require("./Tags.jsx"));
 
-var _Wave = _interopRequireDefault(require("./Wave.jsx"));
+var _Time = _interopRequireDefault(require("./Time.jsx"));
 
 var _Color = _interopRequireDefault(require("./Color.jsx"));
 
@@ -44748,72 +44990,106 @@ var _useFetch = _interopRequireDefault(require("~/hooks/useFetch"));
 
 var _useWindowSize = _interopRequireDefault(require("~/hooks/useWindowSize"));
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
-var useRadius = () => {
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+
+function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+var useRadius = function useRadius() {
   var windowSize = (0, _useWindowSize.default)();
-  return (0, _react.useMemo)(() => parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--radius')), [windowSize]);
+  return (0, _react.useMemo)(function () {
+    return parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--radius'));
+  }, [windowSize]);
 };
 
-var useData = () => {
-  var data = (0, _useFetch.default)('/work.json');
-  var [projectColors, setProjectColors] = (0, _react.useState)(null);
-  (0, _react.useEffect)(() => {
+var useData = function useData() {
+  var data = (0, _useFetch.default)('/home.json');
+
+  var _useState = (0, _react.useState)(null),
+      _useState2 = _slicedToArray(_useState, 2),
+      projectColors = _useState2[0],
+      setProjectColors = _useState2[1];
+
+  (0, _react.useEffect)(function () {
     if (!data) return;
-    Promise.all(data.projects.map(project => (0, _getColor.default)(project.pixel))).then(setProjectColors);
+    Promise.all(data.projects.map(function (project) {
+      return (0, _getColor.default)(project.pixel);
+    })).then(setProjectColors);
   }, [data]);
-  return (0, _react.useMemo)(() => {
+  return (0, _react.useMemo)(function () {
     if (data === null || projectColors === null) return null;
-    var {
-      projects,
-      tags
-    } = data;
-    projects = projects.map((project, i) => _extends({}, project, {
-      i,
-      color: projectColors[i]
-    }));
+    var projects = data.projects,
+        tags = data.tags;
+    projects = projects.map(function (project, i) {
+      return _objectSpread({}, project, {
+        i: i,
+        color: projectColors[i]
+      });
+    });
     return {
-      projects,
-      tags: tags.map(({
-        name
-      }) => name),
-      byTag: Object.fromEntries(tags.map(tag => [tag.name, projects.map((project, i) => ({
-        project,
-        i
-      })).filter(({
-        project
-      }) => project.tags.includes(tag.name)).map(({
-        project,
-        i
-      }) => i)])),
-      colors: Object.fromEntries(tags.map(tag => [tag.name, (0, _tinycolor.default)(tag.color)]))
+      projects: projects,
+      tags: tags.map(function (_ref) {
+        var name = _ref.name;
+        return name;
+      }),
+      byTag: Object.fromEntries(tags.map(function (tag) {
+        return [tag.name, projects.map(function (project, i) {
+          return {
+            project: project,
+            i: i
+          };
+        }).filter(function (_ref2) {
+          var project = _ref2.project;
+          return project.tags.includes(tag.name);
+        }).map(function (_ref3) {
+          var project = _ref3.project,
+              i = _ref3.i;
+          return i;
+        })];
+      })),
+      colors: Object.fromEntries(tags.map(function (tag) {
+        return [tag.name, (0, _tinycolor.default)(tag.color)];
+      }))
     };
   }, [data, projectColors]);
 };
 
 var views = {
-  venn: _Venn.default,
-  wave: _Wave.default,
+  tags: _Tags.default,
+  time: _Time.default,
   color: _Color.default
 };
 
-var Home = () => {
-  var [view, setView] = (0, _react.useState)('venn');
+var Home = function Home(_ref4) {
+  var view = _ref4.view,
+      setView = _ref4.setView;
   var data = useData();
   var radius = useRadius();
-  console.log(data);
   if (!data) return null;
   var View = views[view];
   return _react.default.createElement(_react.default.Fragment, null, _react.default.createElement("nav", null, _react.default.createElement("a", {
-    onClick: () => setView('venn')
+    onClick: function onClick() {
+      return setView('tags');
+    }
   }, "\uD83D\uDDBC"), _react.default.createElement("a", {
-    onClick: () => setView('wave')
+    onClick: function onClick() {
+      return setView('time');
+    }
   }, "\uD83D\uDDD3"), _react.default.createElement("a", {
-    onClick: () => setView('color')
+    onClick: function onClick() {
+      return setView('color');
+    }
   }, "\uD83C\uDF08")), _react.default.createElement(View, {
     data: data,
     radius: radius
@@ -44822,7 +45098,7 @@ var Home = () => {
 
 var _default = Home;
 exports.default = _default;
-},{"react":"../../node_modules/react/index.js","./Venn.jsx":"components/Venn.jsx","./Wave.jsx":"components/Wave.jsx","./Color.jsx":"components/Color.jsx","tinycolor2":"../../node_modules/tinycolor2/tinycolor.js","~/utils/getColor":"utils/getColor.js","~/hooks/useFetch":"hooks/useFetch.js","~/hooks/useWindowSize":"hooks/useWindowSize.js"}],"components/Page.jsx":[function(require,module,exports) {
+},{"react":"../../node_modules/react/index.js","./Tags.jsx":"components/Tags.jsx","./Time.jsx":"components/Time.jsx","./Color.jsx":"components/Color.jsx","tinycolor2":"../../node_modules/tinycolor2/tinycolor.js","~/utils/getColor":"utils/getColor.js","~/hooks/useFetch":"hooks/useFetch.js","~/hooks/useWindowSize":"hooks/useWindowSize.js"}],"components/Page.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -44838,12 +45114,14 @@ var _useFetch = _interopRequireDefault(require("~/hooks/useFetch"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var Page = ({
-  match
-}) => {
+var Page = function Page(_ref) {
+  var match = _ref.match;
   var data = (0, _useFetch.default)(match.params.page + '.json');
+  if (!data) return 'Loading';
   console.log(data);
-  return _react.default.createElement("div", null, match.params.page, _react.default.createElement(_reactRouterDom.Link, {
+  return _react.default.createElement("div", null, _react.default.createElement("h1", null, data.title), _react.default.createElement("p", null, data.tags.join(', ')), _react.default.createElement("img", {
+    src: data.thumbnail
+  }), _react.default.createElement(_reactRouterDom.Link, {
     to: "/"
   }, "Back"));
 };
@@ -44858,7 +45136,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _react = _interopRequireDefault(require("react"));
+var _react = _interopRequireWildcard(require("react"));
 
 var _reactRouterDom = require("react-router-dom");
 
@@ -44868,14 +45146,36 @@ var _Page = _interopRequireDefault(require("./Page"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var App = () => _react.default.createElement(_reactRouterDom.BrowserRouter, null, _react.default.createElement(_reactRouterDom.Route, {
-  path: "/",
-  exact: true,
-  component: _Home.default
-}), _react.default.createElement(_reactRouterDom.Route, {
-  path: "/:page",
-  component: _Page.default
-}));
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+
+function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+var App = function App() {
+  var _useState = (0, _react.useState)('tags'),
+      _useState2 = _slicedToArray(_useState, 2),
+      view = _useState2[0],
+      setView = _useState2[1];
+
+  return _react.default.createElement(_reactRouterDom.BrowserRouter, null, _react.default.createElement(_reactRouterDom.Route, {
+    path: "/",
+    exact: true,
+    render: function render() {
+      return _react.default.createElement(_Home.default, {
+        view: view,
+        setView: setView
+      });
+    }
+  }), _react.default.createElement(_reactRouterDom.Route, {
+    path: "/:page",
+    component: _Page.default
+  }));
+};
 
 var _default = App;
 exports.default = _default;
@@ -44919,7 +45219,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "41467" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "40809" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

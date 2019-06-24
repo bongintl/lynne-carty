@@ -21,6 +21,14 @@ var vert = `
     }
 `
 
+var vert = `
+    precision highp float;
+    attribute vec2 position;
+    void main () {
+        gl_Position = vec4( position, 0., 1. );
+    }
+`
+
 var Renderer = ({ positions, radius, data }) => {
     var { byTag, tags, colors } = data;
     var gl = useContext( GLContext );
@@ -65,10 +73,10 @@ var Renderer = ({ positions, radius, data }) => {
             shader.uniforms.color = [ r / 255, g / 255, b / 255 ];
             var xs = ps.map( n => n.x );
             var ys = ps.map( n => n.y );
-            var minX = Math.floor( Math.min( ...xs ) ) - radius * 10;
-            var minY = Math.floor( Math.min( ...ys ) ) - radius * 10;
-            var maxX = Math.floor( Math.max( ...xs ) ) + radius * 10;
-            var maxY = Math.floor( Math.max( ...ys ) ) + radius * 10;
+            var minX = Math.floor( Math.min( ...xs ) ) - radius * 5;
+            var minY = Math.floor( Math.min( ...ys ) ) - radius * 5;
+            var maxX = Math.floor( Math.max( ...xs ) ) + radius * 5;
+            var maxY = Math.floor( Math.max( ...ys ) ) + radius * 5;
             gl.scissor( minX, gl.canvas.height - maxY, maxX - minX, maxY - minY );
             gl.drawArrays( gl.TRIANGLES, 0, 3 );
         })
@@ -84,7 +92,6 @@ var VennShader = ({ positions, radius, data }) => {
             <Renderer positions={ positions } radius={ radius } data={ data }/>
         </GL>
     )
-    
 }
 
 export default VennShader
