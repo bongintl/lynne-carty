@@ -27,7 +27,8 @@ html {
   transition: width .1s, height .1s; }
   .thumbnail:hover {
     width: calc( var( --radius ) * 2);
-    height: calc( var( --radius ) * 2); }
+    height: calc( var( --radius ) * 2);
+    z-index: 20; }
 
 .color {
   width: 100%; }

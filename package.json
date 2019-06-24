@@ -15,32 +15,26 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "color-thief": "^2.2.5",
     "d3": "^3.5.17",
     "d3-force": "^2.0.1",
-    "fpsmeter": "^0.3.1",
     "gl-buffer": "^2.1.2",
     "gl-shader": "^4.2.1",
     "gl-vao": "^1.3.0",
-    "glslify": "^7.0.0",
     "lodash": "^4.17.11",
-    "nanohtml": "^1.6.3",
-    "nanomorph": "^5.4.0",
     "node-sass": "^4.12.0",
     "onchange": "^6.0.0",
     "parcel-bundler": "^1.12.3",
-    "rafmeter": "^0.2.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-router-dom": "^5.0.1",
-    "tinycolor2": "^1.4.1",
-    "yaml": "^1.6.0"
+    "tinycolor2": "^1.4.1"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
     "babel-preset-env": "^1.7.0",
     "babel-preset-stage-2": "^6.24.1",
-    "sass": "^1.20.3",
-    "styled-jsx": "^3.2.1"
+    "glslify-bundle": "^5.1.1",
+    "glslify-deps": "^1.3.1",
+    "sass": "^1.20.3"
   }
 }

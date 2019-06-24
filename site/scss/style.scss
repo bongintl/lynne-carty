@@ -33,6 +33,7 @@ html {
     &:hover {
         width: calc( var( --radius ) * 2 );
         height: calc( var( --radius ) * 2 );
+        z-index: 20;
     }
 }
 .color {

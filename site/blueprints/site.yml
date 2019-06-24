@@ -1,11 +1,28 @@
-title: Site
-
-sections:
-    work:
+title: Work
+pages: true
+columns:
+  -
+    width: 1/4
+    sections:
+      tags:
+        type: fields
+        fields:
+          tags:
+            type: structure
+            columns:
+              name:
+                width: 1
+            fields:
+              name:
+                type: text
+                required: true
+              color:
+                type: color
+                required: true
+  -
+    width: 3/4
+    sections:
+      pages:
         type: pages
-        headline: Pages
-        # parent: site.find("work")
-        create: project
-        layout: cards
-        size: tiny
-        limit: 600
+        limit: 150
+        status: listed

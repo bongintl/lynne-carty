@@ -4,10 +4,13 @@ import useFetch from '~/hooks/useFetch';
 
 var Page = ({ match }) => {
     var data = useFetch( match.params.page + '.json' );
-    console.log( data );
+    if ( !data ) return 'Loading';
+    console.log( data )
     return (
         <div>
-            { match.params.page }
+            <h1>{ data.title }</h1>
+            <p>{ data.tags.join(', ') }</p>
+            <img src={ data.thumbnail }/>
             <Link to="/">Back</Link>
         </div>
     )

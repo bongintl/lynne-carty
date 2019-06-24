@@ -1,21 +1,25 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import Venn from './Venn.jsx';
-import Wave from './Wave.jsx';
+import Tags from './Tags.jsx';
+import Time from './Time.jsx';
 import Color from './Color.jsx';
 import tinycolor from 'tinycolor2';
 import getColor from '~/utils/getColor';
 import useFetch from '~/hooks/useFetch';
 import useWindowSize from '~/hooks/useWindowSize';
 
-var useRadius = () => {
+var useCSSProperty = property => {
     var windowSize = useWindowSize();
     return useMemo( () => (
-        parseFloat( getComputedStyle( document.documentElement ).getPropertyValue('--radius') )
+        parseFloat( getComputedStyle( document.documentElement ).getPropertyValue( property ) )
     ), [ windowSize ] );
+}
+
+var useRadius = () => {
+    
 }
     
 var useData = () => {
-    var data = useFetch( '/work.json' );
+    var data = useFetch( '/home.json' );
     var [ projectColors, setProjectColors ] = useState( null );
     useEffect( () => {
         if ( !data ) return;
@@ -50,23 +54,21 @@ var useData = () => {
 }
     
 var views = {
-    venn: Venn,
-    wave: Wave,
+    tags: Tags,
+    time: Time,
     color: Color
 }
     
-var Home = () => {
-    var [ view, setView ] = useState('venn');
+var Home = ({ view, setView }) => {
     var data = useData();
     var radius = useRadius();
-    console.log( data )
     if ( !data ) return null;
     var View = views[ view ];
     return (
         <React.Fragment>
             <nav>
-                <a onClick={ () => setView( 'venn' ) }>🖼</a>
-                <a onClick={ () => setView( 'wave' ) }>🗓</a>
+                <a onClick={ () => setView( 'tags' ) }>🖼</a>
+                <a onClick={ () => setView( 'time' ) }>🗓</a>
                 <a onClick={ () => setView( 'color' ) }>🌈</a>
             </nav>
             <View data={ data } radius={ radius }/>

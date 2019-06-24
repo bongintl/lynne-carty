@@ -27,8 +27,7 @@ var useWave = ( n, radius ) => {
 }
 
 var Wave = ({ data, radius }) => {
-    // var scrollTop = useScrollTop();
-    var items = flatten( chunk( data.projects, 10 ).map( ( projects, i ) => [
+    var items = flatten( chunk( [ ...data.projects ].reverse(), 10 ).map( ( projects, i ) => [
         ...String( 2019 - i ).split('').map( number => ({ type: 'number', number, year: 2019 - i }) ),
         ...projects.map( project => ({ type: 'project', project }) )
     ]))
