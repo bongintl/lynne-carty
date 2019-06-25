@@ -29,8 +29,7 @@ var vert = `
     }
 `
 
-var Renderer = ({ positions, radius, data }) => {
-    var { byTag, tags, colors } = data;
+var Renderer = ({ layers }) => {
     var gl = useContext( GLContext );
     var triangle = useMemo( () => {
         var position = createBuffer( gl, new Float32Array([
@@ -46,8 +45,8 @@ var Renderer = ({ positions, radius, data }) => {
     }, [ gl ] )
     var maxNodes = useMemo( () => Math.min(
         gl.getParameter( gl.MAX_FRAGMENT_UNIFORM_VECTORS ),
-        Math.max( ...Object.values( byTag ).map( ts => ts.length ) )
-    ), [ data ] )
+        Math.max( ...layers.map( layer => layer.positions.length ) )
+    ), [ gl, layers ] )
     var shader = useMemo( () => (
         createShader( gl, vert, `#define MAX ${ maxNodes }\n` + frag )
     ), [ gl, maxNodes ] )
@@ -61,35 +60,35 @@ var Renderer = ({ positions, radius, data }) => {
         shader.bind();
         triangle.bind();
         gl.enable( gl.SCISSOR_TEST );
-        shader.uniforms.radius = radius;
         shader.uniforms.resolution = [ gl.canvas.width, gl.canvas.height ];
-        tags.forEach( tag => {
-            var ps = byTag[ tag ].map( i => positions[ i ] );
-            shader.uniforms.count = ps.length;
-            ps.forEach( ( position, i ) => {
-                shader.uniforms.positions[ i ] = [ position.x, position.y ];
+        var extend = Math.min( gl.canvas.width, gl.canvas.height ) * .2;
+        layers.forEach( ({ color, positions }) => {
+            shader.uniforms.count = positions.length;
+            positions.forEach( ({ x, y, r }, i ) => {
+                shader.uniforms.positions[ i ] = [ x, y ];
+                shader.uniforms.radii[ i ] = r;
             })
-            var { r, g, b } = colors[ tag ].toRgb();
+            var { r, g, b } = color.toRgb();
             shader.uniforms.color = [ r / 255, g / 255, b / 255 ];
-            var xs = ps.map( n => n.x );
-            var ys = ps.map( n => n.y );
-            var minX = Math.floor( Math.min( ...xs ) ) - radius * 5;
-            var minY = Math.floor( Math.min( ...ys ) ) - radius * 5;
-            var maxX = Math.floor( Math.max( ...xs ) ) + radius * 5;
-            var maxY = Math.floor( Math.max( ...ys ) ) + radius * 5;
+            var xs = positions.map( p => p.x );
+            var ys = positions.map( p => p.y );
+            var minX = Math.floor( Math.min( ...xs ) ) - extend;
+            var minY = Math.floor( Math.min( ...ys ) ) - extend;
+            var maxX = Math.floor( Math.max( ...xs ) ) + extend;
+            var maxY = Math.floor( Math.max( ...ys ) ) + extend;
             gl.scissor( minX, gl.canvas.height - maxY, maxX - minX, maxY - minY );
             gl.drawArrays( gl.TRIANGLES, 0, 3 );
         })
         gl.disable( gl.SCISSOR_TEST );
-    }, [ gl, positions, radius, data, gl.canvas.width, gl.canvas.height ] )
+    }, [ gl, layers, gl.canvas.width, gl.canvas.height ] )
     return null;
 }
 
-var VennShader = ({ positions, radius, data }) => {
+var VennShader = ({ layers }) => {
     var windowSize = useWindowSize();
     return (
         <GL size={ windowSize }>
-            <Renderer positions={ positions } radius={ radius } data={ data }/>
+            <Renderer layers={ layers }/>
         </GL>
     )
 }

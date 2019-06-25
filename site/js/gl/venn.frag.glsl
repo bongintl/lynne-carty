@@ -2,7 +2,7 @@ precision highp float;
 
 uniform vec2 resolution;
 uniform vec2 positions[ MAX ];
-uniform float radius;
+uniform float radii[ MAX ];
 uniform vec3 color;
 uniform int count;
 
@@ -12,6 +12,7 @@ float sample ( vec2 coord ) {
     float v = 0.0;
     for ( int i = 0; i < MAX; i++ ) {
         vec2 position = positions[ i ];
+        float radius = radii[ i ];
         position.y = resolution.y - position.y;
         float dx = position.x - x;
         float dy = position.y - y;

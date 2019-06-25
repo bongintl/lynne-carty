@@ -29621,7 +29621,127 @@ if ("development" !== "production") {
     style: _propTypes.default.object
   });
 }
-},{"@babel/runtime/helpers/esm/inheritsLoose":"../../node_modules/@babel/runtime/helpers/esm/inheritsLoose.js","react":"../../node_modules/react/index.js","react-router":"../../node_modules/react-router/esm/react-router.js","history":"../../node_modules/history/esm/history.js","prop-types":"../../node_modules/prop-types/index.js","tiny-warning":"../../node_modules/tiny-warning/dist/tiny-warning.esm.js","@babel/runtime/helpers/esm/extends":"../../node_modules/@babel/runtime/helpers/esm/extends.js","@babel/runtime/helpers/esm/objectWithoutPropertiesLoose":"../../node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js","tiny-invariant":"../../node_modules/tiny-invariant/dist/tiny-invariant.esm.js"}],"components/GL.jsx":[function(require,module,exports) {
+},{"@babel/runtime/helpers/esm/inheritsLoose":"../../node_modules/@babel/runtime/helpers/esm/inheritsLoose.js","react":"../../node_modules/react/index.js","react-router":"../../node_modules/react-router/esm/react-router.js","history":"../../node_modules/history/esm/history.js","prop-types":"../../node_modules/prop-types/index.js","tiny-warning":"../../node_modules/tiny-warning/dist/tiny-warning.esm.js","@babel/runtime/helpers/esm/extends":"../../node_modules/@babel/runtime/helpers/esm/extends.js","@babel/runtime/helpers/esm/objectWithoutPropertiesLoose":"../../node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js","tiny-invariant":"../../node_modules/tiny-invariant/dist/tiny-invariant.esm.js"}],"components/Thumbnail.jsx":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _reactRouterDom = require("react-router-dom");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Thumbnail = function Thumbnail(_ref) {
+  var project = _ref.project,
+      x = _ref.x,
+      y = _ref.y,
+      r = _ref.r;
+  return _react.default.createElement(_reactRouterDom.Link, {
+    to: project.url
+  }, _react.default.createElement("img", {
+    className: "thumbnail",
+    src: project.thumbnail,
+    style: {
+      width: r * .7 * 2 + 'px',
+      height: r * .7 * 2 + 'px',
+      transform: "\n                    translate(-50%, -50%)\n                    translate( ".concat(x, "px, ").concat(y, "px )\n                ")
+    }
+  }));
+};
+
+var _default = Thumbnail;
+exports.default = _default;
+},{"react":"../../node_modules/react/index.js","react-router-dom":"../../node_modules/react-router-dom/esm/react-router-dom.js"}],"components/Legend.jsx":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+
+function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+var Legend = function Legend(_ref) {
+  var tags = _ref.tags,
+      colors = _ref.colors,
+      filter = _ref.filter,
+      setFilter = _ref.setFilter;
+
+  var _useState = (0, _react.useState)(null),
+      _useState2 = _slicedToArray(_useState, 2),
+      selected = _useState2[0],
+      setSelected = _useState2[1];
+
+  return _react.default.createElement("ul", {
+    className: "legend"
+  }, tags.map(function (tag) {
+    return _react.default.createElement("li", {
+      key: tag,
+      className: filter === null || filter === tag ? 'selected' : undefined,
+      style: {
+        '--color': colors[tag]
+      },
+      onMouseEnter: function onMouseEnter() {
+        return setFilter(tag);
+      },
+      onMouseLeave: function onMouseLeave() {
+        return setFilter(selected);
+      },
+      onClick: function onClick() {
+        return setSelected(selected === tag ? null : tag);
+      }
+    }, tag);
+  }));
+};
+
+var _default = Legend;
+exports.default = _default;
+},{"react":"../../node_modules/react/index.js"}],"components/Nav.jsx":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Nav = function Nav(_ref) {
+  var setMode = _ref.setMode;
+  return _react.default.createElement("nav", null, _react.default.createElement("a", {
+    onClick: function onClick() {
+      return setMode('tags');
+    }
+  }, "\uD83D\uDDBC"), _react.default.createElement("a", {
+    onClick: function onClick() {
+      return setMode('time');
+    }
+  }, "\uD83D\uDDD3"), _react.default.createElement("a", {
+    onClick: function onClick() {
+      return setMode('color');
+    }
+  }, "\uD83C\uDF08"));
+};
+
+var _default = Nav;
+exports.default = _default;
+},{"react":"../../node_modules/react/index.js"}],"components/GL.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -36658,7 +36778,7 @@ function createShader(
 module.exports = createShader
 
 },{"./lib/create-uniforms":"../../node_modules/gl-shader/lib/create-uniforms.js","./lib/create-attributes":"../../node_modules/gl-shader/lib/create-attributes.js","./lib/reflect":"../../node_modules/gl-shader/lib/reflect.js","./lib/shader-cache":"../../node_modules/gl-shader/lib/shader-cache.js","./lib/runtime-reflect":"../../node_modules/gl-shader/lib/runtime-reflect.js","./lib/GLError":"../../node_modules/gl-shader/lib/GLError.js"}],"gl/venn.frag.glsl":[function(require,module,exports) {
-module.exports = "precision highp float;\n#define GLSLIFY 1\n\nuniform vec2 resolution;\nuniform vec2 positions[ MAX ];\nuniform float radius;\nuniform vec3 color;\nuniform int count;\n\nfloat sample ( vec2 coord ) {\n    float x = coord.x;\n    float y = coord.y;\n    float v = 0.0;\n    for ( int i = 0; i < MAX; i++ ) {\n        vec2 position = positions[ i ];\n        position.y = resolution.y - position.y;\n        float dx = position.x - x;\n        float dy = position.y - y;\n        v += radius * radius / ( dx*dx + dy*dy );\n        if ( i == count - 1 ) break;\n    }\n    return v;\n}\n\nfloat edge () {\n    vec2 px = vec2( .5 );\n    float up = step( 1., sample( gl_FragCoord.xy + vec2( 0., px.y ) ) );\n    float down = step( 1., sample( gl_FragCoord.xy + vec2( 0., -px.y ) ) );\n    float left = step( 1., sample( gl_FragCoord.xy + vec2( -px.x, 0. ) ) );\n    float right = step( 1., sample( gl_FragCoord.xy + vec2( px.x, 0. ) ) );\n    if ( up == down && up == left && up == right ) {\n        return 0.;\n    } else {\n        return 1.;\n    }\n}\n\nvoid main () {\n    gl_FragColor = vec4( color, 1. ) * edge();\n}";
+module.exports = "precision highp float;\n#define GLSLIFY 1\n\nuniform vec2 resolution;\nuniform vec2 positions[ MAX ];\nuniform float radii[ MAX ];\nuniform vec3 color;\nuniform int count;\n\nfloat sample ( vec2 coord ) {\n    float x = coord.x;\n    float y = coord.y;\n    float v = 0.0;\n    for ( int i = 0; i < MAX; i++ ) {\n        vec2 position = positions[ i ];\n        float radius = radii[ i ];\n        position.y = resolution.y - position.y;\n        float dx = position.x - x;\n        float dy = position.y - y;\n        v += radius * radius / ( dx*dx + dy*dy );\n        if ( i == count - 1 ) break;\n    }\n    return v;\n}\n\nfloat edge () {\n    vec2 px = vec2( .5 );\n    float up = step( 1., sample( gl_FragCoord.xy + vec2( 0., px.y ) ) );\n    float down = step( 1., sample( gl_FragCoord.xy + vec2( 0., -px.y ) ) );\n    float left = step( 1., sample( gl_FragCoord.xy + vec2( -px.x, 0. ) ) );\n    float right = step( 1., sample( gl_FragCoord.xy + vec2( px.x, 0. ) ) );\n    if ( up == down && up == left && up == right ) {\n        return 0.;\n    } else {\n        return 1.;\n    }\n}\n\nvoid main () {\n    gl_FragColor = vec4( color, 1. ) * edge();\n}";
 },{}],"../../node_modules/tinycolor2/tinycolor.js":[function(require,module,exports) {
 var define;
 // TinyColor v1.4.1
@@ -37946,12 +38066,7 @@ var vert = "\n    precision highp float;\n    attribute vec2 position;\n    void
 var vert = "\n    precision highp float;\n    attribute vec2 position;\n    void main () {\n        gl_Position = vec4( position, 0., 1. );\n    }\n";
 
 var Renderer = function Renderer(_ref) {
-  var positions = _ref.positions,
-      radius = _ref.radius,
-      data = _ref.data;
-  var byTag = data.byTag,
-      tags = data.tags,
-      colors = data.colors;
+  var layers = _ref.layers;
   var gl = (0, _react.useContext)(_GL.GLContext);
   var triangle = (0, _react.useMemo)(function () {
     var position = (0, _glBuffer.default)(gl, new Float32Array([-1, -1, -1, 3, 3, -1]));
@@ -37962,10 +38077,10 @@ var Renderer = function Renderer(_ref) {
     }]);
   }, [gl]);
   var maxNodes = (0, _react.useMemo)(function () {
-    return Math.min(gl.getParameter(gl.MAX_FRAGMENT_UNIFORM_VECTORS), Math.max.apply(Math, _toConsumableArray(Object.values(byTag).map(function (ts) {
-      return ts.length;
+    return Math.min(gl.getParameter(gl.MAX_FRAGMENT_UNIFORM_VECTORS), Math.max.apply(Math, _toConsumableArray(layers.map(function (layer) {
+      return layer.positions.length;
     }))));
-  }, [data]);
+  }, [gl, layers]);
   var shader = (0, _react.useMemo)(function () {
     return (0, _glShader.default)(gl, vert, "#define MAX ".concat(maxNodes, "\n") + _vennFrag.default);
   }, [gl, maxNodes]);
@@ -37979,58 +38094,229 @@ var Renderer = function Renderer(_ref) {
     shader.bind();
     triangle.bind();
     gl.enable(gl.SCISSOR_TEST);
-    shader.uniforms.radius = radius;
     shader.uniforms.resolution = [gl.canvas.width, gl.canvas.height];
-    tags.forEach(function (tag) {
-      var ps = byTag[tag].map(function (i) {
-        return positions[i];
-      });
-      shader.uniforms.count = ps.length;
-      ps.forEach(function (position, i) {
-        shader.uniforms.positions[i] = [position.x, position.y];
+    var extend = Math.min(gl.canvas.width, gl.canvas.height) * .2;
+    layers.forEach(function (_ref2) {
+      var color = _ref2.color,
+          positions = _ref2.positions;
+      shader.uniforms.count = positions.length;
+      positions.forEach(function (_ref3, i) {
+        var x = _ref3.x,
+            y = _ref3.y,
+            r = _ref3.r;
+        shader.uniforms.positions[i] = [x, y];
+        shader.uniforms.radii[i] = r;
       });
 
-      var _colors$tag$toRgb = colors[tag].toRgb(),
-          r = _colors$tag$toRgb.r,
-          g = _colors$tag$toRgb.g,
-          b = _colors$tag$toRgb.b;
+      var _color$toRgb = color.toRgb(),
+          r = _color$toRgb.r,
+          g = _color$toRgb.g,
+          b = _color$toRgb.b;
 
       shader.uniforms.color = [r / 255, g / 255, b / 255];
-      var xs = ps.map(function (n) {
-        return n.x;
+      var xs = positions.map(function (p) {
+        return p.x;
       });
-      var ys = ps.map(function (n) {
-        return n.y;
+      var ys = positions.map(function (p) {
+        return p.y;
       });
-      var minX = Math.floor(Math.min.apply(Math, _toConsumableArray(xs))) - radius * 5;
-      var minY = Math.floor(Math.min.apply(Math, _toConsumableArray(ys))) - radius * 5;
-      var maxX = Math.floor(Math.max.apply(Math, _toConsumableArray(xs))) + radius * 5;
-      var maxY = Math.floor(Math.max.apply(Math, _toConsumableArray(ys))) + radius * 5;
+      var minX = Math.floor(Math.min.apply(Math, _toConsumableArray(xs))) - extend;
+      var minY = Math.floor(Math.min.apply(Math, _toConsumableArray(ys))) - extend;
+      var maxX = Math.floor(Math.max.apply(Math, _toConsumableArray(xs))) + extend;
+      var maxY = Math.floor(Math.max.apply(Math, _toConsumableArray(ys))) + extend;
       gl.scissor(minX, gl.canvas.height - maxY, maxX - minX, maxY - minY);
       gl.drawArrays(gl.TRIANGLES, 0, 3);
     });
     gl.disable(gl.SCISSOR_TEST);
-  }, [gl, positions, radius, data, gl.canvas.width, gl.canvas.height]);
+  }, [gl, layers, gl.canvas.width, gl.canvas.height]);
   return null;
 };
 
-var VennShader = function VennShader(_ref2) {
-  var positions = _ref2.positions,
-      radius = _ref2.radius,
-      data = _ref2.data;
+var VennShader = function VennShader(_ref4) {
+  var layers = _ref4.layers;
   var windowSize = (0, _useWindowSize.default)();
   return _react.default.createElement(_GL.default, {
     size: windowSize
   }, _react.default.createElement(Renderer, {
-    positions: positions,
-    radius: radius,
-    data: data
+    layers: layers
   }));
 };
 
 var _default = VennShader;
 exports.default = _default;
-},{"react":"../../node_modules/react/index.js","./GL":"components/GL.jsx","gl-buffer":"../../node_modules/gl-buffer/buffer.js","gl-vao":"../../node_modules/gl-vao/vao.js","gl-shader":"../../node_modules/gl-shader/index.js","~/gl/venn.frag.glsl":"gl/venn.frag.glsl","tinycolor2":"../../node_modules/tinycolor2/tinycolor.js","~/hooks/useWindowSize":"hooks/useWindowSize.js"}],"../../node_modules/d3-force/src/center.js":[function(require,module,exports) {
+},{"react":"../../node_modules/react/index.js","./GL":"components/GL.jsx","gl-buffer":"../../node_modules/gl-buffer/buffer.js","gl-vao":"../../node_modules/gl-vao/vao.js","gl-shader":"../../node_modules/gl-shader/index.js","~/gl/venn.frag.glsl":"gl/venn.frag.glsl","tinycolor2":"../../node_modules/tinycolor2/tinycolor.js","~/hooks/useWindowSize":"hooks/useWindowSize.js"}],"hooks/useFetch.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+
+function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+var _require = require('react'),
+    useState = _require.useState,
+    useEffect = _require.useEffect;
+
+var _default = function _default(url) {
+  var _useState = useState(null),
+      _useState2 = _slicedToArray(_useState, 2),
+      data = _useState2[0],
+      setData = _useState2[1];
+
+  useEffect(function () {
+    fetch(url).then(function (r) {
+      return r.json();
+    }).then(setData);
+  }, [url]);
+  return data;
+};
+
+exports.default = _default;
+},{"react":"../../node_modules/react/index.js"}],"utils/getColor.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _tinycolor = _interopRequireDefault(require("tinycolor2"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+
+function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+var cache = {};
+var canvas = document.createElement('canvas');
+canvas.width = canvas.height = 1;
+var ctx = canvas.getContext('2d');
+
+var _default = function _default(src) {
+  return new Promise(function (resolve) {
+    var image = new Image();
+
+    image.onload = function () {
+      ctx.drawImage(image, 0, 0);
+
+      var _ctx$getImageData = ctx.getImageData(0, 0, 1, 1),
+          data = _ctx$getImageData.data;
+
+      var _data = _slicedToArray(data, 3),
+          r = _data[0],
+          g = _data[1],
+          b = _data[2];
+
+      var color = (0, _tinycolor.default)({
+        r: r,
+        g: g,
+        b: b
+      }).toHsl();
+      cache[src] = color;
+      resolve(color);
+    };
+
+    image.src = src;
+  });
+};
+
+exports.default = _default;
+},{"tinycolor2":"../../node_modules/tinycolor2/tinycolor.js"}],"hooks/useData.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = require("react");
+
+var _useFetch = _interopRequireDefault(require("./useFetch"));
+
+var _getColor = _interopRequireDefault(require("~/utils/getColor"));
+
+var _tinycolor = _interopRequireDefault(require("tinycolor2"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+
+function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+var _default = function _default() {
+  var data = (0, _useFetch.default)('/home.json');
+
+  var _useState = (0, _react.useState)(null),
+      _useState2 = _slicedToArray(_useState, 2),
+      projectColors = _useState2[0],
+      setProjectColors = _useState2[1];
+
+  (0, _react.useEffect)(function () {
+    if (!data) return;
+    Promise.all(data.projects.map(function (project) {
+      return (0, _getColor.default)(project.pixel);
+    })).then(setProjectColors);
+  }, [data]);
+  return (0, _react.useMemo)(function () {
+    if (data === null || projectColors === null) return null;
+    var projects = data.projects,
+        tags = data.tags;
+    projects = projects.map(function (project, i) {
+      return _objectSpread({}, project, {
+        i: i,
+        color: projectColors[i]
+      });
+    });
+    return {
+      projects: projects,
+      tags: tags.map(function (_ref) {
+        var name = _ref.name;
+        return name;
+      }),
+      byTag: Object.fromEntries(tags.map(function (tag) {
+        return [tag.name, projects.map(function (project, i) {
+          return {
+            project: project,
+            i: i
+          };
+        }).filter(function (_ref2) {
+          var project = _ref2.project;
+          return project.tags.includes(tag.name);
+        }).map(function (_ref3) {
+          var project = _ref3.project,
+              i = _ref3.i;
+          return i;
+        })];
+      })),
+      colors: Object.fromEntries(tags.map(function (tag) {
+        return [tag.name, (0, _tinycolor.default)(tag.color)];
+      }))
+    };
+  }, [data, projectColors]);
+};
+
+exports.default = _default;
+},{"react":"../../node_modules/react/index.js","./useFetch":"hooks/useFetch.js","~/utils/getColor":"utils/getColor.js","tinycolor2":"../../node_modules/tinycolor2/tinycolor.js"}],"../../node_modules/d3-force/src/center.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -42807,969 +43093,70 @@ function isEqual(value, other) {
 
 module.exports = isEqual;
 
-},{"./_baseIsEqual":"../../node_modules/lodash/_baseIsEqual.js"}],"../../node_modules/lodash/_arrayEach.js":[function(require,module,exports) {
-/**
- * A specialized version of `_.forEach` for arrays without support for
- * iteratee shorthands.
- *
- * @private
- * @param {Array} [array] The array to iterate over.
- * @param {Function} iteratee The function invoked per iteration.
- * @returns {Array} Returns `array`.
- */
-function arrayEach(array, iteratee) {
-  var index = -1,
-      length = array == null ? 0 : array.length;
-
-  while (++index < length) {
-    if (iteratee(array[index], index, array) === false) {
-      break;
-    }
-  }
-  return array;
-}
-
-module.exports = arrayEach;
-
-},{}],"../../node_modules/lodash/_baseAssignValue.js":[function(require,module,exports) {
-var defineProperty = require('./_defineProperty');
-
-/**
- * The base implementation of `assignValue` and `assignMergeValue` without
- * value checks.
- *
- * @private
- * @param {Object} object The object to modify.
- * @param {string} key The key of the property to assign.
- * @param {*} value The value to assign.
- */
-function baseAssignValue(object, key, value) {
-  if (key == '__proto__' && defineProperty) {
-    defineProperty(object, key, {
-      'configurable': true,
-      'enumerable': true,
-      'value': value,
-      'writable': true
-    });
-  } else {
-    object[key] = value;
-  }
-}
-
-module.exports = baseAssignValue;
-
-},{"./_defineProperty":"../../node_modules/lodash/_defineProperty.js"}],"../../node_modules/lodash/_assignValue.js":[function(require,module,exports) {
-var baseAssignValue = require('./_baseAssignValue'),
-    eq = require('./eq');
-
-/** Used for built-in method references. */
-var objectProto = Object.prototype;
-
-/** Used to check objects for own properties. */
-var hasOwnProperty = objectProto.hasOwnProperty;
-
-/**
- * Assigns `value` to `key` of `object` if the existing value is not equivalent
- * using [`SameValueZero`](http://ecma-international.org/ecma-262/7.0/#sec-samevaluezero)
- * for equality comparisons.
- *
- * @private
- * @param {Object} object The object to modify.
- * @param {string} key The key of the property to assign.
- * @param {*} value The value to assign.
- */
-function assignValue(object, key, value) {
-  var objValue = object[key];
-  if (!(hasOwnProperty.call(object, key) && eq(objValue, value)) ||
-      (value === undefined && !(key in object))) {
-    baseAssignValue(object, key, value);
-  }
-}
-
-module.exports = assignValue;
-
-},{"./_baseAssignValue":"../../node_modules/lodash/_baseAssignValue.js","./eq":"../../node_modules/lodash/eq.js"}],"../../node_modules/lodash/_copyObject.js":[function(require,module,exports) {
-var assignValue = require('./_assignValue'),
-    baseAssignValue = require('./_baseAssignValue');
-
-/**
- * Copies properties of `source` to `object`.
- *
- * @private
- * @param {Object} source The object to copy properties from.
- * @param {Array} props The property identifiers to copy.
- * @param {Object} [object={}] The object to copy properties to.
- * @param {Function} [customizer] The function to customize copied values.
- * @returns {Object} Returns `object`.
- */
-function copyObject(source, props, object, customizer) {
-  var isNew = !object;
-  object || (object = {});
-
-  var index = -1,
-      length = props.length;
-
-  while (++index < length) {
-    var key = props[index];
-
-    var newValue = customizer
-      ? customizer(object[key], source[key], key, object, source)
-      : undefined;
-
-    if (newValue === undefined) {
-      newValue = source[key];
-    }
-    if (isNew) {
-      baseAssignValue(object, key, newValue);
-    } else {
-      assignValue(object, key, newValue);
-    }
-  }
-  return object;
-}
-
-module.exports = copyObject;
-
-},{"./_assignValue":"../../node_modules/lodash/_assignValue.js","./_baseAssignValue":"../../node_modules/lodash/_baseAssignValue.js"}],"../../node_modules/lodash/_baseAssign.js":[function(require,module,exports) {
-var copyObject = require('./_copyObject'),
-    keys = require('./keys');
-
-/**
- * The base implementation of `_.assign` without support for multiple sources
- * or `customizer` functions.
- *
- * @private
- * @param {Object} object The destination object.
- * @param {Object} source The source object.
- * @returns {Object} Returns `object`.
- */
-function baseAssign(object, source) {
-  return object && copyObject(source, keys(source), object);
-}
-
-module.exports = baseAssign;
-
-},{"./_copyObject":"../../node_modules/lodash/_copyObject.js","./keys":"../../node_modules/lodash/keys.js"}],"../../node_modules/lodash/_nativeKeysIn.js":[function(require,module,exports) {
-/**
- * This function is like
- * [`Object.keys`](http://ecma-international.org/ecma-262/7.0/#sec-object.keys)
- * except that it includes inherited enumerable properties.
- *
- * @private
- * @param {Object} object The object to query.
- * @returns {Array} Returns the array of property names.
- */
-function nativeKeysIn(object) {
-  var result = [];
-  if (object != null) {
-    for (var key in Object(object)) {
-      result.push(key);
-    }
-  }
-  return result;
-}
-
-module.exports = nativeKeysIn;
-
-},{}],"../../node_modules/lodash/_baseKeysIn.js":[function(require,module,exports) {
-var isObject = require('./isObject'),
-    isPrototype = require('./_isPrototype'),
-    nativeKeysIn = require('./_nativeKeysIn');
-
-/** Used for built-in method references. */
-var objectProto = Object.prototype;
-
-/** Used to check objects for own properties. */
-var hasOwnProperty = objectProto.hasOwnProperty;
-
-/**
- * The base implementation of `_.keysIn` which doesn't treat sparse arrays as dense.
- *
- * @private
- * @param {Object} object The object to query.
- * @returns {Array} Returns the array of property names.
- */
-function baseKeysIn(object) {
-  if (!isObject(object)) {
-    return nativeKeysIn(object);
-  }
-  var isProto = isPrototype(object),
-      result = [];
-
-  for (var key in object) {
-    if (!(key == 'constructor' && (isProto || !hasOwnProperty.call(object, key)))) {
-      result.push(key);
-    }
-  }
-  return result;
-}
-
-module.exports = baseKeysIn;
-
-},{"./isObject":"../../node_modules/lodash/isObject.js","./_isPrototype":"../../node_modules/lodash/_isPrototype.js","./_nativeKeysIn":"../../node_modules/lodash/_nativeKeysIn.js"}],"../../node_modules/lodash/keysIn.js":[function(require,module,exports) {
-var arrayLikeKeys = require('./_arrayLikeKeys'),
-    baseKeysIn = require('./_baseKeysIn'),
-    isArrayLike = require('./isArrayLike');
-
-/**
- * Creates an array of the own and inherited enumerable property names of `object`.
- *
- * **Note:** Non-object values are coerced to objects.
- *
- * @static
- * @memberOf _
- * @since 3.0.0
- * @category Object
- * @param {Object} object The object to query.
- * @returns {Array} Returns the array of property names.
- * @example
- *
- * function Foo() {
- *   this.a = 1;
- *   this.b = 2;
- * }
- *
- * Foo.prototype.c = 3;
- *
- * _.keysIn(new Foo);
- * // => ['a', 'b', 'c'] (iteration order is not guaranteed)
- */
-function keysIn(object) {
-  return isArrayLike(object) ? arrayLikeKeys(object, true) : baseKeysIn(object);
-}
-
-module.exports = keysIn;
-
-},{"./_arrayLikeKeys":"../../node_modules/lodash/_arrayLikeKeys.js","./_baseKeysIn":"../../node_modules/lodash/_baseKeysIn.js","./isArrayLike":"../../node_modules/lodash/isArrayLike.js"}],"../../node_modules/lodash/_baseAssignIn.js":[function(require,module,exports) {
-var copyObject = require('./_copyObject'),
-    keysIn = require('./keysIn');
-
-/**
- * The base implementation of `_.assignIn` without support for multiple sources
- * or `customizer` functions.
- *
- * @private
- * @param {Object} object The destination object.
- * @param {Object} source The source object.
- * @returns {Object} Returns `object`.
- */
-function baseAssignIn(object, source) {
-  return object && copyObject(source, keysIn(source), object);
-}
-
-module.exports = baseAssignIn;
-
-},{"./_copyObject":"../../node_modules/lodash/_copyObject.js","./keysIn":"../../node_modules/lodash/keysIn.js"}],"../../node_modules/lodash/_cloneBuffer.js":[function(require,module,exports) {
-
-var root = require('./_root');
-
-/** Detect free variable `exports`. */
-var freeExports = typeof exports == 'object' && exports && !exports.nodeType && exports;
-
-/** Detect free variable `module`. */
-var freeModule = freeExports && typeof module == 'object' && module && !module.nodeType && module;
-
-/** Detect the popular CommonJS extension `module.exports`. */
-var moduleExports = freeModule && freeModule.exports === freeExports;
-
-/** Built-in value references. */
-var Buffer = moduleExports ? root.Buffer : undefined,
-    allocUnsafe = Buffer ? Buffer.allocUnsafe : undefined;
-
-/**
- * Creates a clone of  `buffer`.
- *
- * @private
- * @param {Buffer} buffer The buffer to clone.
- * @param {boolean} [isDeep] Specify a deep clone.
- * @returns {Buffer} Returns the cloned buffer.
- */
-function cloneBuffer(buffer, isDeep) {
-  if (isDeep) {
-    return buffer.slice();
-  }
-  var length = buffer.length,
-      result = allocUnsafe ? allocUnsafe(length) : new buffer.constructor(length);
-
-  buffer.copy(result);
-  return result;
-}
-
-module.exports = cloneBuffer;
-
-},{"./_root":"../../node_modules/lodash/_root.js"}],"../../node_modules/lodash/_copyArray.js":[function(require,module,exports) {
-/**
- * Copies the values of `source` to `array`.
- *
- * @private
- * @param {Array} source The array to copy values from.
- * @param {Array} [array=[]] The array to copy values to.
- * @returns {Array} Returns `array`.
- */
-function copyArray(source, array) {
-  var index = -1,
-      length = source.length;
-
-  array || (array = Array(length));
-  while (++index < length) {
-    array[index] = source[index];
-  }
-  return array;
-}
-
-module.exports = copyArray;
-
-},{}],"../../node_modules/lodash/_copySymbols.js":[function(require,module,exports) {
-var copyObject = require('./_copyObject'),
-    getSymbols = require('./_getSymbols');
-
-/**
- * Copies own symbols of `source` to `object`.
- *
- * @private
- * @param {Object} source The object to copy symbols from.
- * @param {Object} [object={}] The object to copy symbols to.
- * @returns {Object} Returns `object`.
- */
-function copySymbols(source, object) {
-  return copyObject(source, getSymbols(source), object);
-}
-
-module.exports = copySymbols;
-
-},{"./_copyObject":"../../node_modules/lodash/_copyObject.js","./_getSymbols":"../../node_modules/lodash/_getSymbols.js"}],"../../node_modules/lodash/_getPrototype.js":[function(require,module,exports) {
-var overArg = require('./_overArg');
-
-/** Built-in value references. */
-var getPrototype = overArg(Object.getPrototypeOf, Object);
-
-module.exports = getPrototype;
-
-},{"./_overArg":"../../node_modules/lodash/_overArg.js"}],"../../node_modules/lodash/_getSymbolsIn.js":[function(require,module,exports) {
-var arrayPush = require('./_arrayPush'),
-    getPrototype = require('./_getPrototype'),
-    getSymbols = require('./_getSymbols'),
-    stubArray = require('./stubArray');
-
-/* Built-in method references for those with the same name as other `lodash` methods. */
-var nativeGetSymbols = Object.getOwnPropertySymbols;
-
-/**
- * Creates an array of the own and inherited enumerable symbols of `object`.
- *
- * @private
- * @param {Object} object The object to query.
- * @returns {Array} Returns the array of symbols.
- */
-var getSymbolsIn = !nativeGetSymbols ? stubArray : function(object) {
-  var result = [];
-  while (object) {
-    arrayPush(result, getSymbols(object));
-    object = getPrototype(object);
-  }
-  return result;
-};
-
-module.exports = getSymbolsIn;
-
-},{"./_arrayPush":"../../node_modules/lodash/_arrayPush.js","./_getPrototype":"../../node_modules/lodash/_getPrototype.js","./_getSymbols":"../../node_modules/lodash/_getSymbols.js","./stubArray":"../../node_modules/lodash/stubArray.js"}],"../../node_modules/lodash/_copySymbolsIn.js":[function(require,module,exports) {
-var copyObject = require('./_copyObject'),
-    getSymbolsIn = require('./_getSymbolsIn');
-
-/**
- * Copies own and inherited symbols of `source` to `object`.
- *
- * @private
- * @param {Object} source The object to copy symbols from.
- * @param {Object} [object={}] The object to copy symbols to.
- * @returns {Object} Returns `object`.
- */
-function copySymbolsIn(source, object) {
-  return copyObject(source, getSymbolsIn(source), object);
-}
-
-module.exports = copySymbolsIn;
-
-},{"./_copyObject":"../../node_modules/lodash/_copyObject.js","./_getSymbolsIn":"../../node_modules/lodash/_getSymbolsIn.js"}],"../../node_modules/lodash/_getAllKeysIn.js":[function(require,module,exports) {
-var baseGetAllKeys = require('./_baseGetAllKeys'),
-    getSymbolsIn = require('./_getSymbolsIn'),
-    keysIn = require('./keysIn');
-
-/**
- * Creates an array of own and inherited enumerable property names and
- * symbols of `object`.
- *
- * @private
- * @param {Object} object The object to query.
- * @returns {Array} Returns the array of property names and symbols.
- */
-function getAllKeysIn(object) {
-  return baseGetAllKeys(object, keysIn, getSymbolsIn);
-}
-
-module.exports = getAllKeysIn;
-
-},{"./_baseGetAllKeys":"../../node_modules/lodash/_baseGetAllKeys.js","./_getSymbolsIn":"../../node_modules/lodash/_getSymbolsIn.js","./keysIn":"../../node_modules/lodash/keysIn.js"}],"../../node_modules/lodash/_initCloneArray.js":[function(require,module,exports) {
-/** Used for built-in method references. */
-var objectProto = Object.prototype;
-
-/** Used to check objects for own properties. */
-var hasOwnProperty = objectProto.hasOwnProperty;
-
-/**
- * Initializes an array clone.
- *
- * @private
- * @param {Array} array The array to clone.
- * @returns {Array} Returns the initialized clone.
- */
-function initCloneArray(array) {
-  var length = array.length,
-      result = new array.constructor(length);
-
-  // Add properties assigned by `RegExp#exec`.
-  if (length && typeof array[0] == 'string' && hasOwnProperty.call(array, 'index')) {
-    result.index = array.index;
-    result.input = array.input;
-  }
-  return result;
-}
-
-module.exports = initCloneArray;
-
-},{}],"../../node_modules/lodash/_cloneArrayBuffer.js":[function(require,module,exports) {
-var Uint8Array = require('./_Uint8Array');
-
-/**
- * Creates a clone of `arrayBuffer`.
- *
- * @private
- * @param {ArrayBuffer} arrayBuffer The array buffer to clone.
- * @returns {ArrayBuffer} Returns the cloned array buffer.
- */
-function cloneArrayBuffer(arrayBuffer) {
-  var result = new arrayBuffer.constructor(arrayBuffer.byteLength);
-  new Uint8Array(result).set(new Uint8Array(arrayBuffer));
-  return result;
-}
-
-module.exports = cloneArrayBuffer;
-
-},{"./_Uint8Array":"../../node_modules/lodash/_Uint8Array.js"}],"../../node_modules/lodash/_cloneDataView.js":[function(require,module,exports) {
-var cloneArrayBuffer = require('./_cloneArrayBuffer');
-
-/**
- * Creates a clone of `dataView`.
- *
- * @private
- * @param {Object} dataView The data view to clone.
- * @param {boolean} [isDeep] Specify a deep clone.
- * @returns {Object} Returns the cloned data view.
- */
-function cloneDataView(dataView, isDeep) {
-  var buffer = isDeep ? cloneArrayBuffer(dataView.buffer) : dataView.buffer;
-  return new dataView.constructor(buffer, dataView.byteOffset, dataView.byteLength);
-}
-
-module.exports = cloneDataView;
-
-},{"./_cloneArrayBuffer":"../../node_modules/lodash/_cloneArrayBuffer.js"}],"../../node_modules/lodash/_cloneRegExp.js":[function(require,module,exports) {
-/** Used to match `RegExp` flags from their coerced string values. */
-var reFlags = /\w*$/;
-
-/**
- * Creates a clone of `regexp`.
- *
- * @private
- * @param {Object} regexp The regexp to clone.
- * @returns {Object} Returns the cloned regexp.
- */
-function cloneRegExp(regexp) {
-  var result = new regexp.constructor(regexp.source, reFlags.exec(regexp));
-  result.lastIndex = regexp.lastIndex;
-  return result;
-}
-
-module.exports = cloneRegExp;
-
-},{}],"../../node_modules/lodash/_cloneSymbol.js":[function(require,module,exports) {
-var Symbol = require('./_Symbol');
-
-/** Used to convert symbols to primitives and strings. */
-var symbolProto = Symbol ? Symbol.prototype : undefined,
-    symbolValueOf = symbolProto ? symbolProto.valueOf : undefined;
-
-/**
- * Creates a clone of the `symbol` object.
- *
- * @private
- * @param {Object} symbol The symbol object to clone.
- * @returns {Object} Returns the cloned symbol object.
- */
-function cloneSymbol(symbol) {
-  return symbolValueOf ? Object(symbolValueOf.call(symbol)) : {};
-}
-
-module.exports = cloneSymbol;
-
-},{"./_Symbol":"../../node_modules/lodash/_Symbol.js"}],"../../node_modules/lodash/_cloneTypedArray.js":[function(require,module,exports) {
-var cloneArrayBuffer = require('./_cloneArrayBuffer');
-
-/**
- * Creates a clone of `typedArray`.
- *
- * @private
- * @param {Object} typedArray The typed array to clone.
- * @param {boolean} [isDeep] Specify a deep clone.
- * @returns {Object} Returns the cloned typed array.
- */
-function cloneTypedArray(typedArray, isDeep) {
-  var buffer = isDeep ? cloneArrayBuffer(typedArray.buffer) : typedArray.buffer;
-  return new typedArray.constructor(buffer, typedArray.byteOffset, typedArray.length);
-}
-
-module.exports = cloneTypedArray;
-
-},{"./_cloneArrayBuffer":"../../node_modules/lodash/_cloneArrayBuffer.js"}],"../../node_modules/lodash/_initCloneByTag.js":[function(require,module,exports) {
-var cloneArrayBuffer = require('./_cloneArrayBuffer'),
-    cloneDataView = require('./_cloneDataView'),
-    cloneRegExp = require('./_cloneRegExp'),
-    cloneSymbol = require('./_cloneSymbol'),
-    cloneTypedArray = require('./_cloneTypedArray');
-
-/** `Object#toString` result references. */
-var boolTag = '[object Boolean]',
-    dateTag = '[object Date]',
-    mapTag = '[object Map]',
-    numberTag = '[object Number]',
-    regexpTag = '[object RegExp]',
-    setTag = '[object Set]',
-    stringTag = '[object String]',
-    symbolTag = '[object Symbol]';
-
-var arrayBufferTag = '[object ArrayBuffer]',
-    dataViewTag = '[object DataView]',
-    float32Tag = '[object Float32Array]',
-    float64Tag = '[object Float64Array]',
-    int8Tag = '[object Int8Array]',
-    int16Tag = '[object Int16Array]',
-    int32Tag = '[object Int32Array]',
-    uint8Tag = '[object Uint8Array]',
-    uint8ClampedTag = '[object Uint8ClampedArray]',
-    uint16Tag = '[object Uint16Array]',
-    uint32Tag = '[object Uint32Array]';
-
-/**
- * Initializes an object clone based on its `toStringTag`.
- *
- * **Note:** This function only supports cloning values with tags of
- * `Boolean`, `Date`, `Error`, `Map`, `Number`, `RegExp`, `Set`, or `String`.
- *
- * @private
- * @param {Object} object The object to clone.
- * @param {string} tag The `toStringTag` of the object to clone.
- * @param {boolean} [isDeep] Specify a deep clone.
- * @returns {Object} Returns the initialized clone.
- */
-function initCloneByTag(object, tag, isDeep) {
-  var Ctor = object.constructor;
-  switch (tag) {
-    case arrayBufferTag:
-      return cloneArrayBuffer(object);
-
-    case boolTag:
-    case dateTag:
-      return new Ctor(+object);
-
-    case dataViewTag:
-      return cloneDataView(object, isDeep);
-
-    case float32Tag: case float64Tag:
-    case int8Tag: case int16Tag: case int32Tag:
-    case uint8Tag: case uint8ClampedTag: case uint16Tag: case uint32Tag:
-      return cloneTypedArray(object, isDeep);
-
-    case mapTag:
-      return new Ctor;
-
-    case numberTag:
-    case stringTag:
-      return new Ctor(object);
-
-    case regexpTag:
-      return cloneRegExp(object);
-
-    case setTag:
-      return new Ctor;
-
-    case symbolTag:
-      return cloneSymbol(object);
-  }
-}
-
-module.exports = initCloneByTag;
-
-},{"./_cloneArrayBuffer":"../../node_modules/lodash/_cloneArrayBuffer.js","./_cloneDataView":"../../node_modules/lodash/_cloneDataView.js","./_cloneRegExp":"../../node_modules/lodash/_cloneRegExp.js","./_cloneSymbol":"../../node_modules/lodash/_cloneSymbol.js","./_cloneTypedArray":"../../node_modules/lodash/_cloneTypedArray.js"}],"../../node_modules/lodash/_baseCreate.js":[function(require,module,exports) {
-var isObject = require('./isObject');
-
-/** Built-in value references. */
-var objectCreate = Object.create;
-
-/**
- * The base implementation of `_.create` without support for assigning
- * properties to the created object.
- *
- * @private
- * @param {Object} proto The object to inherit from.
- * @returns {Object} Returns the new object.
- */
-var baseCreate = (function() {
-  function object() {}
-  return function(proto) {
-    if (!isObject(proto)) {
-      return {};
-    }
-    if (objectCreate) {
-      return objectCreate(proto);
-    }
-    object.prototype = proto;
-    var result = new object;
-    object.prototype = undefined;
-    return result;
-  };
-}());
-
-module.exports = baseCreate;
-
-},{"./isObject":"../../node_modules/lodash/isObject.js"}],"../../node_modules/lodash/_initCloneObject.js":[function(require,module,exports) {
-var baseCreate = require('./_baseCreate'),
-    getPrototype = require('./_getPrototype'),
-    isPrototype = require('./_isPrototype');
-
-/**
- * Initializes an object clone.
- *
- * @private
- * @param {Object} object The object to clone.
- * @returns {Object} Returns the initialized clone.
- */
-function initCloneObject(object) {
-  return (typeof object.constructor == 'function' && !isPrototype(object))
-    ? baseCreate(getPrototype(object))
-    : {};
-}
-
-module.exports = initCloneObject;
-
-},{"./_baseCreate":"../../node_modules/lodash/_baseCreate.js","./_getPrototype":"../../node_modules/lodash/_getPrototype.js","./_isPrototype":"../../node_modules/lodash/_isPrototype.js"}],"../../node_modules/lodash/_baseIsMap.js":[function(require,module,exports) {
-var getTag = require('./_getTag'),
-    isObjectLike = require('./isObjectLike');
-
-/** `Object#toString` result references. */
-var mapTag = '[object Map]';
-
-/**
- * The base implementation of `_.isMap` without Node.js optimizations.
- *
- * @private
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is a map, else `false`.
- */
-function baseIsMap(value) {
-  return isObjectLike(value) && getTag(value) == mapTag;
-}
-
-module.exports = baseIsMap;
-
-},{"./_getTag":"../../node_modules/lodash/_getTag.js","./isObjectLike":"../../node_modules/lodash/isObjectLike.js"}],"../../node_modules/lodash/isMap.js":[function(require,module,exports) {
-var baseIsMap = require('./_baseIsMap'),
-    baseUnary = require('./_baseUnary'),
-    nodeUtil = require('./_nodeUtil');
-
-/* Node.js helper references. */
-var nodeIsMap = nodeUtil && nodeUtil.isMap;
-
-/**
- * Checks if `value` is classified as a `Map` object.
- *
- * @static
- * @memberOf _
- * @since 4.3.0
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is a map, else `false`.
- * @example
- *
- * _.isMap(new Map);
- * // => true
- *
- * _.isMap(new WeakMap);
- * // => false
- */
-var isMap = nodeIsMap ? baseUnary(nodeIsMap) : baseIsMap;
-
-module.exports = isMap;
-
-},{"./_baseIsMap":"../../node_modules/lodash/_baseIsMap.js","./_baseUnary":"../../node_modules/lodash/_baseUnary.js","./_nodeUtil":"../../node_modules/lodash/_nodeUtil.js"}],"../../node_modules/lodash/_baseIsSet.js":[function(require,module,exports) {
-var getTag = require('./_getTag'),
-    isObjectLike = require('./isObjectLike');
-
-/** `Object#toString` result references. */
-var setTag = '[object Set]';
-
-/**
- * The base implementation of `_.isSet` without Node.js optimizations.
- *
- * @private
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is a set, else `false`.
- */
-function baseIsSet(value) {
-  return isObjectLike(value) && getTag(value) == setTag;
-}
-
-module.exports = baseIsSet;
-
-},{"./_getTag":"../../node_modules/lodash/_getTag.js","./isObjectLike":"../../node_modules/lodash/isObjectLike.js"}],"../../node_modules/lodash/isSet.js":[function(require,module,exports) {
-var baseIsSet = require('./_baseIsSet'),
-    baseUnary = require('./_baseUnary'),
-    nodeUtil = require('./_nodeUtil');
-
-/* Node.js helper references. */
-var nodeIsSet = nodeUtil && nodeUtil.isSet;
-
-/**
- * Checks if `value` is classified as a `Set` object.
- *
- * @static
- * @memberOf _
- * @since 4.3.0
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is a set, else `false`.
- * @example
- *
- * _.isSet(new Set);
- * // => true
- *
- * _.isSet(new WeakSet);
- * // => false
- */
-var isSet = nodeIsSet ? baseUnary(nodeIsSet) : baseIsSet;
-
-module.exports = isSet;
-
-},{"./_baseIsSet":"../../node_modules/lodash/_baseIsSet.js","./_baseUnary":"../../node_modules/lodash/_baseUnary.js","./_nodeUtil":"../../node_modules/lodash/_nodeUtil.js"}],"../../node_modules/lodash/_baseClone.js":[function(require,module,exports) {
-var Stack = require('./_Stack'),
-    arrayEach = require('./_arrayEach'),
-    assignValue = require('./_assignValue'),
-    baseAssign = require('./_baseAssign'),
-    baseAssignIn = require('./_baseAssignIn'),
-    cloneBuffer = require('./_cloneBuffer'),
-    copyArray = require('./_copyArray'),
-    copySymbols = require('./_copySymbols'),
-    copySymbolsIn = require('./_copySymbolsIn'),
-    getAllKeys = require('./_getAllKeys'),
-    getAllKeysIn = require('./_getAllKeysIn'),
-    getTag = require('./_getTag'),
-    initCloneArray = require('./_initCloneArray'),
-    initCloneByTag = require('./_initCloneByTag'),
-    initCloneObject = require('./_initCloneObject'),
-    isArray = require('./isArray'),
-    isBuffer = require('./isBuffer'),
-    isMap = require('./isMap'),
-    isObject = require('./isObject'),
-    isSet = require('./isSet'),
-    keys = require('./keys');
-
-/** Used to compose bitmasks for cloning. */
-var CLONE_DEEP_FLAG = 1,
-    CLONE_FLAT_FLAG = 2,
-    CLONE_SYMBOLS_FLAG = 4;
-
-/** `Object#toString` result references. */
-var argsTag = '[object Arguments]',
-    arrayTag = '[object Array]',
-    boolTag = '[object Boolean]',
-    dateTag = '[object Date]',
-    errorTag = '[object Error]',
-    funcTag = '[object Function]',
-    genTag = '[object GeneratorFunction]',
-    mapTag = '[object Map]',
-    numberTag = '[object Number]',
-    objectTag = '[object Object]',
-    regexpTag = '[object RegExp]',
-    setTag = '[object Set]',
-    stringTag = '[object String]',
-    symbolTag = '[object Symbol]',
-    weakMapTag = '[object WeakMap]';
-
-var arrayBufferTag = '[object ArrayBuffer]',
-    dataViewTag = '[object DataView]',
-    float32Tag = '[object Float32Array]',
-    float64Tag = '[object Float64Array]',
-    int8Tag = '[object Int8Array]',
-    int16Tag = '[object Int16Array]',
-    int32Tag = '[object Int32Array]',
-    uint8Tag = '[object Uint8Array]',
-    uint8ClampedTag = '[object Uint8ClampedArray]',
-    uint16Tag = '[object Uint16Array]',
-    uint32Tag = '[object Uint32Array]';
-
-/** Used to identify `toStringTag` values supported by `_.clone`. */
-var cloneableTags = {};
-cloneableTags[argsTag] = cloneableTags[arrayTag] =
-cloneableTags[arrayBufferTag] = cloneableTags[dataViewTag] =
-cloneableTags[boolTag] = cloneableTags[dateTag] =
-cloneableTags[float32Tag] = cloneableTags[float64Tag] =
-cloneableTags[int8Tag] = cloneableTags[int16Tag] =
-cloneableTags[int32Tag] = cloneableTags[mapTag] =
-cloneableTags[numberTag] = cloneableTags[objectTag] =
-cloneableTags[regexpTag] = cloneableTags[setTag] =
-cloneableTags[stringTag] = cloneableTags[symbolTag] =
-cloneableTags[uint8Tag] = cloneableTags[uint8ClampedTag] =
-cloneableTags[uint16Tag] = cloneableTags[uint32Tag] = true;
-cloneableTags[errorTag] = cloneableTags[funcTag] =
-cloneableTags[weakMapTag] = false;
-
-/**
- * The base implementation of `_.clone` and `_.cloneDeep` which tracks
- * traversed objects.
- *
- * @private
- * @param {*} value The value to clone.
- * @param {boolean} bitmask The bitmask flags.
- *  1 - Deep clone
- *  2 - Flatten inherited properties
- *  4 - Clone symbols
- * @param {Function} [customizer] The function to customize cloning.
- * @param {string} [key] The key of `value`.
- * @param {Object} [object] The parent object of `value`.
- * @param {Object} [stack] Tracks traversed objects and their clone counterparts.
- * @returns {*} Returns the cloned value.
- */
-function baseClone(value, bitmask, customizer, key, object, stack) {
-  var result,
-      isDeep = bitmask & CLONE_DEEP_FLAG,
-      isFlat = bitmask & CLONE_FLAT_FLAG,
-      isFull = bitmask & CLONE_SYMBOLS_FLAG;
-
-  if (customizer) {
-    result = object ? customizer(value, key, object, stack) : customizer(value);
-  }
-  if (result !== undefined) {
-    return result;
-  }
-  if (!isObject(value)) {
-    return value;
-  }
-  var isArr = isArray(value);
-  if (isArr) {
-    result = initCloneArray(value);
-    if (!isDeep) {
-      return copyArray(value, result);
-    }
-  } else {
-    var tag = getTag(value),
-        isFunc = tag == funcTag || tag == genTag;
-
-    if (isBuffer(value)) {
-      return cloneBuffer(value, isDeep);
-    }
-    if (tag == objectTag || tag == argsTag || (isFunc && !object)) {
-      result = (isFlat || isFunc) ? {} : initCloneObject(value);
-      if (!isDeep) {
-        return isFlat
-          ? copySymbolsIn(value, baseAssignIn(result, value))
-          : copySymbols(value, baseAssign(result, value));
-      }
-    } else {
-      if (!cloneableTags[tag]) {
-        return object ? value : {};
-      }
-      result = initCloneByTag(value, tag, isDeep);
-    }
-  }
-  // Check for circular references and return its corresponding clone.
-  stack || (stack = new Stack);
-  var stacked = stack.get(value);
-  if (stacked) {
-    return stacked;
-  }
-  stack.set(value, result);
-
-  if (isSet(value)) {
-    value.forEach(function(subValue) {
-      result.add(baseClone(subValue, bitmask, customizer, subValue, value, stack));
-    });
-
-    return result;
-  }
-
-  if (isMap(value)) {
-    value.forEach(function(subValue, key) {
-      result.set(key, baseClone(subValue, bitmask, customizer, key, value, stack));
-    });
-
-    return result;
-  }
-
-  var keysFunc = isFull
-    ? (isFlat ? getAllKeysIn : getAllKeys)
-    : (isFlat ? keysIn : keys);
-
-  var props = isArr ? undefined : keysFunc(value);
-  arrayEach(props || value, function(subValue, key) {
-    if (props) {
-      key = subValue;
-      subValue = value[key];
-    }
-    // Recursively populate clone (susceptible to call stack limits).
-    assignValue(result, key, baseClone(subValue, bitmask, customizer, key, value, stack));
-  });
-  return result;
-}
-
-module.exports = baseClone;
-
-},{"./_Stack":"../../node_modules/lodash/_Stack.js","./_arrayEach":"../../node_modules/lodash/_arrayEach.js","./_assignValue":"../../node_modules/lodash/_assignValue.js","./_baseAssign":"../../node_modules/lodash/_baseAssign.js","./_baseAssignIn":"../../node_modules/lodash/_baseAssignIn.js","./_cloneBuffer":"../../node_modules/lodash/_cloneBuffer.js","./_copyArray":"../../node_modules/lodash/_copyArray.js","./_copySymbols":"../../node_modules/lodash/_copySymbols.js","./_copySymbolsIn":"../../node_modules/lodash/_copySymbolsIn.js","./_getAllKeys":"../../node_modules/lodash/_getAllKeys.js","./_getAllKeysIn":"../../node_modules/lodash/_getAllKeysIn.js","./_getTag":"../../node_modules/lodash/_getTag.js","./_initCloneArray":"../../node_modules/lodash/_initCloneArray.js","./_initCloneByTag":"../../node_modules/lodash/_initCloneByTag.js","./_initCloneObject":"../../node_modules/lodash/_initCloneObject.js","./isArray":"../../node_modules/lodash/isArray.js","./isBuffer":"../../node_modules/lodash/isBuffer.js","./isMap":"../../node_modules/lodash/isMap.js","./isObject":"../../node_modules/lodash/isObject.js","./isSet":"../../node_modules/lodash/isSet.js","./keys":"../../node_modules/lodash/keys.js"}],"../../node_modules/lodash/cloneDeep.js":[function(require,module,exports) {
-var baseClone = require('./_baseClone');
-
-/** Used to compose bitmasks for cloning. */
-var CLONE_DEEP_FLAG = 1,
-    CLONE_SYMBOLS_FLAG = 4;
-
-/**
- * This method is like `_.clone` except that it recursively clones `value`.
- *
- * @static
- * @memberOf _
- * @since 1.0.0
- * @category Lang
- * @param {*} value The value to recursively clone.
- * @returns {*} Returns the deep cloned value.
- * @see _.clone
- * @example
- *
- * var objects = [{ 'a': 1 }, { 'b': 2 }];
- *
- * var deep = _.cloneDeep(objects);
- * console.log(deep[0] === objects[0]);
- * // => false
- */
-function cloneDeep(value) {
-  return baseClone(value, CLONE_DEEP_FLAG | CLONE_SYMBOLS_FLAG);
-}
-
-module.exports = cloneDeep;
-
-},{"./_baseClone":"../../node_modules/lodash/_baseClone.js"}],"hooks/useSimulation.js":[function(require,module,exports) {
+},{"./_baseIsEqual":"../../node_modules/lodash/_baseIsEqual.js"}],"hooks/useNow.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports.default = useNow;
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+
+function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+var _require = require('react'),
+    useEffect = _require.useEffect,
+    useState = _require.useState;
+
+function useNow() {
+  var running = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
+
+  var _useState = useState(Date.now()),
+      _useState2 = _slicedToArray(_useState, 2),
+      now = _useState2[0],
+      setNow = _useState2[1];
+
+  useEffect(function () {
+    if (!running) return;
+    var frame = requestAnimationFrame(function () {
+      return setNow(Date.now());
+    });
+    return function () {
+      return cancelAnimationFrame(frame);
+    };
+  }, [now, running]);
+  return now;
+}
+},{"react":"../../node_modules/react/index.js"}],"hooks/useDeltaTime.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = useDeltaTime;
+
+var _useNow = _interopRequireDefault(require("./useNow"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function useDeltaTime() {
+  var running = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
+  var now = (0, _useNow.default)(running);
+  var then = (0, _useNow.default)(now);
+  return now - then;
+}
+},{"./useNow":"hooks/useNow.js"}],"hooks/useSimulation.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = useSimulation;
 
 var _react = require("react");
 
@@ -43779,21 +43166,13 @@ var _intersection = _interopRequireDefault(require("lodash/intersection"));
 
 var _isEqual = _interopRequireDefault(require("lodash/isEqual"));
 
-var _cloneDeep = _interopRequireDefault(require("lodash/cloneDeep"));
-
 var _useWindowSize = _interopRequireDefault(require("~/hooks/useWindowSize"));
+
+var _useDeltaTime = _interopRequireDefault(require("~/hooks/useDeltaTime"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
-
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
-
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
-
-function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
-
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
 
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
 
@@ -43802,6 +43181,12 @@ function _nonIterableRest() { throw new TypeError("Invalid attempt to destructur
 function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+var useRefFn = function useRefFn(fn) {
+  var ref = (0, _react.useRef)(null);
+  if (ref.current === null) ref.current = fn();
+  return ref;
+};
 
 var sum = function sum(xs) {
   return xs.reduce(function (a, b) {
@@ -43815,43 +43200,101 @@ var mean = function mean(xs) {
 
 var clamp = function clamp(x, min, max) {
   return Math.max(Math.min(x, max), min);
-}; // var forceGroup = groups => {
-//     var nodes;
-//     var strength = .2;
-//     var force = alpha => {
-//         groups.forEach( is => {
-//             var ns = is.map( i => nodes[ i ] );
-//             var cx = mean( ns.map( n => n.x ) );
-//             var cy = mean( ns.map( n => n.y ) );
-//             ns.forEach( node => {
-//                 node.x += ( cx - node.x ) * strength;
-//                 node.y += ( cy - node.y ) * strength;
-//             })
-//         })
-//     }
-//     force.initialize = ns => nodes = ns;
-//     return force;
-// }
+};
 
+var forceBounds = function forceBounds(size) {
+  var nodes;
 
-var _default = function _default(data, radius, initialPositions) {
+  var force = function force(alpha) {
+    var cx = mean(nodes.map(function (n) {
+      return n.x;
+    }));
+    var cy = mean(nodes.map(function (n) {
+      return n.y;
+    }));
+    var hw = size[0] / 2;
+    var hh = size[1] / 2;
+    nodes.forEach(function (n) {
+      n.x = clamp(n.x, cx - hw + n.r, cx + hw - n.r);
+      n.y = clamp(n.y, cy - hh + n.r, cy + hh - n.r);
+    });
+  };
+
+  force.initialize = function (ns) {
+    return nodes = ns;
+  };
+
+  return force;
+};
+
+var useD3Simulation = function useD3Simulation(nodes) {
   var _useState = (0, _react.useState)(function () {
-    return (0, _cloneDeep.default)(initialPositions);
+    var sim = d3force.forceSimulation().stop();
+    sim.useForce = bindUseForce(sim);
+    return sim;
   }),
-      _useState2 = _slicedToArray(_useState, 2),
-      nodes = _useState2[0],
-      setNodes = _useState2[1];
+      _useState2 = _slicedToArray(_useState, 1),
+      simulation = _useState2[0];
+
+  (0, _react.useLayoutEffect)(function () {
+    simulation.nodes(nodes);
+  }, [simulation, nodes]);
+  return simulation;
+};
+
+var bindUseForce = function bindUseForce(simulation) {
+  return function useForce(name, create) {
+    var force = (0, _react.useMemo)(create, []);
+    var useParam = (0, _react.useCallback)(bindUseForceParam(force), [force]);
+    (0, _react.useLayoutEffect)(function () {
+      var n = name;
+      simulation.force(n, force);
+
+      (function () {
+        return simulation.force(n, null);
+      });
+    }, [simulation, name, force]);
+    return {
+      force: force,
+      useParam: useParam
+    };
+  };
+};
+
+var bindUseForceParam = function bindUseForceParam(force) {
+  return function useParam(name, value) {
+    (0, _react.useLayoutEffect)(function () {
+      force[name](value);
+    }, [force, name, value]);
+  };
+};
+
+function useSimulation(projects) {
+  var running = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+
+  var _ref = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {},
+      _ref$linkStrength = _ref.linkStrength,
+      linkStrength = _ref$linkStrength === void 0 ? .002 : _ref$linkStrength;
 
   var windowSize = (0, _useWindowSize.default)();
-  (0, _react.useLayoutEffect)(function () {
+  var nodes = useRefFn(function () {
+    return projects.map(function (p) {
+      return {
+        x: Math.random() * windowSize[0],
+        y: Math.random() * windowSize[1],
+        r: Math.random() < .1 ? 80 : 40
+      };
+    });
+  }).current;
+  var links = (0, _react.useMemo)(function () {
     var links = [];
 
     for (var i = 0; i < nodes.length; i++) {
       for (var j = i; j < nodes.length; j++) {
         var n1 = nodes[i];
         var n2 = nodes[j];
-        var tags1 = data.projects[i].tags;
-        var tags2 = data.projects[j].tags;
+        var tags1 = projects[i].tags;
+        var tags2 = projects[j].tags;
         var strength = (0, _intersection.default)(tags1, tags2).length;
         if ((0, _isEqual.default)(tags1, tags2)) strength *= 2;
         if (strength > 0) links.push({
@@ -43862,34 +43305,99 @@ var _default = function _default(data, radius, initialPositions) {
       }
     }
 
-    var simulation = d3force.forceSimulation(nodes).alphaDecay(0.005).velocityDecay(0.2).force('links', d3force.forceLink(links).distance(radius * 2).strength(function (_ref) {
-      var source = _ref.source,
-          target = _ref.target,
-          strength = _ref.strength;
-      // var d = Math.sqrt( Math.pow( source.x - target.x, 2 ) + Math.pow( source.y - target.y, 2 ) );
-      // return strength * d * 0.000003;
-      return strength * .002;
-    })) // .force( 'group', forceGroup( Object.values( data.byTag ) ) )
-    .force("collide", d3force.forceCollide().radius(radius).strength(0.5).iterations(5)).on('tick', function () {
-      var cx = mean(nodes.map(function (n) {
-        return n.x;
-      }));
-      var cy = mean(nodes.map(function (n) {
-        return n.y;
-      }));
-      var hw = windowSize[0] / 2;
-      var hh = windowSize[1] / 2;
-      nodes.forEach(function (n) {
-        n.x = clamp(n.x, cx - hw + radius, cx + hw - radius);
-        n.y = clamp(n.y, cy - hh + radius, cy + hh - radius);
-      });
-      setNodes(_toConsumableArray(nodes));
-    });
-    return function () {
-      simulation.on('tick', null);
-      simulation.stop();
-    };
-  }, [data, windowSize, radius]);
+    return links;
+  }, [nodes, projects]);
+  var simulation = useD3Simulation(nodes);
+  var forceLinks = simulation.useForce('links', d3force.forceLink);
+  forceLinks.useParam('links', links);
+  forceLinks.useParam('distance', (0, _react.useCallback)(function (_ref2) {
+    var source = _ref2.source,
+        target = _ref2.target;
+    return source.r + target.r;
+  }, []));
+  forceLinks.useParam('strength', (0, _react.useCallback)(function (_ref3) {
+    var strength = _ref3.strength;
+    return strength * linkStrength;
+  }, [linkStrength]));
+  var forceCollide = simulation.useForce('collide', d3force.forceCollide);
+  forceCollide.useParam('radius', (0, _react.useCallback)(function (n) {
+    return n.r;
+  }, []));
+  forceCollide.useParam('strength', .5);
+  forceCollide.useParam('iterations', 3);
+  var dT = (0, _useDeltaTime.default)(running);
+  var step = 1000 / 60; // console.log( Math.min( Math.ceil( dT / step ), 10 ) )
+  // simulation.tick( Math.min( Math.ceil( dT / step ), 10 ) );
+
+  if (running) simulation.tick(); // var simulation = useRefFn( () => d3force.forceSimulation().stop() );
+  // var forceLinks = useForce( simulation, 'links', () => d3force.forceLink( links ) );
+  // useForceParam( forceLinks, 'distance', ({ source, target }) => source.r + target.r )
+  // var forceLinks = useRefFn( () => (
+  //     d3force.forceLink( links )
+  //         .distance(  )
+  // ))
+  // useLayoutEffect( () => (
+  //     forceLinks.strength(
+  //         ({ source, target, strength }) => strength * linkStrength
+  //     )
+  // ), [ forceLinks, linkStrength ] )
+  // useEffect( () => {
+  // }, [ nodes ] )
+  // // var [ nodes, setNodes ] = useState( () => projects.map( p => ({
+  // //     x: Math.random() * windowSize[ 0 ],
+  // //     y: Math.random() * windowSize[ 1 ],
+  // //     r: Math.random() < .1 ? 80 : 40
+  // // })));
+  // debugger
+  // var links = useMemo( () => {
+  //     var links = [];
+  //     for ( var i = 0; i < nodes.length; i++ ) {
+  //         for ( var j = i; j < nodes.length; j++ ) {
+  //             var n1 = nodes[ i ];
+  //             var n2 = nodes[ j ];
+  //             var tags1 = projects[ i ].tags;
+  //             var tags2 = projects[ j ].tags;
+  //             var strength = intersection( tags1, tags2 ).length;
+  //             if ( isEqual( tags1, tags2 ) ) strength *= 2;
+  //             if ( strength > 0 ) links.push({ source: n1, target: n2, strength });
+  //         }
+  //     }
+  //     return links;
+  // }, [ projects ] );
+  // useLayoutEffect( () => {
+  //     var simulation = d3force.forceSimulation( nodes )
+  //         .alphaDecay( 0.0005 )
+  //         // .velocityDecay( 0.2 )
+  //         .force( 'links',
+  //             d3force.forceLink( links )
+  //                 .distance( ({ source, target }) => source.r + target.r )
+  //                 .strength( ({ source, target, strength }) => {
+  //                     return strength * .002;
+  //                 })
+  //         )
+  //         .force( "collide",
+  //             d3force.forceCollide()
+  //                 .radius( n => n.r )
+  //                 .strength( 0.5 )
+  //                 .iterations( 5 )
+  //         )
+  //         .on( 'tick', () => {
+  //             var cx = mean( nodes.map( n => n.x ) );
+  //             var cy = mean( nodes.map( n => n.y ) );
+  //             var hw = windowSize[ 0 ] / 2;
+  //             var hh = windowSize[ 1 ] / 2;
+  //             nodes.forEach( n => {
+  //                 n.x = clamp( n.x, cx - hw + n.r, cx + hw - n.r );
+  //                 n.y = clamp( n.y, cy - hh + n.r, cy + hh - n.r );
+  //             })
+  //             setNodes([ ...nodes ]);
+  //         })
+  //     return () => {
+  //         simulation.on( 'tick', null );
+  //         simulation.stop();
+  //     }
+  // }, [ projects, windowSize ] );
+
   var cx = windowSize[0] / 2 - mean(nodes.map(function (n) {
     return n.x;
   }));
@@ -43899,45 +43407,12 @@ var _default = function _default(data, radius, initialPositions) {
   return nodes.map(function (n) {
     return {
       x: n.x + cx,
-      y: n.y + cy
+      y: n.y + cy,
+      r: n.r
     };
   });
-};
-
-exports.default = _default;
-},{"react":"../../node_modules/react/index.js","d3-force":"../../node_modules/d3-force/src/index.js","lodash/intersection":"../../node_modules/lodash/intersection.js","lodash/isEqual":"../../node_modules/lodash/isEqual.js","lodash/cloneDeep":"../../node_modules/lodash/cloneDeep.js","~/hooks/useWindowSize":"hooks/useWindowSize.js"}],"components/Thumbnail.jsx":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireDefault(require("react"));
-
-var _reactRouterDom = require("react-router-dom");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var Thumbnail = function Thumbnail(_ref) {
-  var project = _ref.project,
-      _ref$position = _ref.position,
-      x = _ref$position.x,
-      y = _ref$position.y;
-  return _react.default.createElement(_reactRouterDom.Link, {
-    to: project.url
-  }, _react.default.createElement("img", {
-    className: "thumbnail",
-    src: project.thumbnail,
-    style: {
-      transform: "\n                    translate(-50%, -50%)\n                    translate( ".concat(x, "px, ").concat(y, "px )\n                ")
-    }
-  }));
-};
-
-var _default = Thumbnail;
-exports.default = _default;
-},{"react":"../../node_modules/react/index.js","react-router-dom":"../../node_modules/react-router-dom/esm/react-router-dom.js"}],"components/Tags.jsx":[function(require,module,exports) {
+}
+},{"react":"../../node_modules/react/index.js","d3-force":"../../node_modules/d3-force/src/index.js","lodash/intersection":"../../node_modules/lodash/intersection.js","lodash/isEqual":"../../node_modules/lodash/isEqual.js","~/hooks/useWindowSize":"hooks/useWindowSize.js","~/hooks/useDeltaTime":"hooks/useDeltaTime.js"}],"components/Home.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -43947,17 +43422,23 @@ exports.default = void 0;
 
 var _react = _interopRequireWildcard(require("react"));
 
-var _VennShader = _interopRequireDefault(require("./VennShader.jsx"));
+var _Thumbnail = _interopRequireDefault(require("./Thumbnail"));
 
-var _useWindowSize = _interopRequireDefault(require("~/hooks/useWindowSize"));
+var _Legend = _interopRequireDefault(require("./Legend"));
+
+var _Nav = _interopRequireDefault(require("./Nav"));
+
+var _VennShader = _interopRequireDefault(require("./VennShader"));
+
+var _useData = _interopRequireDefault(require("~/hooks/useData"));
 
 var _useSimulation = _interopRequireDefault(require("~/hooks/useSimulation"));
-
-var _Thumbnail = _interopRequireDefault(require("./Thumbnail"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
 
@@ -43967,2030 +43448,72 @@ function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = 
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
-var randomPosition = function randomPosition() {
-  return {
-    x: Math.random() * window.innerWidth,
-    y: Math.random() * window.innerHeight
-  };
+var groupLayers = function groupLayers(positions, byTag, colors) {
+  return Object.entries(byTag).map(function (_ref) {
+    var _ref2 = _slicedToArray(_ref, 2),
+        tag = _ref2[0],
+        idxs = _ref2[1];
+
+    return {
+      color: colors[tag],
+      positions: idxs.map(function (i) {
+        return positions[i];
+      })
+    };
+  });
 };
 
-var Legend = function Legend(_ref) {
-  var tags = _ref.tags,
-      colors = _ref.colors,
-      filter = _ref.filter,
-      setFilter = _ref.setFilter;
+var Home = function Home(_ref3) {
+  var data = _ref3.data;
 
-  var _useState = (0, _react.useState)(null),
+  var _useState = (0, _react.useState)('tags'),
       _useState2 = _slicedToArray(_useState, 2),
-      selected = _useState2[0],
-      setSelected = _useState2[1];
-
-  return _react.default.createElement("ul", {
-    className: "legend"
-  }, tags.map(function (tag) {
-    return _react.default.createElement("li", {
-      key: tag,
-      className: filter === null || filter === tag ? 'selected' : undefined,
-      style: {
-        '--color': colors[tag]
-      },
-      onMouseEnter: function onMouseEnter() {
-        return setFilter(tag);
-      },
-      onMouseLeave: function onMouseLeave() {
-        return setFilter(selected);
-      },
-      onClick: function onClick() {
-        return setSelected(selected === tag ? null : tag);
-      }
-    }, tag);
-  }));
-};
-
-var Venn = function Venn(_ref2) {
-  var data = _ref2.data,
-      radius = _ref2.radius,
-      _ref2$initialPosition = _ref2.initialPositions,
-      initialPositions = _ref2$initialPosition === void 0 ? data.projects.map(randomPosition) : _ref2$initialPosition;
+      mode = _useState2[0],
+      setMode = _useState2[1];
 
   var _useState3 = (0, _react.useState)(null),
       _useState4 = _slicedToArray(_useState3, 2),
       filter = _useState4[0],
       setFilter = _useState4[1];
 
-  var positions = (0, _useSimulation.default)(data, radius, initialPositions);
+  var positions = (0, _useSimulation.default)(data.projects);
   return _react.default.createElement(_react.default.Fragment, null, _react.default.createElement(_VennShader.default, {
-    data: data,
-    radius: radius,
-    positions: positions
-  }), _react.default.createElement(Legend, {
-    tags: data.tags,
+    layers: groupLayers(positions, data.byTag, data.colors)
+  }), _react.default.createElement(_Nav.default, {
+    setMode: setMode
+  }), _react.default.createElement(_Legend.default, {
+    tags: Object.keys(data.byTag),
     colors: data.colors,
     filter: filter,
     setFilter: setFilter
   }), data.projects.filter(function (project) {
     return filter === null || project.tags.includes(filter);
-  }).map(function (project, i) {
+  }).map(function (project) {
+    var position = positions[project.i];
     return _react.default.createElement(_Thumbnail.default, {
       key: project.url,
       project: project,
-      position: positions[project.i]
+      x: position.x,
+      y: position.y,
+      r: position.r
     });
   }));
 };
 
-var Grid = function Grid(data) {};
-
-var Tags = function Tags(props) {
-  return _useWindowSize.default[0] < 768 ? _react.default.createElement(Grid, props) : _react.default.createElement(Venn, props);
-};
-
-var _default = Venn;
-exports.default = _default;
-},{"react":"../../node_modules/react/index.js","./VennShader.jsx":"components/VennShader.jsx","~/hooks/useWindowSize":"hooks/useWindowSize.js","~/hooks/useSimulation":"hooks/useSimulation.js","./Thumbnail":"components/Thumbnail.jsx"}],"../../node_modules/lodash/_baseSlice.js":[function(require,module,exports) {
-/**
- * The base implementation of `_.slice` without an iteratee call guard.
- *
- * @private
- * @param {Array} array The array to slice.
- * @param {number} [start=0] The start position.
- * @param {number} [end=array.length] The end position.
- * @returns {Array} Returns the slice of `array`.
- */
-function baseSlice(array, start, end) {
-  var index = -1,
-      length = array.length;
-
-  if (start < 0) {
-    start = -start > length ? 0 : (length + start);
-  }
-  end = end > length ? length : end;
-  if (end < 0) {
-    end += length;
-  }
-  length = start > end ? 0 : ((end - start) >>> 0);
-  start >>>= 0;
-
-  var result = Array(length);
-  while (++index < length) {
-    result[index] = array[index + start];
-  }
-  return result;
-}
-
-module.exports = baseSlice;
-
-},{}],"../../node_modules/lodash/_isIterateeCall.js":[function(require,module,exports) {
-var eq = require('./eq'),
-    isArrayLike = require('./isArrayLike'),
-    isIndex = require('./_isIndex'),
-    isObject = require('./isObject');
-
-/**
- * Checks if the given arguments are from an iteratee call.
- *
- * @private
- * @param {*} value The potential iteratee value argument.
- * @param {*} index The potential iteratee index or key argument.
- * @param {*} object The potential iteratee object argument.
- * @returns {boolean} Returns `true` if the arguments are from an iteratee call,
- *  else `false`.
- */
-function isIterateeCall(value, index, object) {
-  if (!isObject(object)) {
-    return false;
-  }
-  var type = typeof index;
-  if (type == 'number'
-        ? (isArrayLike(object) && isIndex(index, object.length))
-        : (type == 'string' && index in object)
-      ) {
-    return eq(object[index], value);
-  }
-  return false;
-}
-
-module.exports = isIterateeCall;
-
-},{"./eq":"../../node_modules/lodash/eq.js","./isArrayLike":"../../node_modules/lodash/isArrayLike.js","./_isIndex":"../../node_modules/lodash/_isIndex.js","./isObject":"../../node_modules/lodash/isObject.js"}],"../../node_modules/lodash/isSymbol.js":[function(require,module,exports) {
-var baseGetTag = require('./_baseGetTag'),
-    isObjectLike = require('./isObjectLike');
-
-/** `Object#toString` result references. */
-var symbolTag = '[object Symbol]';
-
-/**
- * Checks if `value` is classified as a `Symbol` primitive or object.
- *
- * @static
- * @memberOf _
- * @since 4.0.0
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is a symbol, else `false`.
- * @example
- *
- * _.isSymbol(Symbol.iterator);
- * // => true
- *
- * _.isSymbol('abc');
- * // => false
- */
-function isSymbol(value) {
-  return typeof value == 'symbol' ||
-    (isObjectLike(value) && baseGetTag(value) == symbolTag);
-}
-
-module.exports = isSymbol;
-
-},{"./_baseGetTag":"../../node_modules/lodash/_baseGetTag.js","./isObjectLike":"../../node_modules/lodash/isObjectLike.js"}],"../../node_modules/lodash/toNumber.js":[function(require,module,exports) {
-var isObject = require('./isObject'),
-    isSymbol = require('./isSymbol');
-
-/** Used as references for various `Number` constants. */
-var NAN = 0 / 0;
-
-/** Used to match leading and trailing whitespace. */
-var reTrim = /^\s+|\s+$/g;
-
-/** Used to detect bad signed hexadecimal string values. */
-var reIsBadHex = /^[-+]0x[0-9a-f]+$/i;
-
-/** Used to detect binary string values. */
-var reIsBinary = /^0b[01]+$/i;
-
-/** Used to detect octal string values. */
-var reIsOctal = /^0o[0-7]+$/i;
-
-/** Built-in method references without a dependency on `root`. */
-var freeParseInt = parseInt;
-
-/**
- * Converts `value` to a number.
- *
- * @static
- * @memberOf _
- * @since 4.0.0
- * @category Lang
- * @param {*} value The value to process.
- * @returns {number} Returns the number.
- * @example
- *
- * _.toNumber(3.2);
- * // => 3.2
- *
- * _.toNumber(Number.MIN_VALUE);
- * // => 5e-324
- *
- * _.toNumber(Infinity);
- * // => Infinity
- *
- * _.toNumber('3.2');
- * // => 3.2
- */
-function toNumber(value) {
-  if (typeof value == 'number') {
-    return value;
-  }
-  if (isSymbol(value)) {
-    return NAN;
-  }
-  if (isObject(value)) {
-    var other = typeof value.valueOf == 'function' ? value.valueOf() : value;
-    value = isObject(other) ? (other + '') : other;
-  }
-  if (typeof value != 'string') {
-    return value === 0 ? value : +value;
-  }
-  value = value.replace(reTrim, '');
-  var isBinary = reIsBinary.test(value);
-  return (isBinary || reIsOctal.test(value))
-    ? freeParseInt(value.slice(2), isBinary ? 2 : 8)
-    : (reIsBadHex.test(value) ? NAN : +value);
-}
-
-module.exports = toNumber;
-
-},{"./isObject":"../../node_modules/lodash/isObject.js","./isSymbol":"../../node_modules/lodash/isSymbol.js"}],"../../node_modules/lodash/toFinite.js":[function(require,module,exports) {
-var toNumber = require('./toNumber');
-
-/** Used as references for various `Number` constants. */
-var INFINITY = 1 / 0,
-    MAX_INTEGER = 1.7976931348623157e+308;
-
-/**
- * Converts `value` to a finite number.
- *
- * @static
- * @memberOf _
- * @since 4.12.0
- * @category Lang
- * @param {*} value The value to convert.
- * @returns {number} Returns the converted number.
- * @example
- *
- * _.toFinite(3.2);
- * // => 3.2
- *
- * _.toFinite(Number.MIN_VALUE);
- * // => 5e-324
- *
- * _.toFinite(Infinity);
- * // => 1.7976931348623157e+308
- *
- * _.toFinite('3.2');
- * // => 3.2
- */
-function toFinite(value) {
-  if (!value) {
-    return value === 0 ? value : 0;
-  }
-  value = toNumber(value);
-  if (value === INFINITY || value === -INFINITY) {
-    var sign = (value < 0 ? -1 : 1);
-    return sign * MAX_INTEGER;
-  }
-  return value === value ? value : 0;
-}
-
-module.exports = toFinite;
-
-},{"./toNumber":"../../node_modules/lodash/toNumber.js"}],"../../node_modules/lodash/toInteger.js":[function(require,module,exports) {
-var toFinite = require('./toFinite');
-
-/**
- * Converts `value` to an integer.
- *
- * **Note:** This method is loosely based on
- * [`ToInteger`](http://www.ecma-international.org/ecma-262/7.0/#sec-tointeger).
- *
- * @static
- * @memberOf _
- * @since 4.0.0
- * @category Lang
- * @param {*} value The value to convert.
- * @returns {number} Returns the converted integer.
- * @example
- *
- * _.toInteger(3.2);
- * // => 3
- *
- * _.toInteger(Number.MIN_VALUE);
- * // => 0
- *
- * _.toInteger(Infinity);
- * // => 1.7976931348623157e+308
- *
- * _.toInteger('3.2');
- * // => 3
- */
-function toInteger(value) {
-  var result = toFinite(value),
-      remainder = result % 1;
-
-  return result === result ? (remainder ? result - remainder : result) : 0;
-}
-
-module.exports = toInteger;
-
-},{"./toFinite":"../../node_modules/lodash/toFinite.js"}],"../../node_modules/lodash/chunk.js":[function(require,module,exports) {
-var baseSlice = require('./_baseSlice'),
-    isIterateeCall = require('./_isIterateeCall'),
-    toInteger = require('./toInteger');
-
-/* Built-in method references for those with the same name as other `lodash` methods. */
-var nativeCeil = Math.ceil,
-    nativeMax = Math.max;
-
-/**
- * Creates an array of elements split into groups the length of `size`.
- * If `array` can't be split evenly, the final chunk will be the remaining
- * elements.
- *
- * @static
- * @memberOf _
- * @since 3.0.0
- * @category Array
- * @param {Array} array The array to process.
- * @param {number} [size=1] The length of each chunk
- * @param- {Object} [guard] Enables use as an iteratee for methods like `_.map`.
- * @returns {Array} Returns the new array of chunks.
- * @example
- *
- * _.chunk(['a', 'b', 'c', 'd'], 2);
- * // => [['a', 'b'], ['c', 'd']]
- *
- * _.chunk(['a', 'b', 'c', 'd'], 3);
- * // => [['a', 'b', 'c'], ['d']]
- */
-function chunk(array, size, guard) {
-  if ((guard ? isIterateeCall(array, size, guard) : size === undefined)) {
-    size = 1;
-  } else {
-    size = nativeMax(toInteger(size), 0);
-  }
-  var length = array == null ? 0 : array.length;
-  if (!length || size < 1) {
-    return [];
-  }
-  var index = 0,
-      resIndex = 0,
-      result = Array(nativeCeil(length / size));
-
-  while (index < length) {
-    result[resIndex++] = baseSlice(array, index, (index += size));
-  }
-  return result;
-}
-
-module.exports = chunk;
-
-},{"./_baseSlice":"../../node_modules/lodash/_baseSlice.js","./_isIterateeCall":"../../node_modules/lodash/_isIterateeCall.js","./toInteger":"../../node_modules/lodash/toInteger.js"}],"../../node_modules/lodash/_baseRange.js":[function(require,module,exports) {
-/* Built-in method references for those with the same name as other `lodash` methods. */
-var nativeCeil = Math.ceil,
-    nativeMax = Math.max;
-
-/**
- * The base implementation of `_.range` and `_.rangeRight` which doesn't
- * coerce arguments.
- *
- * @private
- * @param {number} start The start of the range.
- * @param {number} end The end of the range.
- * @param {number} step The value to increment or decrement by.
- * @param {boolean} [fromRight] Specify iterating from right to left.
- * @returns {Array} Returns the range of numbers.
- */
-function baseRange(start, end, step, fromRight) {
-  var index = -1,
-      length = nativeMax(nativeCeil((end - start) / (step || 1)), 0),
-      result = Array(length);
-
-  while (length--) {
-    result[fromRight ? length : ++index] = start;
-    start += step;
-  }
-  return result;
-}
-
-module.exports = baseRange;
-
-},{}],"../../node_modules/lodash/_createRange.js":[function(require,module,exports) {
-var baseRange = require('./_baseRange'),
-    isIterateeCall = require('./_isIterateeCall'),
-    toFinite = require('./toFinite');
-
-/**
- * Creates a `_.range` or `_.rangeRight` function.
- *
- * @private
- * @param {boolean} [fromRight] Specify iterating from right to left.
- * @returns {Function} Returns the new range function.
- */
-function createRange(fromRight) {
-  return function(start, end, step) {
-    if (step && typeof step != 'number' && isIterateeCall(start, end, step)) {
-      end = step = undefined;
-    }
-    // Ensure the sign of `-0` is preserved.
-    start = toFinite(start);
-    if (end === undefined) {
-      end = start;
-      start = 0;
-    } else {
-      end = toFinite(end);
-    }
-    step = step === undefined ? (start < end ? 1 : -1) : toFinite(step);
-    return baseRange(start, end, step, fromRight);
+var withData = function withData(Component) {
+  return function (props) {
+    var data = (0, _useData.default)();
+    if (data === null) return null;
+    return _react.default.createElement(Component, _extends({
+      data: data
+    }, props));
   };
-}
-
-module.exports = createRange;
-
-},{"./_baseRange":"../../node_modules/lodash/_baseRange.js","./_isIterateeCall":"../../node_modules/lodash/_isIterateeCall.js","./toFinite":"../../node_modules/lodash/toFinite.js"}],"../../node_modules/lodash/range.js":[function(require,module,exports) {
-var createRange = require('./_createRange');
-
-/**
- * Creates an array of numbers (positive and/or negative) progressing from
- * `start` up to, but not including, `end`. A step of `-1` is used if a negative
- * `start` is specified without an `end` or `step`. If `end` is not specified,
- * it's set to `start` with `start` then set to `0`.
- *
- * **Note:** JavaScript follows the IEEE-754 standard for resolving
- * floating-point values which can produce unexpected results.
- *
- * @static
- * @since 0.1.0
- * @memberOf _
- * @category Util
- * @param {number} [start=0] The start of the range.
- * @param {number} end The end of the range.
- * @param {number} [step=1] The value to increment or decrement by.
- * @returns {Array} Returns the range of numbers.
- * @see _.inRange, _.rangeRight
- * @example
- *
- * _.range(4);
- * // => [0, 1, 2, 3]
- *
- * _.range(-4);
- * // => [0, -1, -2, -3]
- *
- * _.range(1, 5);
- * // => [1, 2, 3, 4]
- *
- * _.range(0, 20, 5);
- * // => [0, 5, 10, 15]
- *
- * _.range(0, -4, -1);
- * // => [0, -1, -2, -3]
- *
- * _.range(1, 4, 0);
- * // => [1, 1, 1]
- *
- * _.range(0);
- * // => []
- */
-var range = createRange();
-
-module.exports = range;
-
-},{"./_createRange":"../../node_modules/lodash/_createRange.js"}],"../../node_modules/lodash/_isFlattenable.js":[function(require,module,exports) {
-var Symbol = require('./_Symbol'),
-    isArguments = require('./isArguments'),
-    isArray = require('./isArray');
-
-/** Built-in value references. */
-var spreadableSymbol = Symbol ? Symbol.isConcatSpreadable : undefined;
-
-/**
- * Checks if `value` is a flattenable `arguments` object or array.
- *
- * @private
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is flattenable, else `false`.
- */
-function isFlattenable(value) {
-  return isArray(value) || isArguments(value) ||
-    !!(spreadableSymbol && value && value[spreadableSymbol]);
-}
-
-module.exports = isFlattenable;
-
-},{"./_Symbol":"../../node_modules/lodash/_Symbol.js","./isArguments":"../../node_modules/lodash/isArguments.js","./isArray":"../../node_modules/lodash/isArray.js"}],"../../node_modules/lodash/_baseFlatten.js":[function(require,module,exports) {
-var arrayPush = require('./_arrayPush'),
-    isFlattenable = require('./_isFlattenable');
-
-/**
- * The base implementation of `_.flatten` with support for restricting flattening.
- *
- * @private
- * @param {Array} array The array to flatten.
- * @param {number} depth The maximum recursion depth.
- * @param {boolean} [predicate=isFlattenable] The function invoked per iteration.
- * @param {boolean} [isStrict] Restrict to values that pass `predicate` checks.
- * @param {Array} [result=[]] The initial result value.
- * @returns {Array} Returns the new flattened array.
- */
-function baseFlatten(array, depth, predicate, isStrict, result) {
-  var index = -1,
-      length = array.length;
-
-  predicate || (predicate = isFlattenable);
-  result || (result = []);
-
-  while (++index < length) {
-    var value = array[index];
-    if (depth > 0 && predicate(value)) {
-      if (depth > 1) {
-        // Recursively flatten arrays (susceptible to call stack limits).
-        baseFlatten(value, depth - 1, predicate, isStrict, result);
-      } else {
-        arrayPush(result, value);
-      }
-    } else if (!isStrict) {
-      result[result.length] = value;
-    }
-  }
-  return result;
-}
-
-module.exports = baseFlatten;
-
-},{"./_arrayPush":"../../node_modules/lodash/_arrayPush.js","./_isFlattenable":"../../node_modules/lodash/_isFlattenable.js"}],"../../node_modules/lodash/flatten.js":[function(require,module,exports) {
-var baseFlatten = require('./_baseFlatten');
-
-/**
- * Flattens `array` a single level deep.
- *
- * @static
- * @memberOf _
- * @since 0.1.0
- * @category Array
- * @param {Array} array The array to flatten.
- * @returns {Array} Returns the new flattened array.
- * @example
- *
- * _.flatten([1, [2, [3, [4]], 5]]);
- * // => [1, 2, [3, [4]], 5]
- */
-function flatten(array) {
-  var length = array == null ? 0 : array.length;
-  return length ? baseFlatten(array, 1) : [];
-}
-
-module.exports = flatten;
-
-},{"./_baseFlatten":"../../node_modules/lodash/_baseFlatten.js"}],"components/Time.jsx":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireWildcard(require("react"));
-
-var _Thumbnail = _interopRequireDefault(require("./Thumbnail"));
-
-var _useWindowSize3 = _interopRequireDefault(require("~/hooks/useWindowSize"));
-
-var _chunk = _interopRequireDefault(require("lodash/chunk"));
-
-var _range = _interopRequireDefault(require("lodash/range"));
-
-var _flatten = _interopRequireDefault(require("lodash/flatten"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
-
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
-
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
-
-function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
-
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
-
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
-
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
-
-function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
-var useScrollTop = function useScrollTop() {
-  var _useState = (0, _react.useState)(window.pageYOffset),
-      _useState2 = _slicedToArray(_useState, 2),
-      scrollTop = _useState2[0],
-      setScrollTop = _useState2[1];
-
-  (0, _react.useEffect)(function () {
-    var onScroll = function onScroll() {
-      return setScrollTop(window.pageYOffset);
-    };
-
-    window.addEventListener('scroll', onScroll);
-    return function () {
-      return window.removeEventListener('scroll', onScroll);
-    };
-  });
-  return scrollTop;
 };
 
-var useWave = function useWave(n, radius) {
-  var _useWindowSize = (0, _useWindowSize3.default)(),
-      _useWindowSize2 = _slicedToArray(_useWindowSize, 2),
-      ww = _useWindowSize2[0],
-      wh = _useWindowSize2[1];
-
-  return (0, _range.default)(0, n).map(function (i) {
-    var y = radius * 2 + i * radius * 2;
-    var t = (y - radius * 2) / (wh - radius * 2);
-    var a = t * Math.PI;
-    var x = ww / 2 + Math.sin(a) * Math.min(300, ww / 2 * .9);
-    return {
-      x: x,
-      y: y
-    };
-  });
-};
-
-var Wave = function Wave(_ref) {
-  var data = _ref.data,
-      radius = _ref.radius;
-  var items = (0, _flatten.default)((0, _chunk.default)(_toConsumableArray(data.projects).reverse(), 10).map(function (projects, i) {
-    return [].concat(_toConsumableArray(String(2019 - i).split('').map(function (number) {
-      return {
-        type: 'number',
-        number: number,
-        year: 2019 - i
-      };
-    })), _toConsumableArray(projects.map(function (project) {
-      return {
-        type: 'project',
-        project: project
-      };
-    })));
-  }));
-  var positions = useWave(items.length, radius);
-  return items.map(function (item, i) {
-    switch (item.type) {
-      case 'project':
-        return _react.default.createElement(_Thumbnail.default, {
-          key: item.project.url,
-          project: item.project,
-          position: positions[i]
-        });
-
-      case 'number':
-        return _react.default.createElement("div", {
-          className: "year-number",
-          key: "".concat(item.year, "_").concat(i),
-          style: {
-            transform: "\n                                translate(-50%, -50%)\n                                translate( ".concat(positions[i].x, "px, ").concat(positions[i].y, "px )\n                            ")
-          }
-        }, item.number);
-    }
-  });
-  return data.projects.map(function (project, i) {
-    return _react.default.createElement(_Thumbnail.default, {
-      key: project.url,
-      project: project,
-      position: positions[i]
-    });
-  });
-};
-
-var _default = Wave;
-exports.default = _default;
-},{"react":"../../node_modules/react/index.js","./Thumbnail":"components/Thumbnail.jsx","~/hooks/useWindowSize":"hooks/useWindowSize.js","lodash/chunk":"../../node_modules/lodash/chunk.js","lodash/range":"../../node_modules/lodash/range.js","lodash/flatten":"../../node_modules/lodash/flatten.js"}],"hooks/useColor.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = require("react");
-
-var _tinycolor = _interopRequireDefault(require("tinycolor2"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
-
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
-
-function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
-var cache = {};
-var canvas = document.createElement('canvas');
-canvas.width = canvas.height = 1;
-var ctx = canvas.getContext('2d');
-
-var getColor = function getColor(src) {
-  return new Promise(function (resolve) {
-    var image = new Image();
-
-    image.onload = function () {
-      ctx.drawImage(image, 0, 0);
-
-      var _ctx$getImageData = ctx.getImageData(0, 0, 1, 1),
-          data = _ctx$getImageData.data;
-
-      var _data = _slicedToArray(data, 3),
-          r = _data[0],
-          g = _data[1],
-          b = _data[2];
-
-      var color = (0, _tinycolor.default)({
-        r: r,
-        g: g,
-        b: b
-      }).toHsl();
-      cache[src] = color;
-      resolve(color);
-    };
-
-    image.src = src;
-  });
-};
-
-var _default = function _default(src) {
-  var _useState = (0, _react.useState)(cache[src] || null),
-      _useState2 = _slicedToArray(_useState, 2),
-      color = _useState2[0],
-      setColor = _useState2[1];
-
-  (0, _react.useEffect)(function () {
-    if (!cache[src]) getColor(src).then(setColor);
-  }, []);
-  return color;
-};
+var _default = withData(Home);
 
 exports.default = _default;
-},{"react":"../../node_modules/react/index.js","tinycolor2":"../../node_modules/tinycolor2/tinycolor.js"}],"components/Color.jsx":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireWildcard(require("react"));
-
-var _Thumbnail = _interopRequireDefault(require("./Thumbnail.jsx"));
-
-var _useWindowSize = _interopRequireDefault(require("~/hooks/useWindowSize"));
-
-var _range = _interopRequireDefault(require("lodash/range"));
-
-var _useColor = _interopRequireDefault(require("~/hooks/useColor"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
-
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
-
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
-
-function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
-
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
-
-var map = function map(x, oldMin, oldMax, newMin, newMax) {
-  return newMin + (x - oldMin) / (oldMax - oldMin) * (newMax - newMin);
-};
-
-var hueGradient = function hueGradient(lightness) {
-  var steps = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 7;
-  return (0, _range.default)(0, steps).map(function (i) {
-    return "hsl( ".concat(i / (steps - 1) * 360, ", 100%, ").concat(lightness * 100, "% )");
-  }).join(', ');
-};
-
-var lightnessGradient = function lightnessGradient(hue) {
-  var steps = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 3;
-  return (0, _range.default)(0, steps).map(function (i) {
-    return "hsl( ".concat(hue * 360, ", 100%, ").concat(i / (steps - 1) * 100, "% )");
-  }).join(', ');
-};
-
-var Row = function Row(_ref) {
-  var y = _ref.y,
-      t = _ref.t;
-  return _react.default.createElement("div", {
-    key: "row_".concat(y),
-    style: {
-      position: 'absolute',
-      left: 0,
-      top: y + 'px',
-      width: '100%',
-      height: '1px',
-      background: "linear-gradient( to right, ".concat(hueGradient(1 - t), " )")
-    }
-  });
-};
-
-var Column = function Column(_ref2) {
-  var x = _ref2.x,
-      t = _ref2.t;
-  return _react.default.createElement("div", {
-    key: "col_".concat(x),
-    style: {
-      position: 'absolute',
-      left: x + 'px',
-      top: 0,
-      width: '1px',
-      height: '100%',
-      background: "linear-gradient( to top, ".concat(lightnessGradient(t), " )")
-    }
-  });
-};
-
-var Grid = function Grid(_ref3) {
-  var radius = _ref3.radius;
-  var cellSize = 50;
-  var windowSize = (0, _useWindowSize.default)();
-  return (0, _react.useMemo)(function () {
-    var columns = Math.floor(windowSize[0] / cellSize);
-    var rows = Math.floor(windowSize[1] / cellSize);
-    return [].concat(_toConsumableArray((0, _range.default)(0, rows).map(function (row) {
-      var y = map(row, 0, rows - 1, radius, windowSize[1] - radius);
-      var t = map(row, 0, rows - 1, 0, 1);
-      return _react.default.createElement(Row, {
-        key: "row_".concat(row),
-        y: y,
-        t: t
-      });
-    })), _toConsumableArray((0, _range.default)(0, columns).map(function (column) {
-      var x = map(column, 0, columns - 1, radius, windowSize[0] - radius);
-      var t = map(column, 0, columns - 1, 0, 1);
-      return _react.default.createElement(Column, {
-        key: "col_".concat(column),
-        x: x,
-        t: t
-      });
-    })));
-  }, [windowSize]);
-};
-
-var ColorThumbnail = function ColorThumbnail(_ref4) {
-  var project = _ref4.project,
-      radius = _ref4.radius;
-  var windowSize = (0, _useWindowSize.default)();
-  var rand = (0, _react.useMemo)(Math.random, []);
-  var _project$color = project.color,
-      h = _project$color.h,
-      l = _project$color.l;
-  if (h === 0) h = rand * 360;
-  var x = map(h, 0, 360, radius, windowSize[0] - radius);
-  var y = map(l, 0, 1, radius, windowSize[1] - radius);
-  return _react.default.createElement(_Thumbnail.default, {
-    project: project,
-    position: {
-      x: x,
-      y: y
-    }
-  });
-};
-
-var Color = function Color(_ref5) {
-  var data = _ref5.data,
-      radius = _ref5.radius;
-  return _react.default.createElement(_react.default.Fragment, null, _react.default.createElement(Grid, {
-    radius: radius
-  }), data.projects.map(function (project) {
-    return _react.default.createElement(ColorThumbnail, {
-      key: project.url,
-      project: project,
-      radius: radius
-    });
-  }));
-};
-
-var _default = Color;
-exports.default = _default;
-},{"react":"../../node_modules/react/index.js","./Thumbnail.jsx":"components/Thumbnail.jsx","~/hooks/useWindowSize":"hooks/useWindowSize.js","lodash/range":"../../node_modules/lodash/range.js","~/hooks/useColor":"hooks/useColor.js"}],"utils/getColor.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _tinycolor = _interopRequireDefault(require("tinycolor2"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
-
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
-
-function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
-var cache = {};
-var canvas = document.createElement('canvas');
-canvas.width = canvas.height = 1;
-var ctx = canvas.getContext('2d');
-
-var _default = function _default(src) {
-  return new Promise(function (resolve) {
-    var image = new Image();
-
-    image.onload = function () {
-      ctx.drawImage(image, 0, 0);
-
-      var _ctx$getImageData = ctx.getImageData(0, 0, 1, 1),
-          data = _ctx$getImageData.data;
-
-      var _data = _slicedToArray(data, 3),
-          r = _data[0],
-          g = _data[1],
-          b = _data[2];
-
-      var color = (0, _tinycolor.default)({
-        r: r,
-        g: g,
-        b: b
-      }).toHsl();
-      cache[src] = color;
-      resolve(color);
-    };
-
-    image.src = src;
-  });
-};
-
-exports.default = _default;
-},{"tinycolor2":"../../node_modules/tinycolor2/tinycolor.js"}],"hooks/useFetch.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
-
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
-
-function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
-var _require = require('react'),
-    useState = _require.useState,
-    useEffect = _require.useEffect;
-
-var _default = function _default(url) {
-  var _useState = useState(null),
-      _useState2 = _slicedToArray(_useState, 2),
-      data = _useState2[0],
-      setData = _useState2[1];
-
-  useEffect(function () {
-    fetch(url).then(function (r) {
-      return r.json();
-    }).then(setData);
-  }, [url]);
-  return data;
-};
-
-exports.default = _default;
-},{"react":"../../node_modules/react/index.js"}],"../../node_modules/lodash/_createBaseFor.js":[function(require,module,exports) {
-/**
- * Creates a base function for methods like `_.forIn` and `_.forOwn`.
- *
- * @private
- * @param {boolean} [fromRight] Specify iterating from right to left.
- * @returns {Function} Returns the new base function.
- */
-function createBaseFor(fromRight) {
-  return function(object, iteratee, keysFunc) {
-    var index = -1,
-        iterable = Object(object),
-        props = keysFunc(object),
-        length = props.length;
-
-    while (length--) {
-      var key = props[fromRight ? length : ++index];
-      if (iteratee(iterable[key], key, iterable) === false) {
-        break;
-      }
-    }
-    return object;
-  };
-}
-
-module.exports = createBaseFor;
-
-},{}],"../../node_modules/lodash/_baseFor.js":[function(require,module,exports) {
-var createBaseFor = require('./_createBaseFor');
-
-/**
- * The base implementation of `baseForOwn` which iterates over `object`
- * properties returned by `keysFunc` and invokes `iteratee` for each property.
- * Iteratee functions may exit iteration early by explicitly returning `false`.
- *
- * @private
- * @param {Object} object The object to iterate over.
- * @param {Function} iteratee The function invoked per iteration.
- * @param {Function} keysFunc The function to get the keys of `object`.
- * @returns {Object} Returns `object`.
- */
-var baseFor = createBaseFor();
-
-module.exports = baseFor;
-
-},{"./_createBaseFor":"../../node_modules/lodash/_createBaseFor.js"}],"../../node_modules/lodash/_baseForOwn.js":[function(require,module,exports) {
-var baseFor = require('./_baseFor'),
-    keys = require('./keys');
-
-/**
- * The base implementation of `_.forOwn` without support for iteratee shorthands.
- *
- * @private
- * @param {Object} object The object to iterate over.
- * @param {Function} iteratee The function invoked per iteration.
- * @returns {Object} Returns `object`.
- */
-function baseForOwn(object, iteratee) {
-  return object && baseFor(object, iteratee, keys);
-}
-
-module.exports = baseForOwn;
-
-},{"./_baseFor":"../../node_modules/lodash/_baseFor.js","./keys":"../../node_modules/lodash/keys.js"}],"../../node_modules/lodash/_baseIsMatch.js":[function(require,module,exports) {
-var Stack = require('./_Stack'),
-    baseIsEqual = require('./_baseIsEqual');
-
-/** Used to compose bitmasks for value comparisons. */
-var COMPARE_PARTIAL_FLAG = 1,
-    COMPARE_UNORDERED_FLAG = 2;
-
-/**
- * The base implementation of `_.isMatch` without support for iteratee shorthands.
- *
- * @private
- * @param {Object} object The object to inspect.
- * @param {Object} source The object of property values to match.
- * @param {Array} matchData The property names, values, and compare flags to match.
- * @param {Function} [customizer] The function to customize comparisons.
- * @returns {boolean} Returns `true` if `object` is a match, else `false`.
- */
-function baseIsMatch(object, source, matchData, customizer) {
-  var index = matchData.length,
-      length = index,
-      noCustomizer = !customizer;
-
-  if (object == null) {
-    return !length;
-  }
-  object = Object(object);
-  while (index--) {
-    var data = matchData[index];
-    if ((noCustomizer && data[2])
-          ? data[1] !== object[data[0]]
-          : !(data[0] in object)
-        ) {
-      return false;
-    }
-  }
-  while (++index < length) {
-    data = matchData[index];
-    var key = data[0],
-        objValue = object[key],
-        srcValue = data[1];
-
-    if (noCustomizer && data[2]) {
-      if (objValue === undefined && !(key in object)) {
-        return false;
-      }
-    } else {
-      var stack = new Stack;
-      if (customizer) {
-        var result = customizer(objValue, srcValue, key, object, source, stack);
-      }
-      if (!(result === undefined
-            ? baseIsEqual(srcValue, objValue, COMPARE_PARTIAL_FLAG | COMPARE_UNORDERED_FLAG, customizer, stack)
-            : result
-          )) {
-        return false;
-      }
-    }
-  }
-  return true;
-}
-
-module.exports = baseIsMatch;
-
-},{"./_Stack":"../../node_modules/lodash/_Stack.js","./_baseIsEqual":"../../node_modules/lodash/_baseIsEqual.js"}],"../../node_modules/lodash/_isStrictComparable.js":[function(require,module,exports) {
-var isObject = require('./isObject');
-
-/**
- * Checks if `value` is suitable for strict equality comparisons, i.e. `===`.
- *
- * @private
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` if suitable for strict
- *  equality comparisons, else `false`.
- */
-function isStrictComparable(value) {
-  return value === value && !isObject(value);
-}
-
-module.exports = isStrictComparable;
-
-},{"./isObject":"../../node_modules/lodash/isObject.js"}],"../../node_modules/lodash/_getMatchData.js":[function(require,module,exports) {
-var isStrictComparable = require('./_isStrictComparable'),
-    keys = require('./keys');
-
-/**
- * Gets the property names, values, and compare flags of `object`.
- *
- * @private
- * @param {Object} object The object to query.
- * @returns {Array} Returns the match data of `object`.
- */
-function getMatchData(object) {
-  var result = keys(object),
-      length = result.length;
-
-  while (length--) {
-    var key = result[length],
-        value = object[key];
-
-    result[length] = [key, value, isStrictComparable(value)];
-  }
-  return result;
-}
-
-module.exports = getMatchData;
-
-},{"./_isStrictComparable":"../../node_modules/lodash/_isStrictComparable.js","./keys":"../../node_modules/lodash/keys.js"}],"../../node_modules/lodash/_matchesStrictComparable.js":[function(require,module,exports) {
-/**
- * A specialized version of `matchesProperty` for source values suitable
- * for strict equality comparisons, i.e. `===`.
- *
- * @private
- * @param {string} key The key of the property to get.
- * @param {*} srcValue The value to match.
- * @returns {Function} Returns the new spec function.
- */
-function matchesStrictComparable(key, srcValue) {
-  return function(object) {
-    if (object == null) {
-      return false;
-    }
-    return object[key] === srcValue &&
-      (srcValue !== undefined || (key in Object(object)));
-  };
-}
-
-module.exports = matchesStrictComparable;
-
-},{}],"../../node_modules/lodash/_baseMatches.js":[function(require,module,exports) {
-var baseIsMatch = require('./_baseIsMatch'),
-    getMatchData = require('./_getMatchData'),
-    matchesStrictComparable = require('./_matchesStrictComparable');
-
-/**
- * The base implementation of `_.matches` which doesn't clone `source`.
- *
- * @private
- * @param {Object} source The object of property values to match.
- * @returns {Function} Returns the new spec function.
- */
-function baseMatches(source) {
-  var matchData = getMatchData(source);
-  if (matchData.length == 1 && matchData[0][2]) {
-    return matchesStrictComparable(matchData[0][0], matchData[0][1]);
-  }
-  return function(object) {
-    return object === source || baseIsMatch(object, source, matchData);
-  };
-}
-
-module.exports = baseMatches;
-
-},{"./_baseIsMatch":"../../node_modules/lodash/_baseIsMatch.js","./_getMatchData":"../../node_modules/lodash/_getMatchData.js","./_matchesStrictComparable":"../../node_modules/lodash/_matchesStrictComparable.js"}],"../../node_modules/lodash/_isKey.js":[function(require,module,exports) {
-var isArray = require('./isArray'),
-    isSymbol = require('./isSymbol');
-
-/** Used to match property names within property paths. */
-var reIsDeepProp = /\.|\[(?:[^[\]]*|(["'])(?:(?!\1)[^\\]|\\.)*?\1)\]/,
-    reIsPlainProp = /^\w*$/;
-
-/**
- * Checks if `value` is a property name and not a property path.
- *
- * @private
- * @param {*} value The value to check.
- * @param {Object} [object] The object to query keys on.
- * @returns {boolean} Returns `true` if `value` is a property name, else `false`.
- */
-function isKey(value, object) {
-  if (isArray(value)) {
-    return false;
-  }
-  var type = typeof value;
-  if (type == 'number' || type == 'symbol' || type == 'boolean' ||
-      value == null || isSymbol(value)) {
-    return true;
-  }
-  return reIsPlainProp.test(value) || !reIsDeepProp.test(value) ||
-    (object != null && value in Object(object));
-}
-
-module.exports = isKey;
-
-},{"./isArray":"../../node_modules/lodash/isArray.js","./isSymbol":"../../node_modules/lodash/isSymbol.js"}],"../../node_modules/lodash/memoize.js":[function(require,module,exports) {
-var MapCache = require('./_MapCache');
-
-/** Error message constants. */
-var FUNC_ERROR_TEXT = 'Expected a function';
-
-/**
- * Creates a function that memoizes the result of `func`. If `resolver` is
- * provided, it determines the cache key for storing the result based on the
- * arguments provided to the memoized function. By default, the first argument
- * provided to the memoized function is used as the map cache key. The `func`
- * is invoked with the `this` binding of the memoized function.
- *
- * **Note:** The cache is exposed as the `cache` property on the memoized
- * function. Its creation may be customized by replacing the `_.memoize.Cache`
- * constructor with one whose instances implement the
- * [`Map`](http://ecma-international.org/ecma-262/7.0/#sec-properties-of-the-map-prototype-object)
- * method interface of `clear`, `delete`, `get`, `has`, and `set`.
- *
- * @static
- * @memberOf _
- * @since 0.1.0
- * @category Function
- * @param {Function} func The function to have its output memoized.
- * @param {Function} [resolver] The function to resolve the cache key.
- * @returns {Function} Returns the new memoized function.
- * @example
- *
- * var object = { 'a': 1, 'b': 2 };
- * var other = { 'c': 3, 'd': 4 };
- *
- * var values = _.memoize(_.values);
- * values(object);
- * // => [1, 2]
- *
- * values(other);
- * // => [3, 4]
- *
- * object.a = 2;
- * values(object);
- * // => [1, 2]
- *
- * // Modify the result cache.
- * values.cache.set(object, ['a', 'b']);
- * values(object);
- * // => ['a', 'b']
- *
- * // Replace `_.memoize.Cache`.
- * _.memoize.Cache = WeakMap;
- */
-function memoize(func, resolver) {
-  if (typeof func != 'function' || (resolver != null && typeof resolver != 'function')) {
-    throw new TypeError(FUNC_ERROR_TEXT);
-  }
-  var memoized = function() {
-    var args = arguments,
-        key = resolver ? resolver.apply(this, args) : args[0],
-        cache = memoized.cache;
-
-    if (cache.has(key)) {
-      return cache.get(key);
-    }
-    var result = func.apply(this, args);
-    memoized.cache = cache.set(key, result) || cache;
-    return result;
-  };
-  memoized.cache = new (memoize.Cache || MapCache);
-  return memoized;
-}
-
-// Expose `MapCache`.
-memoize.Cache = MapCache;
-
-module.exports = memoize;
-
-},{"./_MapCache":"../../node_modules/lodash/_MapCache.js"}],"../../node_modules/lodash/_memoizeCapped.js":[function(require,module,exports) {
-var memoize = require('./memoize');
-
-/** Used as the maximum memoize cache size. */
-var MAX_MEMOIZE_SIZE = 500;
-
-/**
- * A specialized version of `_.memoize` which clears the memoized function's
- * cache when it exceeds `MAX_MEMOIZE_SIZE`.
- *
- * @private
- * @param {Function} func The function to have its output memoized.
- * @returns {Function} Returns the new memoized function.
- */
-function memoizeCapped(func) {
-  var result = memoize(func, function(key) {
-    if (cache.size === MAX_MEMOIZE_SIZE) {
-      cache.clear();
-    }
-    return key;
-  });
-
-  var cache = result.cache;
-  return result;
-}
-
-module.exports = memoizeCapped;
-
-},{"./memoize":"../../node_modules/lodash/memoize.js"}],"../../node_modules/lodash/_stringToPath.js":[function(require,module,exports) {
-var memoizeCapped = require('./_memoizeCapped');
-
-/** Used to match property names within property paths. */
-var rePropName = /[^.[\]]+|\[(?:(-?\d+(?:\.\d+)?)|(["'])((?:(?!\2)[^\\]|\\.)*?)\2)\]|(?=(?:\.|\[\])(?:\.|\[\]|$))/g;
-
-/** Used to match backslashes in property paths. */
-var reEscapeChar = /\\(\\)?/g;
-
-/**
- * Converts `string` to a property path array.
- *
- * @private
- * @param {string} string The string to convert.
- * @returns {Array} Returns the property path array.
- */
-var stringToPath = memoizeCapped(function(string) {
-  var result = [];
-  if (string.charCodeAt(0) === 46 /* . */) {
-    result.push('');
-  }
-  string.replace(rePropName, function(match, number, quote, subString) {
-    result.push(quote ? subString.replace(reEscapeChar, '$1') : (number || match));
-  });
-  return result;
-});
-
-module.exports = stringToPath;
-
-},{"./_memoizeCapped":"../../node_modules/lodash/_memoizeCapped.js"}],"../../node_modules/lodash/_baseToString.js":[function(require,module,exports) {
-var Symbol = require('./_Symbol'),
-    arrayMap = require('./_arrayMap'),
-    isArray = require('./isArray'),
-    isSymbol = require('./isSymbol');
-
-/** Used as references for various `Number` constants. */
-var INFINITY = 1 / 0;
-
-/** Used to convert symbols to primitives and strings. */
-var symbolProto = Symbol ? Symbol.prototype : undefined,
-    symbolToString = symbolProto ? symbolProto.toString : undefined;
-
-/**
- * The base implementation of `_.toString` which doesn't convert nullish
- * values to empty strings.
- *
- * @private
- * @param {*} value The value to process.
- * @returns {string} Returns the string.
- */
-function baseToString(value) {
-  // Exit early for strings to avoid a performance hit in some environments.
-  if (typeof value == 'string') {
-    return value;
-  }
-  if (isArray(value)) {
-    // Recursively convert values (susceptible to call stack limits).
-    return arrayMap(value, baseToString) + '';
-  }
-  if (isSymbol(value)) {
-    return symbolToString ? symbolToString.call(value) : '';
-  }
-  var result = (value + '');
-  return (result == '0' && (1 / value) == -INFINITY) ? '-0' : result;
-}
-
-module.exports = baseToString;
-
-},{"./_Symbol":"../../node_modules/lodash/_Symbol.js","./_arrayMap":"../../node_modules/lodash/_arrayMap.js","./isArray":"../../node_modules/lodash/isArray.js","./isSymbol":"../../node_modules/lodash/isSymbol.js"}],"../../node_modules/lodash/toString.js":[function(require,module,exports) {
-var baseToString = require('./_baseToString');
-
-/**
- * Converts `value` to a string. An empty string is returned for `null`
- * and `undefined` values. The sign of `-0` is preserved.
- *
- * @static
- * @memberOf _
- * @since 4.0.0
- * @category Lang
- * @param {*} value The value to convert.
- * @returns {string} Returns the converted string.
- * @example
- *
- * _.toString(null);
- * // => ''
- *
- * _.toString(-0);
- * // => '-0'
- *
- * _.toString([1, 2, 3]);
- * // => '1,2,3'
- */
-function toString(value) {
-  return value == null ? '' : baseToString(value);
-}
-
-module.exports = toString;
-
-},{"./_baseToString":"../../node_modules/lodash/_baseToString.js"}],"../../node_modules/lodash/_castPath.js":[function(require,module,exports) {
-var isArray = require('./isArray'),
-    isKey = require('./_isKey'),
-    stringToPath = require('./_stringToPath'),
-    toString = require('./toString');
-
-/**
- * Casts `value` to a path array if it's not one.
- *
- * @private
- * @param {*} value The value to inspect.
- * @param {Object} [object] The object to query keys on.
- * @returns {Array} Returns the cast property path array.
- */
-function castPath(value, object) {
-  if (isArray(value)) {
-    return value;
-  }
-  return isKey(value, object) ? [value] : stringToPath(toString(value));
-}
-
-module.exports = castPath;
-
-},{"./isArray":"../../node_modules/lodash/isArray.js","./_isKey":"../../node_modules/lodash/_isKey.js","./_stringToPath":"../../node_modules/lodash/_stringToPath.js","./toString":"../../node_modules/lodash/toString.js"}],"../../node_modules/lodash/_toKey.js":[function(require,module,exports) {
-var isSymbol = require('./isSymbol');
-
-/** Used as references for various `Number` constants. */
-var INFINITY = 1 / 0;
-
-/**
- * Converts `value` to a string key if it's not a string or symbol.
- *
- * @private
- * @param {*} value The value to inspect.
- * @returns {string|symbol} Returns the key.
- */
-function toKey(value) {
-  if (typeof value == 'string' || isSymbol(value)) {
-    return value;
-  }
-  var result = (value + '');
-  return (result == '0' && (1 / value) == -INFINITY) ? '-0' : result;
-}
-
-module.exports = toKey;
-
-},{"./isSymbol":"../../node_modules/lodash/isSymbol.js"}],"../../node_modules/lodash/_baseGet.js":[function(require,module,exports) {
-var castPath = require('./_castPath'),
-    toKey = require('./_toKey');
-
-/**
- * The base implementation of `_.get` without support for default values.
- *
- * @private
- * @param {Object} object The object to query.
- * @param {Array|string} path The path of the property to get.
- * @returns {*} Returns the resolved value.
- */
-function baseGet(object, path) {
-  path = castPath(path, object);
-
-  var index = 0,
-      length = path.length;
-
-  while (object != null && index < length) {
-    object = object[toKey(path[index++])];
-  }
-  return (index && index == length) ? object : undefined;
-}
-
-module.exports = baseGet;
-
-},{"./_castPath":"../../node_modules/lodash/_castPath.js","./_toKey":"../../node_modules/lodash/_toKey.js"}],"../../node_modules/lodash/get.js":[function(require,module,exports) {
-var baseGet = require('./_baseGet');
-
-/**
- * Gets the value at `path` of `object`. If the resolved value is
- * `undefined`, the `defaultValue` is returned in its place.
- *
- * @static
- * @memberOf _
- * @since 3.7.0
- * @category Object
- * @param {Object} object The object to query.
- * @param {Array|string} path The path of the property to get.
- * @param {*} [defaultValue] The value returned for `undefined` resolved values.
- * @returns {*} Returns the resolved value.
- * @example
- *
- * var object = { 'a': [{ 'b': { 'c': 3 } }] };
- *
- * _.get(object, 'a[0].b.c');
- * // => 3
- *
- * _.get(object, ['a', '0', 'b', 'c']);
- * // => 3
- *
- * _.get(object, 'a.b.c', 'default');
- * // => 'default'
- */
-function get(object, path, defaultValue) {
-  var result = object == null ? undefined : baseGet(object, path);
-  return result === undefined ? defaultValue : result;
-}
-
-module.exports = get;
-
-},{"./_baseGet":"../../node_modules/lodash/_baseGet.js"}],"../../node_modules/lodash/_baseHasIn.js":[function(require,module,exports) {
-/**
- * The base implementation of `_.hasIn` without support for deep paths.
- *
- * @private
- * @param {Object} [object] The object to query.
- * @param {Array|string} key The key to check.
- * @returns {boolean} Returns `true` if `key` exists, else `false`.
- */
-function baseHasIn(object, key) {
-  return object != null && key in Object(object);
-}
-
-module.exports = baseHasIn;
-
-},{}],"../../node_modules/lodash/_hasPath.js":[function(require,module,exports) {
-var castPath = require('./_castPath'),
-    isArguments = require('./isArguments'),
-    isArray = require('./isArray'),
-    isIndex = require('./_isIndex'),
-    isLength = require('./isLength'),
-    toKey = require('./_toKey');
-
-/**
- * Checks if `path` exists on `object`.
- *
- * @private
- * @param {Object} object The object to query.
- * @param {Array|string} path The path to check.
- * @param {Function} hasFunc The function to check properties.
- * @returns {boolean} Returns `true` if `path` exists, else `false`.
- */
-function hasPath(object, path, hasFunc) {
-  path = castPath(path, object);
-
-  var index = -1,
-      length = path.length,
-      result = false;
-
-  while (++index < length) {
-    var key = toKey(path[index]);
-    if (!(result = object != null && hasFunc(object, key))) {
-      break;
-    }
-    object = object[key];
-  }
-  if (result || ++index != length) {
-    return result;
-  }
-  length = object == null ? 0 : object.length;
-  return !!length && isLength(length) && isIndex(key, length) &&
-    (isArray(object) || isArguments(object));
-}
-
-module.exports = hasPath;
-
-},{"./_castPath":"../../node_modules/lodash/_castPath.js","./isArguments":"../../node_modules/lodash/isArguments.js","./isArray":"../../node_modules/lodash/isArray.js","./_isIndex":"../../node_modules/lodash/_isIndex.js","./isLength":"../../node_modules/lodash/isLength.js","./_toKey":"../../node_modules/lodash/_toKey.js"}],"../../node_modules/lodash/hasIn.js":[function(require,module,exports) {
-var baseHasIn = require('./_baseHasIn'),
-    hasPath = require('./_hasPath');
-
-/**
- * Checks if `path` is a direct or inherited property of `object`.
- *
- * @static
- * @memberOf _
- * @since 4.0.0
- * @category Object
- * @param {Object} object The object to query.
- * @param {Array|string} path The path to check.
- * @returns {boolean} Returns `true` if `path` exists, else `false`.
- * @example
- *
- * var object = _.create({ 'a': _.create({ 'b': 2 }) });
- *
- * _.hasIn(object, 'a');
- * // => true
- *
- * _.hasIn(object, 'a.b');
- * // => true
- *
- * _.hasIn(object, ['a', 'b']);
- * // => true
- *
- * _.hasIn(object, 'b');
- * // => false
- */
-function hasIn(object, path) {
-  return object != null && hasPath(object, path, baseHasIn);
-}
-
-module.exports = hasIn;
-
-},{"./_baseHasIn":"../../node_modules/lodash/_baseHasIn.js","./_hasPath":"../../node_modules/lodash/_hasPath.js"}],"../../node_modules/lodash/_baseMatchesProperty.js":[function(require,module,exports) {
-var baseIsEqual = require('./_baseIsEqual'),
-    get = require('./get'),
-    hasIn = require('./hasIn'),
-    isKey = require('./_isKey'),
-    isStrictComparable = require('./_isStrictComparable'),
-    matchesStrictComparable = require('./_matchesStrictComparable'),
-    toKey = require('./_toKey');
-
-/** Used to compose bitmasks for value comparisons. */
-var COMPARE_PARTIAL_FLAG = 1,
-    COMPARE_UNORDERED_FLAG = 2;
-
-/**
- * The base implementation of `_.matchesProperty` which doesn't clone `srcValue`.
- *
- * @private
- * @param {string} path The path of the property to get.
- * @param {*} srcValue The value to match.
- * @returns {Function} Returns the new spec function.
- */
-function baseMatchesProperty(path, srcValue) {
-  if (isKey(path) && isStrictComparable(srcValue)) {
-    return matchesStrictComparable(toKey(path), srcValue);
-  }
-  return function(object) {
-    var objValue = get(object, path);
-    return (objValue === undefined && objValue === srcValue)
-      ? hasIn(object, path)
-      : baseIsEqual(srcValue, objValue, COMPARE_PARTIAL_FLAG | COMPARE_UNORDERED_FLAG);
-  };
-}
-
-module.exports = baseMatchesProperty;
-
-},{"./_baseIsEqual":"../../node_modules/lodash/_baseIsEqual.js","./get":"../../node_modules/lodash/get.js","./hasIn":"../../node_modules/lodash/hasIn.js","./_isKey":"../../node_modules/lodash/_isKey.js","./_isStrictComparable":"../../node_modules/lodash/_isStrictComparable.js","./_matchesStrictComparable":"../../node_modules/lodash/_matchesStrictComparable.js","./_toKey":"../../node_modules/lodash/_toKey.js"}],"../../node_modules/lodash/_baseProperty.js":[function(require,module,exports) {
-/**
- * The base implementation of `_.property` without support for deep paths.
- *
- * @private
- * @param {string} key The key of the property to get.
- * @returns {Function} Returns the new accessor function.
- */
-function baseProperty(key) {
-  return function(object) {
-    return object == null ? undefined : object[key];
-  };
-}
-
-module.exports = baseProperty;
-
-},{}],"../../node_modules/lodash/_basePropertyDeep.js":[function(require,module,exports) {
-var baseGet = require('./_baseGet');
-
-/**
- * A specialized version of `baseProperty` which supports deep paths.
- *
- * @private
- * @param {Array|string} path The path of the property to get.
- * @returns {Function} Returns the new accessor function.
- */
-function basePropertyDeep(path) {
-  return function(object) {
-    return baseGet(object, path);
-  };
-}
-
-module.exports = basePropertyDeep;
-
-},{"./_baseGet":"../../node_modules/lodash/_baseGet.js"}],"../../node_modules/lodash/property.js":[function(require,module,exports) {
-var baseProperty = require('./_baseProperty'),
-    basePropertyDeep = require('./_basePropertyDeep'),
-    isKey = require('./_isKey'),
-    toKey = require('./_toKey');
-
-/**
- * Creates a function that returns the value at `path` of a given object.
- *
- * @static
- * @memberOf _
- * @since 2.4.0
- * @category Util
- * @param {Array|string} path The path of the property to get.
- * @returns {Function} Returns the new accessor function.
- * @example
- *
- * var objects = [
- *   { 'a': { 'b': 2 } },
- *   { 'a': { 'b': 1 } }
- * ];
- *
- * _.map(objects, _.property('a.b'));
- * // => [2, 1]
- *
- * _.map(_.sortBy(objects, _.property(['a', 'b'])), 'a.b');
- * // => [1, 2]
- */
-function property(path) {
-  return isKey(path) ? baseProperty(toKey(path)) : basePropertyDeep(path);
-}
-
-module.exports = property;
-
-},{"./_baseProperty":"../../node_modules/lodash/_baseProperty.js","./_basePropertyDeep":"../../node_modules/lodash/_basePropertyDeep.js","./_isKey":"../../node_modules/lodash/_isKey.js","./_toKey":"../../node_modules/lodash/_toKey.js"}],"../../node_modules/lodash/_baseIteratee.js":[function(require,module,exports) {
-var baseMatches = require('./_baseMatches'),
-    baseMatchesProperty = require('./_baseMatchesProperty'),
-    identity = require('./identity'),
-    isArray = require('./isArray'),
-    property = require('./property');
-
-/**
- * The base implementation of `_.iteratee`.
- *
- * @private
- * @param {*} [value=_.identity] The value to convert to an iteratee.
- * @returns {Function} Returns the iteratee.
- */
-function baseIteratee(value) {
-  // Don't store the `typeof` result in a variable to avoid a JIT bug in Safari 9.
-  // See https://bugs.webkit.org/show_bug.cgi?id=156034 for more details.
-  if (typeof value == 'function') {
-    return value;
-  }
-  if (value == null) {
-    return identity;
-  }
-  if (typeof value == 'object') {
-    return isArray(value)
-      ? baseMatchesProperty(value[0], value[1])
-      : baseMatches(value);
-  }
-  return property(value);
-}
-
-module.exports = baseIteratee;
-
-},{"./_baseMatches":"../../node_modules/lodash/_baseMatches.js","./_baseMatchesProperty":"../../node_modules/lodash/_baseMatchesProperty.js","./identity":"../../node_modules/lodash/identity.js","./isArray":"../../node_modules/lodash/isArray.js","./property":"../../node_modules/lodash/property.js"}],"../../node_modules/lodash/mapValues.js":[function(require,module,exports) {
-var baseAssignValue = require('./_baseAssignValue'),
-    baseForOwn = require('./_baseForOwn'),
-    baseIteratee = require('./_baseIteratee');
-
-/**
- * Creates an object with the same keys as `object` and values generated
- * by running each own enumerable string keyed property of `object` thru
- * `iteratee`. The iteratee is invoked with three arguments:
- * (value, key, object).
- *
- * @static
- * @memberOf _
- * @since 2.4.0
- * @category Object
- * @param {Object} object The object to iterate over.
- * @param {Function} [iteratee=_.identity] The function invoked per iteration.
- * @returns {Object} Returns the new mapped object.
- * @see _.mapKeys
- * @example
- *
- * var users = {
- *   'fred':    { 'user': 'fred',    'age': 40 },
- *   'pebbles': { 'user': 'pebbles', 'age': 1 }
- * };
- *
- * _.mapValues(users, function(o) { return o.age; });
- * // => { 'fred': 40, 'pebbles': 1 } (iteration order is not guaranteed)
- *
- * // The `_.property` iteratee shorthand.
- * _.mapValues(users, 'age');
- * // => { 'fred': 40, 'pebbles': 1 } (iteration order is not guaranteed)
- */
-function mapValues(object, iteratee) {
-  var result = {};
-  iteratee = baseIteratee(iteratee, 3);
-
-  baseForOwn(object, function(value, key, object) {
-    baseAssignValue(result, key, iteratee(value, key, object));
-  });
-  return result;
-}
-
-module.exports = mapValues;
-
-},{"./_baseAssignValue":"../../node_modules/lodash/_baseAssignValue.js","./_baseForOwn":"../../node_modules/lodash/_baseForOwn.js","./_baseIteratee":"../../node_modules/lodash/_baseIteratee.js"}],"components/Home.jsx":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireWildcard(require("react"));
-
-var _Tags = _interopRequireDefault(require("./Tags.jsx"));
-
-var _Time = _interopRequireDefault(require("./Time.jsx"));
-
-var _Color = _interopRequireDefault(require("./Color.jsx"));
-
-var _tinycolor = _interopRequireDefault(require("tinycolor2"));
-
-var _getColor = _interopRequireDefault(require("~/utils/getColor"));
-
-var _useFetch = _interopRequireDefault(require("~/hooks/useFetch"));
-
-var _useWindowSize = _interopRequireDefault(require("~/hooks/useWindowSize"));
-
-var _mapValues = _interopRequireDefault(require("lodash/mapValues"));
-
-var _isEqual = _interopRequireDefault(require("lodash/isEqual"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
-
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
-
-function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
-var useCSSProperty = function useCSSProperty(property) {
-  var windowSize = (0, _useWindowSize.default)();
-  return (0, _react.useMemo)(function () {
-    return parseFloat(getComputedStyle(document.documentElement).getPropertyValue(property));
-  }, [windowSize]);
-};
-
-var useData = function useData() {
-  var data = (0, _useFetch.default)('/home.json');
-
-  var _useState = (0, _react.useState)(null),
-      _useState2 = _slicedToArray(_useState, 2),
-      projectColors = _useState2[0],
-      setProjectColors = _useState2[1];
-
-  (0, _react.useEffect)(function () {
-    if (!data) return;
-    Promise.all(data.projects.map(function (project) {
-      return (0, _getColor.default)(project.pixel);
-    })).then(setProjectColors);
-  }, [data]);
-  return (0, _react.useMemo)(function () {
-    if (data === null || projectColors === null) return null;
-    var projects = data.projects,
-        tags = data.tags;
-    projects = projects.map(function (project, i) {
-      return _objectSpread({}, project, {
-        i: i,
-        color: projectColors[i]
-      });
-    });
-    return {
-      projects: projects,
-      tags: tags.map(function (_ref) {
-        var name = _ref.name;
-        return name;
-      }),
-      byTag: Object.fromEntries(tags.map(function (tag) {
-        return [tag.name, projects.map(function (project, i) {
-          return {
-            project: project,
-            i: i
-          };
-        }).filter(function (_ref2) {
-          var project = _ref2.project;
-          return project.tags.includes(tag.name);
-        }).map(function (_ref3) {
-          var project = _ref3.project,
-              i = _ref3.i;
-          return i;
-        })];
-      })),
-      colors: Object.fromEntries(tags.map(function (tag) {
-        return [tag.name, (0, _tinycolor.default)(tag.color)];
-      }))
-    };
-  }, [data, projectColors]);
-};
-
-var views = {
-  tags: _Tags.default,
-  time: _Time.default,
-  color: _Color.default
-};
-
-var Nav = function Nav(_ref4) {
-  var setView = _ref4.setView;
-  return _react.default.createElement("nav", null, _react.default.createElement("a", {
-    onClick: function onClick() {
-      return setView('tags');
-    }
-  }, "\uD83D\uDDBC"), _react.default.createElement("a", {
-    onClick: function onClick() {
-      return setView('time');
-    }
-  }, "\uD83D\uDDD3"), _react.default.createElement("a", {
-    onClick: function onClick() {
-      return setView('color');
-    }
-  }, "\uD83C\uDF08"));
-};
-
-var Home = function Home(_ref5) {
-  var view = _ref5.view,
-      setView = _ref5.setView;
-  var data = useData();
-  var radius = useCSSProperty('--radius');
-  if (!data) return null;
-  var View = views[view];
-  return _react.default.createElement(_react.default.Fragment, null, _react.default.createElement("nav", null, _react.default.createElement("a", {
-    onClick: function onClick() {
-      return setView('tags');
-    }
-  }, "\uD83D\uDDBC"), _react.default.createElement("a", {
-    onClick: function onClick() {
-      return setView('time');
-    }
-  }, "\uD83D\uDDD3"), _react.default.createElement("a", {
-    onClick: function onClick() {
-      return setView('color');
-    }
-  }, "\uD83C\uDF08")), _react.default.createElement(View, {
-    data: data,
-    radius: radius
-  }));
-}; // var useNow = ( running = true ) => {
-//     var [ now, setNow ] = useState( Date.now() );
-//     useEffect( () => {
-//         if ( !running ) return;
-//         var frame = requestAnimationFrame( () => setNow( Date.now() ) );
-//         return () => cancelAnimationFrame( frame );
-//     }, [ now, running ] )
-//     return now;
-// }
-// var usePrev = ( value, initial = value ) => {
-//     var ref = useRef( initial );
-//     var prev = ref.current;
-//     ref.current = value;
-//     return prev;
-// }
-// var useDeltaTime = ( running = true ) => {
-//     var now = useNow( running );
-//     var then = usePrev( now );
-//     return now - then;
-// }
-// var lerp = ( a, b, t ) => a + ( b - a ) * t;
-// var useInterpolator = ( target, t = .1, step = 1000/60 ) => {
-//     var value = useRef( target );
-//     var dT = useDeltaTime( value.current !== target );
-//     var steps = Math.ceil( dT / step );
-//     for ( var i = 0; i < steps; i++ ) {
-//         value.current = lerp( value.current, target, t );
-//     }
-//     return value.current;
-// }
-// var round = ( x, eps = .000001 ) => {
-//     var int = Math.round( x );
-//     return Math.abs( x - int ) < eps ? int : x;
-// }
-// var Home = ({ view, setView }) => {
-//     var data = useData();
-//     var viewMix = {
-//         tags: round( useInterpolator( view === 'tags' ? 1 : 0 ) ),
-//         time: round( useInterpolator( view === 'time' ? 1 : 0 ) ),
-//         color: round( useInterpolator( view === 'color' ? 1 : 0 ) )
-//     }
-//     return <Nav setView={ setView }/>;
-// }
-
-
-var _default = Home;
-exports.default = _default;
-},{"react":"../../node_modules/react/index.js","./Tags.jsx":"components/Tags.jsx","./Time.jsx":"components/Time.jsx","./Color.jsx":"components/Color.jsx","tinycolor2":"../../node_modules/tinycolor2/tinycolor.js","~/utils/getColor":"utils/getColor.js","~/hooks/useFetch":"hooks/useFetch.js","~/hooks/useWindowSize":"hooks/useWindowSize.js","lodash/mapValues":"../../node_modules/lodash/mapValues.js","lodash/isEqual":"../../node_modules/lodash/isEqual.js"}],"components/Page.jsx":[function(require,module,exports) {
+},{"react":"../../node_modules/react/index.js","./Thumbnail":"components/Thumbnail.jsx","./Legend":"components/Legend.jsx","./Nav":"components/Nav.jsx","./VennShader":"components/VennShader.jsx","~/hooks/useData":"hooks/useData.js","~/hooks/useSimulation":"hooks/useSimulation.js"}],"components/Page.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -46011,7 +43534,9 @@ var Page = function Page(_ref) {
   var data = (0, _useFetch.default)(match.params.page + '.json');
   if (!data) return 'Loading';
   console.log(data);
-  return _react.default.createElement("div", null, _react.default.createElement("h1", null, data.title), _react.default.createElement("p", null, data.tags.join(', ')), _react.default.createElement("img", {
+  return _react.default.createElement("div", {
+    class: "page"
+  }, _react.default.createElement("h1", null, data.title), _react.default.createElement("p", null, data.tags.join(', ')), _react.default.createElement("img", {
     src: data.thumbnail
   }), _react.default.createElement(_reactRouterDom.Link, {
     to: "/"
@@ -46028,7 +43553,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _react = _interopRequireWildcard(require("react"));
+var _react = _interopRequireDefault(require("react"));
 
 var _reactRouterDom = require("react-router-dom");
 
@@ -46038,32 +43563,8 @@ var _Page = _interopRequireDefault(require("./Page"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
-
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
-
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
-
-function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
 var App = function App() {
-  var _useState = (0, _react.useState)('tags'),
-      _useState2 = _slicedToArray(_useState, 2),
-      view = _useState2[0],
-      setView = _useState2[1];
-
-  return _react.default.createElement(_reactRouterDom.BrowserRouter, null, _react.default.createElement(_reactRouterDom.Route, {
-    path: "/",
-    exact: true,
-    render: function render() {
-      return _react.default.createElement(_Home.default, {
-        view: view,
-        setView: setView
-      });
-    }
-  }), _react.default.createElement(_reactRouterDom.Route, {
+  return _react.default.createElement(_reactRouterDom.BrowserRouter, null, _react.default.createElement(_Home.default, null), _react.default.createElement(_reactRouterDom.Route, {
     path: "/:page",
     component: _Page.default
   }));
@@ -46111,7 +43612,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "41709" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "42043" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
