@@ -4,7 +4,7 @@ import getColor from '~/utils/getColor';
 import tinycolor from 'tinycolor2';
 
 export default () => {
-    var data = useFetch( '/home.json' );
+    var data = useFetch( './home.json' );
     var [ projectColors, setProjectColors ] = useState( null );
     useEffect( () => {
         if ( !data ) return;
