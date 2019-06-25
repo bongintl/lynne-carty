@@ -6,7 +6,8 @@ import Thumbnail from './Thumbnail'
 
 var randomPosition = () => ({
     x: Math.random() * window.innerWidth,
-    y: Math.random() * window.innerHeight
+    y: Math.random() * window.innerHeight,
+    r: Math.random() < .1 ? 80 : 40
 });
 
 var Legend = ({ tags, colors, filter, setFilter }) => {
@@ -27,31 +28,34 @@ var Legend = ({ tags, colors, filter, setFilter }) => {
     )
 }
 
-var Venn = ({ data, radius, initialPositions = data.projects.map( randomPosition ) }) => {
+var Venn = ({ data, initialPositions = data.projects.map( randomPosition ) }) => {
     var [ filter, setFilter ] = useState( null );
-    var positions = useSimulation( data, radius, initialPositions );
+    var positions = useSimulation( data, initialPositions );
+    var layers = Object.entries( data.byTag ).map( ([ tag, idxs ]) => ({
+        color: data.colors[ tag ],
+        positions: idxs.map( i => positions[ i ] )
+    }));
     return (
         <React.Fragment>
-            <VennShader data={ data } radius={ radius } positions={ positions }/>
+            <VennShader layers={ layers }/>
             <Legend tags={ data.tags } colors={ data.colors } filter={ filter } setFilter={ setFilter }/>
             { data.projects
                 .filter( project => filter === null || project.tags.includes( filter ) )
-                .map( ( project, i ) => (
-                    <Thumbnail key={ project.url } project={ project } position={ positions[ project.i ] }/>
-                ))
+                .map( ( project, i ) => {
+                    var position = positions[ project.i ];
+                    return (
+                        <Thumbnail
+                            key={ project.url }
+                            project={ project }
+                            x={ position.x }
+                            y={ position.y }
+                            r={ position.r }
+                        />
+                    )
+                })
             }
         </React.Fragment>
     )
-}
-
-var Grid = data => {
-    
-}
-
-var Tags = props => {
-    return useWindowSize[ 0 ] < 768
-        ? <Grid { ...props }/>
-        : <Venn { ...props }/>
 }
 
 export default Venn;

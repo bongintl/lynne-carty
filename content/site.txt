@@ -5,6 +5,9 @@ Title: Lynne Carty
 Tags: 
 
 - 
+  name: Lynne Carty
+  color: '#AD00FF'
+- 
   name: Art Direction
   color: '#FF0000'
 - 
@@ -22,6 +25,3 @@ Tags:
 - 
   name: Illustration
   color: '#FCFF80'
-- 
-  name: Lynne Carty
-  color: '#AD00FF'

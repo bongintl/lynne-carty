@@ -7,7 +7,7 @@ var Page = ({ match }) => {
     if ( !data ) return 'Loading';
     console.log( data )
     return (
-        <div>
+        <div class="page">
             <h1>{ data.title }</h1>
             <p>{ data.tags.join(', ') }</p>
             <img src={ data.thumbnail }/>
