@@ -5,6 +5,7 @@ uniform vec2 positions[ MAX ];
 uniform float radii[ MAX ];
 uniform vec3 color;
 uniform int count;
+uniform float power;
 
 float sample ( vec2 coord ) {
     float x = coord.x;

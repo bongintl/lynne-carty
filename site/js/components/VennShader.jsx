@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useContext, useMemo } from 'react'
+import React, { useState, useLayoutEffect, useContext, useMemo } from 'react'
 import GL, { GLContext } from './GL';
 import createBuffer from 'gl-buffer';
 import createVAO from 'gl-vao';
@@ -30,6 +30,7 @@ var vert = `
 `
 
 var Renderer = ({ layers }) => {
+    var [ power, setPower ] = useState( 1 );
     var gl = useContext( GLContext );
     var triangle = useMemo( () => {
         var position = createBuffer( gl, new Float32Array([
@@ -61,6 +62,7 @@ var Renderer = ({ layers }) => {
         triangle.bind();
         gl.enable( gl.SCISSOR_TEST );
         shader.uniforms.resolution = [ gl.canvas.width, gl.canvas.height ];
+        shader.uniforms.power = Number( power );
         var extend = Math.min( gl.canvas.width, gl.canvas.height ) * .2;
         layers.forEach( ({ color, positions }) => {
             shader.uniforms.count = positions.length;
@@ -82,6 +84,7 @@ var Renderer = ({ layers }) => {
         gl.disable( gl.SCISSOR_TEST );
     }, [ gl, layers, gl.canvas.width, gl.canvas.height ] )
     return null;
+    // return <input type="range" min="0" max="1" step=".01" onChange={ e => setPower( Number( e.target.value ) ) } style={{ position: 'fixed' }}/>
 }
 
 var VennShader = ({ layers }) => {

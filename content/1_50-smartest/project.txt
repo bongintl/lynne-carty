@@ -8,4 +8,8 @@ Thumbnail:
 
 ----
 
+New: true
+
+----
+
 Tags: Art Direction, Animation, Video

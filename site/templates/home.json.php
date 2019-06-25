@@ -16,7 +16,8 @@ $projects = array_values(
                 'pixel' => $project -> thumbnail() -> isNotEmpty()
                     ? $project -> thumbnail() -> toFile() -> resize( 1, 1 ) -> url()
                     : null,
-                'tags' => $project -> tags() -> split()
+                'tags' => $project -> tags() -> split(),
+                "new" => (bool) $project -> new() -> value()
             ];
         })
 );
