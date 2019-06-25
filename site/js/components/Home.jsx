@@ -20,13 +20,13 @@ var Home = ({ data }) => {
     return (
         <React.Fragment>
             <VennShader layers={ groupLayers( positions, data.byTag, data.colors ) }/>
-            <Nav setMode={ setMode }/>
-            <Legend
+            { /* <Nav setMode={ setMode }/> */ }
+            { <Legend
                 tags={ Object.keys( data.byTag ) }
                 colors={ data.colors }
                 filter={ filter }
                 setFilter={ setFilter }
-            />
+            /> }
             { data.projects
                 .filter( project => filter === null || project.tags.includes( filter ) )
                 .map( project => {
@@ -38,6 +38,7 @@ var Home = ({ data }) => {
                             x={ position.x }
                             y={ position.y }
                             r={ position.r }
+                            colors={ data.colors }
                         />
                     )
                 })

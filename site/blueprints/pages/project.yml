@@ -13,6 +13,9 @@ columns:
             layout: cards
             size: small
             required: true
+          new:
+            label: New
+            type: toggle
           tags:
             label: Tags
             type: tags

@@ -13,28 +13,63 @@ html {
   background: #DFDFDF; }
 
 .thumbnail {
-  display: block;
   position: absolute;
   top: 0;
   left: 0;
-  width: calc( var( --radius ) * .7 * 2);
-  height: calc( var( --radius ) * .7 * 2);
-  object-fit: contain;
   z-index: 100;
   contain: layout;
   will-change: transform;
-  cursor: pointer;
-  transition: width .1s, height .1s; }
-  .thumbnail:hover {
-    width: calc( var( --radius ) * 2);
-    height: calc( var( --radius ) * 2);
-    z-index: 20; }
+  cursor: pointer; }
+  .thumbnail img {
+    position: absolute;
+    top: 15%;
+    left: 15%;
+    width: 70%;
+    height: 70%;
+    object-fit: contain; }
+  .thumbnail__new {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    color: red;
+    animation: rainbow 1s linear infinite; }
+
+@keyframes rainbow {
+  0% {
+    color: #FF0000; }
+  14% {
+    color: #FF9838; }
+  28% {
+    color: #BDFF00; }
+  42% {
+    color: #FC49CA; }
+  57% {
+    color: #00C2FF; }
+  71% {
+    color: #FCFF80; }
+  85% {
+    color: #AD00FF; } }
+  .thumbnail__ring {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border-width: 1px;
+    border-style: solid; }
 
 .color {
   width: 100%; }
 
 main {
-  height: 100%; }
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden; }
 
 canvas {
   position: absolute;
@@ -48,19 +83,20 @@ canvas {
   list-style: none;
   display: block;
   position: fixed;
-  left: 3em;
-  bottom: 2em; }
+  right: 2em;
+  bottom: 1.5em; }
   .legend li {
     border: 1px solid var(--color);
     color: transparent;
     border-width: 1px;
     border-style: solid;
     border-radius: 50%;
-    padding: .5em 1.5em;
+    padding: .75em 1.75em;
     text-align: center;
     display: block;
     width: auto;
-    cursor: pointer; }
+    cursor: pointer;
+    text-transform: uppercase; }
     .legend li.selected {
       color: var(--color); }
 
