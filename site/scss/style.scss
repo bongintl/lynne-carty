@@ -1,12 +1,3 @@
-:root {
-    --radius: 20px;
-    @media ( min-width: 768px ) {
-        --radius: 40px;
-    }
-    
-}
-
-
 * {
     margin: 0;
     padding: 0;
@@ -33,23 +24,6 @@ html {
         height: 70%;
         object-fit: contain;
     }
-    &__new {
-        position: absolute;
-        transform: translate(-50%, -50%);
-        top: 50%;
-        left: 50%;
-        color: red;
-        @keyframes rainbow {
-            0% { color: #FF0000 }
-            14% { color: #FF9838 }
-            28% { color: #BDFF00 }
-            42% { color: #FC49CA }
-            57% { color: #00C2FF }
-            71% { color: #FCFF80 }
-            85% { color: #AD00FF }
-        }
-        animation: rainbow 1s linear infinite;
-    }
     &__ring {
         position: absolute;
         top: 0;
@@ -59,26 +33,7 @@ html {
         border-radius: 50%;
         border-width: 1px;
         border-style: solid;
-        
-        // &:nth-child( 1 ) {
-        //     margin-left: -3px;
-        //     margin-top: 2px;
-        // }
     }
-}
-.color {
-    width: 100%;
-    // display: none;
-}
-
-main {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    
 }
 
 canvas {
@@ -122,34 +77,73 @@ svg {
     left: 0;
 }
 
-.rafMeter {
+.home {
     position: fixed;
-    z-index: 100;
-    background: white;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    transition: filter .5s;
+    &--inactive {
+        filter: blur(20px);
+    }
 }
 
-.year-number {
-    font-size: 80px;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-
-nav {
-    position: fixed;
-    z-index: 2000;
-}
-
-.page {
+.work {
     position: fixed;
     z-index: 100;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    overflow-x: hidden;
-    overflow-y: scroll;
+    overflow: hidden;
+    --project-width: 100vw;
+    --project-peek: 0;
+    @media ( min-width: 1000px ) {
+        --project-width: 800px;
+        --project-peek: 100px;
+    }
+    --project-offset: calc(
+        ( ( 100vw - var( --project-width ) ) / 2 ) -
+        ( var( --project-peek ) - var( --project-width ) )
+    );
+    &__button {
+        position: absolute;
+        z-index: 100;
+        top: 2rem;
+        transform: translateX(-50%);
+        &--exit {
+            left: 50%;
+        }
+        &--prev {
+            left: 25%;
+        }
+        &--next {
+            left: 75%;
+        }
+    }
+    &__project {
+        width: var(--project-width);
+        height: 100%;
+        position: absolute;
+        left: calc( ( 100vw - var( --project-width ) ) / 2 );
+        overflow-x: hidden;
+        overflow-y: scroll;
+    }
+    &__link {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        display: block;
+        overflow-x: hidden;
+        overflow-y: scroll;
+    }
+}
+
+.project {
+    padding: 4rem 1rem;
+    img {
+        width: 100%;
+    }
 }
