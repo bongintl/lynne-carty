@@ -7,7 +7,7 @@ var App = () => {
     return (
         <Router>
             <Home />
-            { /*<Route path="/:page" component={ Page }/> */ }
+            <Route path="/:page" component={ Page }/>
         </Router>
     )
 }
