@@ -21,12 +21,12 @@ var Home = ({ data }) => {
         <React.Fragment>
             <VennShader layers={ groupLayers( positions, data.byTag, data.colors ) }/>
             { /* <Nav setMode={ setMode }/> */ }
-            { <Legend
+            <Legend
                 tags={ Object.keys( data.byTag ) }
                 colors={ data.colors }
                 filter={ filter }
                 setFilter={ setFilter }
-            /> }
+            />
             { data.projects
                 .filter( project => filter === null || project.tags.includes( filter ) )
                 .map( project => {

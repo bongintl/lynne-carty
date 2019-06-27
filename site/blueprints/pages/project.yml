@@ -1,21 +1,20 @@
 title: Project
 columns:
   -
-    width: 3/4
+    width: 1/4
     sections:
-      content:
+      data:
         type: fields
         fields:
-          thumbnail:
-            label: Thumbnail
-            type: files
-            multiple: false
-            layout: cards
-            size: small
-            required: true
-          new:
-            label: New
-            type: toggle
+          size:
+            label: Size
+            type: range
+            min: 0.5
+            max: 3
+            step: 0.5
+            default: 1
+            tooltip:
+              after: x
           tags:
             label: Tags
             type: tags
@@ -25,6 +24,38 @@ columns:
               fetch: site.find('work').tags.toStructure
               text: "{{ structureItem.name }}"
               value: "{{ structureItem.name }}"
+  -
+    width: 1/2
+    sections:
+      content:
+        type: fields
+        fields:
+          mainImage:
+            label: Main Image
+            type: files
+            multiple: false
+            layout: cards
+            size: huge
+            required: true
+          credits:
+            label: Credits
+            type: structure
+            fields:
+              role:
+                type: text
+                width: 1/2
+              name:
+                type: text
+                width: 1/2
+          body:
+            label: Body
+            type: textarea
+          images:
+            label: Additional Images
+            type: files
+            multiple: true
+            layout: cards
+            size: huge
   -
     width: 1/4
     sections:
