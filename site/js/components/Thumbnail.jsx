@@ -1,5 +1,7 @@
 import React, { useMemo } from 'react';
 import { Link } from "react-router-dom";
+import useWindowSize from '../hooks/useWindowSize';
+import useIsMobile from '../hooks/useIsMobile';
 
 var offsets = {};
 var getOffset = key => {
@@ -39,11 +41,10 @@ var Thumbnail = ({ project, x, y, r, colors }) => (
             `
         }}
     >
-        { /*project.tags.map( tag => (
+        { useIsMobile() && project.tags.map( tag => (
             <Ring key={ tag } color={ colors[ tag ] }/>
-        ))*/ }
+        )) }
         <img src={ project.thumbnail }/>
-        { project.new && <div className="thumbnail__new">new!</div> }
     </Link>
 )
 

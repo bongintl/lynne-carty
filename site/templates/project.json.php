@@ -6,9 +6,9 @@ echo json_encode([
     'thumbnail' => (string) $page -> thumbnail() -> toFile() -> url(),
     'files' => array_values( $page -> files() -> toArray() ),
     'next' => $page -> hasNextListed()
-        ? (string) $page -> nextListed() -> url()
+        ? (string) $page -> nextListed() -> url() . '.json'
         : null,
     'prev' => $page -> hasPrevListed()
-        ? (string) $page -> prevListed() -> url()
+        ? (string) $page -> prevListed() -> url() . '.json'
         : null
 ]);

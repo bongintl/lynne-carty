@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import Thumbnail from './Thumbnail';
 import Legend from './Legend';
-import Nav from './Nav';
 import VennShader from './VennShader'
-import useData from '~/hooks/useData';
-import useSimulation from '~/hooks/useSimulation';
+import DataContext from './DataContext';
+import useSimulation from '../hooks/useSimulation';
+import bem from '../utils/bem';
 
 var groupLayers = ( positions, byTag, colors ) => (
     Object.entries( byTag ).map( ([ tag, idxs ]) => ({
@@ -13,14 +13,14 @@ var groupLayers = ( positions, byTag, colors ) => (
     }))
 )
 
-var Home = ({ data }) => {
-    var [ mode, setMode ] = useState( 'tags' );
+var Home = ({ match }) => {
+    var data = useContext( DataContext );
+    var running = match.isExact;
     var [ filter, setFilter ] = useState( null );
-    var positions = useSimulation( data.projects )
+    var positions = useSimulation( data.projects, running );
     return (
-        <React.Fragment>
+        <div className={ bem( 'home', { inactive: !running } ) }>
             <VennShader layers={ groupLayers( positions, data.byTag, data.colors ) }/>
-            { /* <Nav setMode={ setMode }/> */ }
             <Legend
                 tags={ Object.keys( data.byTag ) }
                 colors={ data.colors }
@@ -43,14 +43,7 @@ var Home = ({ data }) => {
                     )
                 })
             }
-        </React.Fragment>
+        </div>
     )
 }
-
-var withData = Component => props => {
-    var data = useData();
-    if ( data === null ) return null;
-    return <Component data={ data } { ...props }/>
-}
-
-export default withData( Home );
+export default Home;

@@ -2,7 +2,7 @@ import { useState, useLayoutEffect, useMemo, useCallback, useRef } from 'react';
 import * as d3force from 'd3-force';
 import intersection from 'lodash/intersection';
 import isEqual from 'lodash/isEqual';
-import useWindowSize from '~/hooks/useWindowSize';
+import useWindowSize from './useWindowSize';
 
 var sum = xs => xs.reduce( ( a, b ) => a + b, 0 );
 var mean = xs => sum( xs ) / xs.length;
@@ -86,7 +86,7 @@ export default function useSimulation ( projects, running = true ) {
             simulation.on( 'tick', null );
             simulation.stop();
         }
-    }, [ projects, windowSize ] );
+    }, [ projects, windowSize, running ] );
     var cx = windowSize[ 0 ] / 2 - mean( nodes.map( n => n.x ) );
     var cy = windowSize[ 1 ] / 2 - mean( nodes.map( n => n.y ) );
     return nodes.map( n => ({ x: n.x + cx, y: n.y + cy, r: n.r }) );

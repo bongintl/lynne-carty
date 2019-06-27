@@ -6,8 +6,9 @@
   "scripts": {
     "watch:js": "parcel watch site/js/main.js -d assets",
     "build:js": "parcel build site/js/main.js -d assets",
-    "watch:sass": "npm run build:sass && onchange 'site/scss/**/*.scss' -- npm run build:sass",
-    "build:sass": "node-sass site/scss/style.scss --output assets",
+    "watch": "parcel watch site/scss/style.scss -d assets",
+    "watch:sass": "parcel watch site/scss/style.scss -d assets",
+    "build:sass": "parcel build site/scss/style.scss -d assets",
     "dev": "npm run watch:js & npm run watch:sass",
     "build": "npm run build:js && npm run build:sass"
   },
@@ -27,6 +28,7 @@
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-router-dom": "^5.0.1",
+    "react-spring": "^8.0.25",
     "tinycolor2": "^1.4.1"
   },
   "devDependencies": {
