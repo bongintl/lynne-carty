@@ -14,7 +14,7 @@ $projects = array_values(
                     ? $project -> mainImage() -> toFile() -> resize( 200 ) -> url()
                     : null,
                 'tags' => $project -> tags() -> split(),
-                "new" => (bool) $project -> new() -> value()
+                "size" => (float) $project -> size() -> value()
             ];
         })
 );
