@@ -25,4 +25,8 @@ columns:
       pages:
         type: pages
         limit: 150
-        status: listed
+        templates:
+          - project
+          - about
+        create:
+          - project

@@ -1,0 +1,71 @@
+title: Project
+columns:
+  -
+    width: 1/4
+    sections:
+      data:
+        type: fields
+        fields:
+          size:
+            label: Size
+            type: range
+            min: 0.5
+            max: 3
+            step: 0.5
+            default: 1
+            tooltip:
+              after: x
+          tags:
+            label: Tags
+            type: tags
+            accept: options
+            options: query
+            query:
+              fetch: site.find('work').tags.toStructure
+              text: "{{ structureItem.name }}"
+              value: "{{ structureItem.name }}"
+  -
+    width: 1/2
+    sections:
+      content:
+        type: fields
+        fields:
+          mainImage:
+            label: Main Image
+            type: files
+            multiple: false
+            layout: cards
+            size: huge
+            required: true
+          body:
+            label: Body
+            type: textarea
+          resume:
+            label: Resume
+            type: structure
+            fields:
+              dates:
+                type: text
+                width: 1/2
+              job:
+                type: text
+                width: 1/2
+          links:
+            label: Links
+            type: structure
+            fields:
+              label:
+                type: text
+              url:
+                type: text
+          images:
+            label: Additional Images
+            type: files
+            multiple: true
+            layout: cards
+            size: huge
+  -
+    width: 1/4
+    sections:
+      files:
+        type: files
