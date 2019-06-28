@@ -10,7 +10,7 @@ $projects = array_values(
             return [
                 'title' => (string) $project -> title(),
                 'url' => "/" . (string) $project -> uri(),
-                'thumbnail' => $project -> thumbnail() -> isNotEmpty()
+                'thumbnail' => $project -> mainImage() -> isNotEmpty()
                     ? $project -> thumbnail() -> toFile() -> resize( 200 ) -> url()
                     : null,
                 'pixel' => $project -> thumbnail() -> isNotEmpty()
