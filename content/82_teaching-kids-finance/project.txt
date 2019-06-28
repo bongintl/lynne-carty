@@ -2,7 +2,7 @@ Title: Teaching Kids Finance
 
 ----
 
-Mainimage:
+Thumbnail:
 
 - ILLUSTRATION-teaching-kids-finance.jpg
 

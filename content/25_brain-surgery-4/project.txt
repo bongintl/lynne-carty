@@ -2,7 +2,7 @@ Title: Brain Surgery 4
 
 ----
 
-Mainimage:
+Thumbnail:
 
 - AD+DESIGN-brain-surgery-4.png
 

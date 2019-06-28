@@ -2,7 +2,7 @@ Title: Proxy Voting
 
 ----
 
-Mainimage:
+Thumbnail:
 
 - AD+COVER-proxy-voting.jpg
 

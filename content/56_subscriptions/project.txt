@@ -2,7 +2,7 @@ Title: Subscriptions
 
 ----
 
-Mainimage:
+Thumbnail:
 
 - AD+DESIGN-subscriptions.png
 

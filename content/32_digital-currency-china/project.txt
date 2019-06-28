@@ -2,7 +2,7 @@ Title: Digital Currency China
 
 ----
 
-Mainimage:
+Thumbnail:
 
 - AD+DESIGN-digital-currency-china.png
 

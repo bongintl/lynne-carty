@@ -2,7 +2,7 @@ Title: Subscriber
 
 ----
 
-Mainimage:
+Thumbnail:
 
 - AD+COVER-subscriber.png
 

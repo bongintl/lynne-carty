@@ -2,7 +2,7 @@ Title: January Toc
 
 ----
 
-Mainimage:
+Thumbnail:
 
 - AD+DESIGN-January-toc.png
 

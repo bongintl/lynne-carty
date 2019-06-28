@@ -2,7 +2,7 @@ Title: Bitcoin
 
 ----
 
-Mainimage:
+Thumbnail:
 
 - AD+COVER-bitcoin.png
 

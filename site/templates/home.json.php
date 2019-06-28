@@ -11,10 +11,13 @@ $projects = array_values(
                 'title' => (string) $project -> title(),
                 'url' => "/" . (string) $project -> uri(),
                 'thumbnail' => $project -> mainImage() -> isNotEmpty()
-                    ? $project -> mainImage() -> toFile() -> resize( 200 ) -> url()
+                    ? $project -> thumbnail() -> toFile() -> resize( 200 ) -> url()
+                    : null,
+                'pixel' => $project -> thumbnail() -> isNotEmpty()
+                    ? $project -> thumbnail() -> toFile() -> resize( 1, 1 ) -> url()
                     : null,
                 'tags' => $project -> tags() -> split(),
-                'size' => (float) $project -> size() -> value()
+                "new" => (bool) $project -> new() -> value()
             ];
         })
 );

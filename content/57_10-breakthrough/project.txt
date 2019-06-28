@@ -2,7 +2,7 @@ Title: 10 Breakthrough
 
 ----
 
-Mainimage:
+Thumbnail:
 
 - AD+VIDEO-10-breakthrough.png
 

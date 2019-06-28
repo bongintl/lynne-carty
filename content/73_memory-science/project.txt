@@ -2,7 +2,7 @@ Title: Memory Science
 
 ----
 
-Mainimage:
+Thumbnail:
 
 - DESIGN-memory-science.png
 

@@ -2,7 +2,7 @@ Title: Quantum Computing
 
 ----
 
-Mainimage:
+Thumbnail:
 
 - DESIGN-quantum-computing.jpg
 

@@ -2,7 +2,7 @@ Title: Unicorn
 
 ----
 
-Mainimage:
+Thumbnail:
 
 - ILLUSTRATION-unicorn.jpg
 

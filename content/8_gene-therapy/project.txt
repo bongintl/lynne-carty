@@ -2,7 +2,7 @@ Title: Gene Therapy
 
 ----
 
-Mainimage: 
+Thumbnail: 
 
 - AD+COVER-gene-therapy.png
 

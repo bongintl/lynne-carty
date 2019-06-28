@@ -2,7 +2,7 @@ Title: Makerspaces
 
 ----
 
-Mainimage:
+Thumbnail:
 
 - AD+COVER+DESIGN-makerspaces.png
 

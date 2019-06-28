@@ -4,7 +4,6 @@ import Legend from './Legend';
 import VennShader from './VennShader'
 import DataContext from './DataContext';
 import useSimulation from '../hooks/useSimulation';
-import useIsMobile from '../hooks/useIsMobile';
 import bem from '../utils/bem';
 
 var groupLayers = ( positions, byTag, colors ) => (
@@ -21,7 +20,7 @@ var Home = ({ match }) => {
     var positions = useSimulation( data.projects, running );
     return (
         <div className={ bem( 'home', { inactive: !running } ) }>
-            { !useIsMobile() && <VennShader layers={ groupLayers( positions, data.byTag, data.colors ) }/> }
+            <VennShader layers={ groupLayers( positions, data.byTag, data.colors ) }/>
             <Legend
                 tags={ Object.keys( data.byTag ) }
                 colors={ data.colors }

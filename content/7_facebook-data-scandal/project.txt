@@ -2,7 +2,7 @@ Title: Facebook Data Scandal
 
 ----
 
-Mainimage:
+Thumbnail:
 
 - AD+COVER-facebook-data-scandal.png
 

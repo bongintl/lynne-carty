@@ -2,7 +2,7 @@ Title: Rip Toys R Us
 
 ----
 
-Mainimage:
+Thumbnail:
 
 - ILLUSTRATION-RIP-toys-r-us.jpg
 

@@ -2,7 +2,7 @@ Title: National Debt
 
 ----
 
-Mainimage:
+Thumbnail:
 
 - AD+COVER-national-debt.png
 

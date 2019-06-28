@@ -2,7 +2,7 @@ Title: Innovators Under 35
 
 ----
 
-Mainimage:
+Thumbnail:
 
 - COVER+DESIGN-innovators-under-35.png
 

@@ -2,7 +2,7 @@ Title: South Korea Nuclear
 
 ----
 
-Mainimage:
+Thumbnail:
 
 - AD+DESIGN-south-korea-nuclear.png
 

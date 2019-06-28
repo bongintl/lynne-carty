@@ -2,7 +2,7 @@ Title: Boosting Sales Numbers
 
 ----
 
-Mainimage:
+Thumbnail:
 
 - ILLUSTRATION-boosting-sales-numbers.jpg
 

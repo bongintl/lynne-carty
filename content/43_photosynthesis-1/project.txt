@@ -2,7 +2,7 @@ Title: Photosynthesis 1
 
 ----
 
-Mainimage:
+Thumbnail:
 
 - AD+DESIGN-photosynthesis-1.png
 

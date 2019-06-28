@@ -2,7 +2,7 @@ Title: Icarbonx
 
 ----
 
-Mainimage:
+Thumbnail:
 
 - AD+DESIGN-iCarbonX.png
 

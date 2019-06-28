@@ -2,7 +2,7 @@ Title: Sustainable
 
 ----
 
-Mainimage:
+Thumbnail:
 
 - AD+COVER-sustainable.png
 

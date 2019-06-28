@@ -2,7 +2,7 @@ Title: Big Pharma Drug Prices
 
 ----
 
-Mainimage:
+Thumbnail:
 
 - ILLUSTRATION-big-pharma-drug-prices.jpg
 

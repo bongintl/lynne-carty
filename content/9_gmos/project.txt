@@ -2,7 +2,7 @@ Title: Gmos
 
 ----
 
-Mainimage:
+Thumbnail:
 
 - AD+COVER-gmos.jpg
 

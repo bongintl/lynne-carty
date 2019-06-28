@@ -2,7 +2,7 @@ Title: Tech Worth The Wait
 
 ----
 
-Mainimage:
+Thumbnail:
 
 - AD+COVER-tech-worth-the-wait.jpg
 

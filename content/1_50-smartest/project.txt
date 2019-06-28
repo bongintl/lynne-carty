@@ -2,7 +2,7 @@ Title: 50 Smartest
 
 ----
 
-Mainimage: 
+Thumbnail: 
 
 - AD+ANIMATION+VIDEO-50-smartest.png
 

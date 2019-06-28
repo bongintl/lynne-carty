@@ -2,7 +2,7 @@ Title: 2017 Mit Holiday Card Print
 
 ----
 
-Mainimage:
+Thumbnail:
 
 - AD-2017-mit-holiday-card-print.png
 

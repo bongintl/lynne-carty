@@ -2,7 +2,7 @@ Title: Automation
 
 ----
 
-Mainimage: 
+Thumbnail: 
 
 - AD+DESIGN-automation.png
 
