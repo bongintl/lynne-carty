@@ -29,8 +29,7 @@ var Ring = ({ color }) => {
 }
 
 var Thumbnail = ({ project, x, y, r, colors }) => (
-    <Link
-        to={ project.url }
+    <div
         className="thumbnail"
         style={{
             width: r * 2 + 'px',
@@ -45,7 +44,7 @@ var Thumbnail = ({ project, x, y, r, colors }) => (
             <Ring key={ tag } color={ colors[ tag ] }/>
         )) }
         <img src={ project.thumbnail }/>
-    </Link>
+    </div>
 )
 
 export default Thumbnail;
