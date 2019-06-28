@@ -12,7 +12,7 @@ var App = () => {
         <DataContext.Provider value={ data }>
             <Router>
                 <Route path="/" component={ Home } />
-                <Route path="/:page" component={ Work }/>
+                { /* <Route path="/:page" component={ Work }/> */ }
             </Router>
         </DataContext.Provider>
     )
