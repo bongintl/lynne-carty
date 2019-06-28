@@ -2,7 +2,7 @@ Title: 10 Breakthrough
 
 ----
 
-Thumbnail:
+Mainimage:
 
 - DESIGN-10-breakthrough.jpg
 

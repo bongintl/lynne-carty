@@ -2,7 +2,7 @@ Title: Brain Surgery 3
 
 ----
 
-Thumbnail:
+Mainimage:
 
 - AD+DESIGN-brain-surgery-3.png
 

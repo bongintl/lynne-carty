@@ -2,7 +2,7 @@ Title: Microsoft Lawyer
 
 ----
 
-Thumbnail:
+Mainimage:
 
 - AD+DESIGN-microsoft-lawyer.png
 

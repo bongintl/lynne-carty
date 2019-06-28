@@ -2,7 +2,7 @@ Title: Strano
 
 ----
 
-Thumbnail:
+Mainimage:
 
 - COVER+DESIGN+ILLUSTRATION-strano.png
 

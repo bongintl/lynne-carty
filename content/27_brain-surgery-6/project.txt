@@ -2,7 +2,7 @@ Title: Brain Surgery 6
 
 ----
 
-Thumbnail:
+Mainimage:
 
 - AD+DESIGN-brain-surgery-6.png
 

@@ -2,7 +2,7 @@ Title: Robots Who Feel
 
 ----
 
-Thumbnail:
+Mainimage:
 
 - AD+DESIGN-robots-who-feel.png
 

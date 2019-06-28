@@ -2,7 +2,7 @@ Title: Ceo Mental Health
 
 ----
 
-Thumbnail:
+Mainimage:
 
 - ILLUSTRATION-CEO-mental-health.jpg
 

@@ -2,7 +2,7 @@ Title: Rex Week
 
 ----
 
-Thumbnail:
+Mainimage:
 
 - DESIGN-REX-week.jpg
 

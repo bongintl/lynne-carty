@@ -2,7 +2,7 @@ Title: Blockchain
 
 ----
 
-Thumbnail:
+Mainimage:
 
 - AD+VIDEO-blockchain.png
 

@@ -2,7 +2,7 @@ Title: Facebook For Kids
 
 ----
 
-Thumbnail:
+Mainimage:
 
 - AD+DESIGN-facebook-for-kids.jpg
 

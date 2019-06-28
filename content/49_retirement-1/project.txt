@@ -2,7 +2,7 @@ Title: Retirement 1
 
 ----
 
-Thumbnail:
+Mainimage:
 
 - AD+DESIGN-retirement-1.png
 

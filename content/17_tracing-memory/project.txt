@@ -2,7 +2,7 @@ Title: Tracing Memory
 
 ----
 
-Thumbnail:
+Mainimage:
 
 - AD+COVER-tracing-memory.png
 

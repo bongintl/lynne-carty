@@ -2,7 +2,7 @@ Title: Pioneer
 
 ----
 
-Thumbnail:
+Mainimage:
 
 - AD+DESIGN-pioneer.png
 

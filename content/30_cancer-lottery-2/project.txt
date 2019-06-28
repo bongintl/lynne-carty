@@ -2,7 +2,7 @@ Title: Cancer Lottery 2
 
 ----
 
-Thumbnail:
+Mainimage:
 
 - AD+DESIGN-cancer-lottery-2.jpg
 

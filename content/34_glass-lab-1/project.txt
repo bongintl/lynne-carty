@@ -2,7 +2,7 @@ Title: Glass Lab 1
 
 ----
 
-Thumbnail:
+Mainimage:
 
 - AD+DESIGN-glass-lab-1.png
 

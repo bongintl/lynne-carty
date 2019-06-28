@@ -2,7 +2,7 @@ Title: Plume
 
 ----
 
-Thumbnail:
+Mainimage:
 
 - AD+DESIGN-plume.png
 

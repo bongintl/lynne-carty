@@ -2,7 +2,7 @@ Title: Photosynthesis 4
 
 ----
 
-Thumbnail:
+Mainimage:
 
 - AD+DESIGN-photosynthesis-4.png
 

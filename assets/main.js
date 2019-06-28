@@ -43211,6 +43211,8 @@ var _DataContext = _interopRequireDefault(require("./DataContext"));
 
 var _useSimulation = _interopRequireDefault(require("../hooks/useSimulation"));
 
+var _useIsMobile = _interopRequireDefault(require("../hooks/useIsMobile"));
+
 var _bem = _interopRequireDefault(require("../utils/bem"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -43255,7 +43257,7 @@ var Home = function Home(_ref3) {
     className: (0, _bem.default)('home', {
       inactive: !running
     })
-  }, _react.default.createElement(_VennShader.default, {
+  }, !(0, _useIsMobile.default)() && _react.default.createElement(_VennShader.default, {
     layers: groupLayers(positions, data.byTag, data.colors)
   }), _react.default.createElement(_Legend.default, {
     tags: Object.keys(data.byTag),
@@ -43279,7 +43281,7 @@ var Home = function Home(_ref3) {
 
 var _default = Home;
 exports.default = _default;
-},{"react":"../../node_modules/react/index.js","./Thumbnail":"components/Thumbnail.jsx","./Legend":"components/Legend.jsx","./VennShader":"components/VennShader.jsx","./DataContext":"components/DataContext.js","../hooks/useSimulation":"hooks/useSimulation.js","../utils/bem":"utils/bem.js"}],"hooks/useFetch.js":[function(require,module,exports) {
+},{"react":"../../node_modules/react/index.js","./Thumbnail":"components/Thumbnail.jsx","./Legend":"components/Legend.jsx","./VennShader":"components/VennShader.jsx","./DataContext":"components/DataContext.js","../hooks/useSimulation":"hooks/useSimulation.js","../hooks/useIsMobile":"hooks/useIsMobile.js","../utils/bem":"utils/bem.js"}],"hooks/useFetch.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -45774,61 +45776,7 @@ var Work = function Work(_ref) {
 
 var _default = Work;
 exports.default = _default;
-},{"react":"../../node_modules/react/index.js","react-router-dom":"../../node_modules/react-router-dom/esm/react-router-dom.js","./DataContext":"components/DataContext.js","./Project":"components/Project.jsx","react-spring":"../../node_modules/react-spring/web.js","lodash/range":"../../node_modules/lodash/range.js"}],"utils/getColor.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _tinycolor = _interopRequireDefault(require("tinycolor2"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
-
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
-
-function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
-var cache = {};
-var canvas = document.createElement('canvas');
-canvas.width = canvas.height = 1;
-var ctx = canvas.getContext('2d');
-
-var _default = function _default(src) {
-  return new Promise(function (resolve) {
-    var image = new Image();
-
-    image.onload = function () {
-      ctx.drawImage(image, 0, 0);
-
-      var _ctx$getImageData = ctx.getImageData(0, 0, 1, 1),
-          data = _ctx$getImageData.data;
-
-      var _data = _slicedToArray(data, 3),
-          r = _data[0],
-          g = _data[1],
-          b = _data[2];
-
-      var color = (0, _tinycolor.default)({
-        r: r,
-        g: g,
-        b: b
-      }).toHsl();
-      cache[src] = color;
-      resolve(color);
-    };
-
-    image.src = src;
-  });
-};
-
-exports.default = _default;
-},{"tinycolor2":"../../node_modules/tinycolor2/tinycolor.js"}],"hooks/useData.js":[function(require,module,exports) {
+},{"react":"../../node_modules/react/index.js","react-router-dom":"../../node_modules/react-router-dom/esm/react-router-dom.js","./DataContext":"components/DataContext.js","./Project":"components/Project.jsx","react-spring":"../../node_modules/react-spring/web.js","lodash/range":"../../node_modules/lodash/range.js"}],"hooks/useData.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -45840,8 +45788,6 @@ var _react = require("react");
 
 var _useFetch = _interopRequireDefault(require("./useFetch"));
 
-var _getColor = _interopRequireDefault(require("~/utils/getColor"));
-
 var _tinycolor = _interopRequireDefault(require("tinycolor2"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -45850,36 +45796,15 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
-
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
-
-function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
 var _default = function _default() {
   var data = (0, _useFetch.default)('./home.json');
-
-  var _useState = (0, _react.useState)(null),
-      _useState2 = _slicedToArray(_useState, 2),
-      projectColors = _useState2[0],
-      setProjectColors = _useState2[1];
-
-  (0, _react.useEffect)(function () {
-    if (!data) return;
-    Promise.all(data.projects.map(function (project) {
-      return (0, _getColor.default)(project.pixel);
-    })).then(setProjectColors);
-  }, [data]);
   return (0, _react.useMemo)(function () {
-    if (data === null || projectColors === null) return null;
+    if (data === null) return null;
     var projects = data.projects,
         tags = data.tags;
     projects = projects.map(function (project, i) {
       return _objectSpread({}, project, {
-        i: i,
-        color: projectColors[i]
+        i: i
       });
     });
     return {
@@ -45907,11 +45832,11 @@ var _default = function _default() {
         return [tag.name, (0, _tinycolor.default)(tag.color)];
       }))
     };
-  }, [data, projectColors]);
+  }, [data]);
 };
 
 exports.default = _default;
-},{"react":"../../node_modules/react/index.js","./useFetch":"hooks/useFetch.js","~/utils/getColor":"utils/getColor.js","tinycolor2":"../../node_modules/tinycolor2/tinycolor.js"}],"components/App.jsx":[function(require,module,exports) {
+},{"react":"../../node_modules/react/index.js","./useFetch":"hooks/useFetch.js","tinycolor2":"../../node_modules/tinycolor2/tinycolor.js"}],"components/App.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -45989,7 +45914,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "45431" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "39395" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
