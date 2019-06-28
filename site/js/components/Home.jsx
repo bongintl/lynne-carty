@@ -15,7 +15,7 @@ var groupLayers = ( positions, byTag, colors ) => (
 
 var Home = ({ match }) => {
     var data = useContext( DataContext );
-    var running = match.isExact;
+    var running = true;//match.isExact;
     var [ filter, setFilter ] = useState( null );
     var positions = useSimulation( data.projects, running );
     return (
