@@ -5,6 +5,8 @@ import createVAO from 'gl-vao';
 import createShader from 'gl-shader';
 import frag from '~/gl/venn.frag.glsl'
 import tinycolor from 'tinycolor2';
+import { useData } from './Data';
+import { useSimulation } from './Simulation';
 import useWindowSize from '~/hooks/useWindowSize';
 
 var backgroundColor = (() => {
@@ -87,8 +89,14 @@ var Renderer = ({ layers }) => {
     // return <input type="range" min="0" max="1" step=".01" onChange={ e => setPower( Number( e.target.value ) ) } style={{ position: 'fixed' }}/>
 }
 
-var VennShader = ({ layers }) => {
+var VennShader = () => {
     var windowSize = useWindowSize();
+    var { byTag, colors } = useData();
+    var positions = useSimulation();
+    var layers = Object.entries( byTag ).map( ([ tag, idxs ]) => ({
+        color: colors[ tag ],
+        positions: idxs.map( i => positions[ i ] )
+    }))
     return (
         <GL size={ windowSize }>
             <Renderer layers={ layers }/>

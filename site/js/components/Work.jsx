@@ -1,13 +1,13 @@
 import React, { useState, useContext } from 'react';
 import { Link } from "react-router-dom";
-import DataContext from './DataContext';
+import { useData } from './Data';
 import Project from './Project';
 import { useSpring, animated } from 'react-spring';
 import range from 'lodash/range';
 
 var Work = ({ match }) => {
-    var { projects } = useContext( DataContext );
-    var target = projects.findIndex( p => p.url === match.url );
+    var { projects } = useData();
+    var target = projects.findIndex( p => p.url === match.url ) || 0;
     var [ curr, setCurr ] = useState( target );
     var spring = useSpring({ target, onRest: ({ target }) => setCurr( target ) })
     var fromIdx = Math.max( Math.min( curr, target ) - 1, 0 );

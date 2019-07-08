@@ -2,8 +2,8 @@ import React, { useState, useContext } from 'react';
 import Thumbnail from './Thumbnail';
 import Legend from './Legend';
 import VennShader from './VennShader'
-import DataContext from './DataContext';
-import useSimulation from '../hooks/useSimulation';
+import { useData } from './Data';
+import { useSimulation } from './Simulation'
 import bem from '../utils/bem';
 
 var groupLayers = ( positions, byTag, colors ) => (
@@ -14,13 +14,14 @@ var groupLayers = ( positions, byTag, colors ) => (
 )
 
 var Home = ({ match }) => {
-    var data = useContext( DataContext );
-    var running = true;//match.isExact;
+    var data = useData();
     var [ filter, setFilter ] = useState( null );
-    var positions = useSimulation( data.projects, running );
+    var [ title, setTitle ] = useState( null )
+    var positions = useSimulation();
     return (
-        <div className={ bem( 'home', { inactive: !running } ) }>
+        <div className='home'>
             <VennShader layers={ groupLayers( positions, data.byTag, data.colors ) }/>
+            <div className="home__title">{ title }</div>
             <Legend
                 tags={ Object.keys( data.byTag ) }
                 colors={ data.colors }
@@ -28,7 +29,7 @@ var Home = ({ match }) => {
                 setFilter={ setFilter }
             />
             { data.projects
-                .filter( project => filter === null || project.tags.includes( filter ) )
+                // .filter( project => filter === null || project.tags.includes( filter ) )
                 .map( project => {
                     var position = positions[ project.i ];
                     return (
@@ -39,6 +40,9 @@ var Home = ({ match }) => {
                             y={ position.y }
                             r={ position.r }
                             colors={ data.colors }
+                            visible={ filter === null || project.tags.includes( filter ) }
+                            onMouseEnter={ () => setTitle( project.title ) }
+                            onMouseLeave={ () => setTitle( null ) }
                         />
                     )
                 })

@@ -34,7 +34,7 @@ export default function useSimulation ( projects, running = true ) {
     var [ nodes, setNodes ] = useState( () => projects.map( project => ({
         x: Math.random() * windowSize[ 0 ],
         y: Math.random() * windowSize[ 1 ],
-        r: 30 * sample([ 1, 1, 1, 1, 2 ])
+        r: 30 * project.size
     })));
     var links = useMemo( () => {
         var links = [];

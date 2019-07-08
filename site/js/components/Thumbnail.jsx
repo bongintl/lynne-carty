@@ -28,7 +28,7 @@ var Ring = ({ color }) => {
     )
 }
 
-var Thumbnail = ({ project, x, y, r, colors }) => {
+var Thumbnail = ({ project, x, y, r, colors, visible, ...rest }) => {
     var { w, h } = project.thumbnail[ 0 ];
     var diagonal = Math.sqrt( w * w + h * h );
     var scale = ( r * 2 ) / diagonal * .9;
@@ -41,6 +41,7 @@ var Thumbnail = ({ project, x, y, r, colors }) => {
                 height: r * 2 + 'px',
                 transform: `translate( ${ x - r }px, ${ y - r }px )`
             }}
+            { ...rest }
         >
             { useIsMobile() && project.tags.map( tag => (
                 <Ring key={ tag } color={ colors[ tag ] }/>
@@ -50,7 +51,8 @@ var Thumbnail = ({ project, x, y, r, colors }) => {
                 ratio={ false }
                 style={{
                     width: w * scale + 'px',
-                    height: h * scale + 'px'
+                    height: h * scale + 'px',
+                    transform: visible ? '' : 'scale( 0, 0 )'
                 }}
             />
         </Link>

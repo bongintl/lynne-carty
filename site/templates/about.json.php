@@ -7,6 +7,7 @@ echo json_encode([
     'mainImage' => $page -> mainImage() -> isNotEmpty()
         ? srcs( $page -> mainImage() -> toFile() )
         : null,
-    'credits' => $page -> credits() -> toStructure(),
-    'body' => (string) $page -> body() -> kirbytext()
+    'body' => (string) $page -> body() -> kirbytext(),
+    'resume' => $page -> resume() -> toStructure(),
+    'links' => $page -> links() -> toStructure()
 ]);

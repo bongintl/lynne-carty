@@ -5,7 +5,6 @@ import Image from './Image';
 var Project = ({ url }) => {
     var project = useFetch( url + '.json' );
     if ( project === null ) return null;
-    console.log( project );
     var { title, mainImage } = project;
     return (
         <div className="project">

@@ -34,6 +34,10 @@ html {
     //     height: 70%;
     //     object-fit: contain;
     // }
+    img {
+        transition: transform .1s;
+        transform-origin: 50% 50%;
+    }
     &__ring {
         position: absolute;
         top: 0;
@@ -113,6 +117,14 @@ svg {
     transition: filter .5s;
     &--inactive {
         filter: blur(20px);
+    }
+    &__title {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        padding: 1em;
     }
 }
 
