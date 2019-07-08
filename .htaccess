@@ -1,7 +1,3 @@
-<FilesMatch \.php$> 
-    SetHandler php71-cgi
-</FilesMatch>
-
 # Kirby .htaccess
 
 # rewrite rules
