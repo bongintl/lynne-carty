@@ -10,10 +10,11 @@ var Work = ({ match }) => {
     var target = projects.findIndex( p => p.url === match.url );
     var [ curr, setCurr ] = useState( target );
     var spring = useSpring({ target, onRest: ({ target }) => setCurr( target ) })
-    var visible = range( Math.min( curr, target ) - 1, Math.max( curr, target ) + 2 );
+    var fromIdx = Math.max( Math.min( curr, target ) - 1, 0 );
+    var toIdx = Math.min( Math.max( curr, target ) + 1, projects.length - 1 );
     return (
         <div className="work">
-            { visible.filter( i => projects[ i ] ).map( i => {
+            { range( fromIdx, toIdx + 1 ).map( i => {
                 var url = projects[ i ].url;
                 var transform = spring.target.interpolate( target => (
                     `translateX( calc( ${ ( i - target ) } * var( --project-offset ) ) )`
