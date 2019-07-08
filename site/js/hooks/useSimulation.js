@@ -1,7 +1,8 @@
-import { useState, useLayoutEffect, useMemo, useCallback, useRef } from 'react';
+import { useState, useLayoutEffect, useMemo } from 'react';
 import * as d3force from 'd3-force';
 import intersection from 'lodash/intersection';
 import isEqual from 'lodash/isEqual';
+import sample from 'lodash/sample';
 import useWindowSize from './useWindowSize';
 
 var sum = xs => xs.reduce( ( a, b ) => a + b, 0 );
@@ -16,12 +17,6 @@ var forceBounds = () => {
         var hw = size[ 0 ] / 2;
         var hh = size[ 1 ] / 2;
         nodes.forEach( n => {
-            // if ( n.x < cx - hw + n.r || n.x > cx + hw + n.r ) {
-            //     n.vx = -n.vx
-            // }
-            // if ( n.y < cy - hh + n.r || n.y > cy + hh + n.r ) {
-            //     n.vy = -n.vy
-            // }
             n.x = clamp( n.x, cx - hw + n.r, cx + hw - n.r );
             n.y = clamp( n.y, cy - hh + n.r, cy + hh - n.r );
         })
@@ -39,7 +34,7 @@ export default function useSimulation ( projects, running = true ) {
     var [ nodes, setNodes ] = useState( () => projects.map( project => ({
         x: Math.random() * windowSize[ 0 ],
         y: Math.random() * windowSize[ 1 ],
-        r: 30 * ( project.size || 1 )
+        r: 30 * sample([ 1, 1, 1, 1, 2 ])
     })));
     var links = useMemo( () => {
         var links = [];
@@ -59,7 +54,7 @@ export default function useSimulation ( projects, running = true ) {
     useLayoutEffect( () => {
         if ( !running ) return;
         var simulation = d3force.forceSimulation( nodes )
-            .alphaDecay( 0.003 )
+            .alphaDecay( 0.03 )
             .velocityDecay( 0.2 )
             .force( 'links',
                 d3force.forceLink( links )
