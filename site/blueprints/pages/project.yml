@@ -37,6 +37,9 @@ columns:
             layout: cards
             size: huge
             required: true
+          video:
+            label: Video
+            type: url
           credits:
             label: Credits
             type: structure
