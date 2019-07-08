@@ -2,7 +2,7 @@ Title: Robo Swarm
 
 ----
 
-Thumbnail:
+Mainimage:
 
 - AD+DESIGN-robo-swarm.jpg
 

@@ -2,7 +2,7 @@ Title: Ligo
 
 ----
 
-Thumbnail:
+Mainimage:
 
 - DESIGN-LIGO.jpg
 

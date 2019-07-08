@@ -2,7 +2,7 @@ Title: China Trade War
 
 ----
 
-Thumbnail:
+Mainimage:
 
 - AD+COVER-china-trade-war.png
 

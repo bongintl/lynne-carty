@@ -2,7 +2,7 @@ Title: 10 Breakthrough Technologies
 
 ----
 
-Thumbnail: 
+Mainimage: 
 
 - >
   AD+COVER-10-breakthrough-technologies.png

@@ -2,7 +2,7 @@ Title: Baby Genome Sequencing
 
 ----
 
-Thumbnail:
+Mainimage:
 
 - AD+DESIGN-baby-genome-sequencing.png
 

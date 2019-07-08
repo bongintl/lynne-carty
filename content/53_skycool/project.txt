@@ -2,7 +2,7 @@ Title: Skycool
 
 ----
 
-Thumbnail:
+Mainimage:
 
 - AD+DESIGN-skycool.png
 

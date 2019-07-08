@@ -2,7 +2,7 @@ Title: Money Poll 2
 
 ----
 
-Thumbnail:
+Mainimage:
 
 - AD+DESIGN-money-poll-2.png
 

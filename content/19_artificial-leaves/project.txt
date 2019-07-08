@@ -2,7 +2,7 @@ Title: Artificial Leaves
 
 ----
 
-Thumbnail:
+Mainimage:
 
 - AD+DESIGN-artificial-leaves.jpg
 

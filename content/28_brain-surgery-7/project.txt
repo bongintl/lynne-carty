@@ -2,7 +2,7 @@ Title: Brain Surgery 7
 
 ----
 
-Thumbnail:
+Mainimage:
 
 - AD+DESIGN-brain-surgery-7.png
 

@@ -2,7 +2,7 @@ Title: Must Reads Ad
 
 ----
 
-Thumbnail:
+Mainimage:
 
 - DESIGN-must-reads-ad.jpg
 

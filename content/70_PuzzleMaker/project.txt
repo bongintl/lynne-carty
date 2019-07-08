@@ -2,7 +2,7 @@ Title: Puzzlemaker
 
 ----
 
-Thumbnail:
+Mainimage:
 
 - DESIGN-PuzzleMaker.jpg
 

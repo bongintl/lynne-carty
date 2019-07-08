@@ -2,7 +2,7 @@ Title: March Toc
 
 ----
 
-Thumbnail:
+Mainimage:
 
 - DESIGN-March-TOC.jpg
 

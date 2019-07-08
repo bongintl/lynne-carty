@@ -2,7 +2,7 @@ Title: Catching Errors
 
 ----
 
-Thumbnail:
+Mainimage:
 
 - AD+DESIGN-catching-errors.png
 
