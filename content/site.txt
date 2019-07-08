@@ -17,7 +17,7 @@ Tags:
   name: Video
   color: '#BDFF00'
 - 
-  name: Cover
+  name: Covers
   color: '#FC49CA'
 - 
   name: Design

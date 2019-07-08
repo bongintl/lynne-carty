@@ -1,0 +1,39 @@
+Title: Facebook's Anger Management
+
+----
+
+Size: 1.5
+
+----
+
+Tags: Covers, Art Direction
+
+----
+
+Mainimage: 
+
+- ad-cover_facebook-data-scandal.png
+
+----
+
+Credits: 
+
+- 
+  role: Client
+  name: "Barron's"
+- 
+  role: Art Direction
+  name: Lynne Carty
+- 
+  role: Illustrations
+  name: 'Delcan & Company'
+
+----
+
+Body: Breaking news cover story on Facebook's Cambridge Analytica data scandal
+
+----
+
+Images: 
+
+- dzpfcleumaapqct.jpg

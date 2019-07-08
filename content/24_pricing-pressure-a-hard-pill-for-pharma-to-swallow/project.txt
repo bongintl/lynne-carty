@@ -1,0 +1,34 @@
+Title: Pricing Pressure a Hard Pill for Pharma to Swallow
+
+----
+
+Size: 1
+
+----
+
+Tags: Illustration
+
+----
+
+Mainimage: 
+
+- illustration-big-pharma-drug-prices.jpg
+
+----
+
+Credits: 
+
+- 
+  role: Client
+  name: "Barron's"
+- 
+  role: Illustration
+  name: Lynne Carty
+
+----
+
+Body: Illustration for an article about how (link: Pricing Pressure a Hard Pill for Pharma to Swallow text: drug price increases are rattling the pharma industry)
+
+----
+
+Images: 

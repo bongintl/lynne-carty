@@ -1,0 +1,50 @@
+Title: Blockchain Explainer
+
+----
+
+Size: 2
+
+----
+
+Tags: Art Direction, Video
+
+----
+
+Mainimage: 
+
+- ad-video-blockchain.png
+
+----
+
+Video: https://vimeo.com/224765170
+
+----
+
+Credits: 
+
+- 
+  role: Client
+  name: MIT Technology Review
+- 
+  role: Art Direction
+  name: 'Lynne Carty & Jordan Awan'
+- 
+  role: Sound Design
+  name: David Kamp
+- 
+  role: Animation
+  name: Julian Glander
+- 
+  role: Bumper Motion Graphics
+  name: Erik Carter
+- 
+  role: Script
+  name: Tom Simonite
+
+----
+
+Body: The first in a series of MIT Technology Review “Decoded” explainer videos
+
+----
+
+Images: 

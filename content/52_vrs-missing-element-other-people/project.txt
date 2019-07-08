@@ -1,0 +1,43 @@
+Title: VR's Missing Element: Other People
+
+----
+
+Size: 1.5
+
+----
+
+Tags: Art Direction
+
+----
+
+Mainimage: 
+
+- ad-design-socializing-in-vr.png
+
+----
+
+Video: 
+
+----
+
+Credits: 
+
+- 
+  role: Client
+  name: MIT Technlogy Review
+- 
+  role: 'Art Direction & Design'
+  name: Lynne Carty
+- 
+  role: Photograph
+  name: David Brandon Geeting
+
+----
+
+Body: We sent a photographer a few Oculus Rift headsets and asked him to photograph on the theme of simulating friendships in VR. (link: https://www.technologyreview.com/s/607956/virtual-realitys-missing-element-other-people/ text: Read the article)
+
+----
+
+Images: 
+
+- ja17-reviews-socialvr-2.jpg

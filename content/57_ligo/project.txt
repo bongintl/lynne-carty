@@ -1,0 +1,38 @@
+Title: LIGO
+
+----
+
+Size: 1
+
+----
+
+Tags: Design
+
+----
+
+Mainimage: 
+
+- design-ligo.jpg
+
+----
+
+Video: 
+
+----
+
+Credits: 
+
+- 
+  role: Client
+  name: MIT News
+- 
+  role: Design
+  name: Lynne Carty
+
+----
+
+Body: (link: https://www.technologyreview.com/s/601147/a-40-year-quest-to-prove-einstein-right/ text: Read the article)
+
+----
+
+Images: 

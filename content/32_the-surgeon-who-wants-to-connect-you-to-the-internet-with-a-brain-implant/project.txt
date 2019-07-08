@@ -1,0 +1,44 @@
+Title: The Surgeon Who Wants to Connect You to the Internet with a Brain Implant
+
+----
+
+Size: 1.5
+
+----
+
+Tags: Art Direction, Design
+
+----
+
+Mainimage: 
+
+- ad-design-brain-surgery-1.png
+
+----
+
+Credits: 
+
+- 
+  role: Client
+  name: MIT Technology Review
+- 
+  role: 'Art Direction & Design'
+  name: Lynne Carty
+- 
+  role: Photographs
+  name: Whitten Sabbatini
+
+----
+
+Body: We sent a photographer inside the operating room to document Dr. Leuthardt's (link: https://www.technologyreview.com/s/609232/the-surgeon-who-wants-to-connect-you-to-the-internet-with-a-brain-implant/ text: innovative brain surgery)
+
+----
+
+Images: 
+
+- ad-design-brain-surgery-2.png
+- ad-design-brain-surgery-3.png
+- ad-design-brain-surgery-4.png
+- ad-design-brain-surgery-5.png
+- ad-design-brain-surgery-6.png
+- ad-design-brain-surgery-7.png

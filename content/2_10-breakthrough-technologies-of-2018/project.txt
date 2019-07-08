@@ -1,0 +1,44 @@
+Title: 10 Breakthrough Technologies of 2018
+
+----
+
+Size: 2.5
+
+----
+
+Tags: Art Direction, Design, Covers
+
+----
+
+Mainimage: 
+
+- >
+  ad-cover-10-breakthrough-technologies.png
+
+----
+
+Credits: 
+
+- 
+  role: Client
+  name: MIT Technology Review
+- 
+  role: Art Direction
+  name: 'Lynne Carty & Emily Luong'
+- 
+  role: Design
+  name: Lynne Carty
+- 
+  role: Illustration
+  name: Derek Brahney
+
+----
+
+Body: Web and print work for our annual (link: https://www.technologyreview.com/lists/technologies/2018/ text: 10 Breakthrough Technologies issue).
+
+----
+
+Images: 
+
+- design-10-breakthrough.jpg
+- design-quantum-computing.jpg

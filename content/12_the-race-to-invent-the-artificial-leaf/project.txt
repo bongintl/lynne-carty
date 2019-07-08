@@ -1,0 +1,36 @@
+Title: The Race to Invent the Artificial Leaf
+
+----
+
+Size: 1
+
+----
+
+Tags: Art Direction
+
+----
+
+Mainimage: 
+
+- artifical_leaf.jpg
+
+----
+
+Credits: 
+
+- 
+  role: Art Direction
+  name: Lynne Carty
+- 
+  role: Illustration
+  name: Santtu Mustonen
+
+----
+
+Body: (link: https://www.technologyreview.com/s/610177/the-race-to-invent-the-artificial-leaf/ text: The Race to Invent the Artificial Leaf)
+
+----
+
+Images: 
+
+- ad-design-artificial-leaves.png

@@ -1,0 +1,39 @@
+Title: Online Trolls
+
+----
+
+Size: 1.5
+
+----
+
+Tags: Art Direction
+
+----
+
+Mainimage: 
+
+- troll.gif
+
+----
+
+Credits: 
+
+- 
+  role: Client
+  name: MIT Technology Review
+- 
+  role: Art Direction
+  name: Lynne Carty
+- 
+  role: 'Illustration & Animation'
+  name: Erik Carter
+
+----
+
+Body: (link: https://www.technologyreview.com/s/603072/if-only-ai-could-save-us-from-ourselves/ text: If Only AI Could Save Us from Ourselves)
+
+----
+
+Images: 
+
+- ad-design-online-trolls-compressor.gif

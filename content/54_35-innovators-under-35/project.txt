@@ -1,0 +1,39 @@
+Title: 35 Innovators Under 35
+
+----
+
+Size: 1
+
+----
+
+Tags: Design
+
+----
+
+Mainimage: 
+
+- >
+  cover-design-innovators-under-35-compressor.png
+
+----
+
+Video: 
+
+----
+
+Credits: 
+
+- 
+  role: Client
+  name: MIT Technology Review
+- 
+  role: Design
+  name: Lynne Carty
+
+----
+
+Body: Unused cover design for the annual 35 Innovators Under 35 issue of MIT Technology Review
+
+----
+
+Images: 

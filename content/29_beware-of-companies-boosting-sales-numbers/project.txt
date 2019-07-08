@@ -1,0 +1,34 @@
+Title: Beware of Companies Boosting Sales Numbers
+
+----
+
+Size: 1
+
+----
+
+Tags: Illustration
+
+----
+
+Mainimage: 
+
+- illustration-boosting-sales-numbers.jpg
+
+----
+
+Credits: 
+
+- 
+  role: 'Client '
+  name: "Barron's"
+- 
+  role: Illustration
+  name: Lynne Carty
+
+----
+
+Body: Illustration for an article about how (link: https://www.barrons.com/articles/what-investors-should-ask-about-a-companys-sales-operations-51553864400 text: companies might be misleading you with exaggerated sales numbers)
+
+----
+
+Images: 
