@@ -1,0 +1,41 @@
+Title: Can Western Union Catch Up to Tech-Savy Competitors?
+
+----
+
+Size: 1
+
+----
+
+Tags: Art Direction
+
+----
+
+Mainimage: 
+
+- western_union.gif
+
+----
+
+Video: 
+
+----
+
+Credits: 
+
+- 
+  role: Client
+  name: "Barron's"
+- 
+  role: Art Direction
+  name: Lynne Carty
+- 
+  role: Illustration
+  name: Nicholas Little
+
+----
+
+Body: (link: https://www.barrons.com/articles/western-union-stock-1538770209 text: Can Western Union Catch Up to Tech-Savy Competitors?)
+
+----
+
+Images: 

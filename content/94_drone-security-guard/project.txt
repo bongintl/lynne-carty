@@ -1,0 +1,41 @@
+Title: Drone Security Guard
+
+----
+
+Size: 1.5
+
+----
+
+Tags: Art Direction
+
+----
+
+Mainimage: 
+
+- drone_security.gif
+
+----
+
+Video: 
+
+----
+
+Credits: 
+
+- 
+  role: Client
+  name: MIT Technology Review
+- 
+  role: Art Direction
+  name: Lynne Carty
+- 
+  role: Illustration
+  name: Max Litvinov
+
+----
+
+Body: (link: https://www.technologyreview.com/s/602412/drone-security-guard-scolds-intruders-from-the-sky/ text: Drone Security Guard Scolds Intruders from the Sky)
+
+----
+
+Images: 

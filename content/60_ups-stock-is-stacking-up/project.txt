@@ -1,0 +1,40 @@
+Title: UPS Stock is Stacking Up
+
+----
+
+Size: 1
+
+----
+
+Tags: Illustration, Animation
+
+----
+
+Mainimage: 
+
+- animation-illustration-ups.gif
+
+----
+
+Video: 
+
+----
+
+Credits: 
+
+- 
+  role: Client
+  name: "Barron's"
+- 
+  role: Illustration
+  name: Lynne Carty
+
+----
+
+Body: (link: https://www.barrons.com/articles/ups-stock-is-undervalued-and-a-buy-51557532988 text: UPS stock is a solid buy). Print version below
+
+----
+
+Images: 
+
+- d6izmcixsay7u8d.jpg

@@ -1,0 +1,43 @@
+Title: Me and My Troll
+
+----
+
+Size: 1.5
+
+----
+
+Tags: Art Direction, Design
+
+----
+
+Mainimage: 
+
+- me_and_my_troll.png
+
+----
+
+Video: 
+
+----
+
+Credits: 
+
+- 
+  role: Client
+  name: MIT Technology Review
+- 
+  role: Art Direction
+  name: Lynne Carty
+- 
+  role: Illustration
+  name: Tomi Um
+
+----
+
+Body: Spots for a story about our editor-in-chief's relationship with the site's worst commenter. Proposed cover (designed by Jordan Awan) below
+
+----
+
+Images: 
+
+- tomi_cov-2_1600_c.jpg

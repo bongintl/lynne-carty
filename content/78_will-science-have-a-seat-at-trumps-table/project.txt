@@ -1,0 +1,43 @@
+Title: Will Science Have a Seat at Trump's Table?
+
+----
+
+Size: 1.5
+
+----
+
+Tags: Art Direction
+
+----
+
+Mainimage: 
+
+- flat_earth.jpg
+
+----
+
+Video: 
+
+----
+
+Credits: 
+
+- 
+  role: Client
+  name: MIT Technology Review
+- 
+  role: Art Direction
+  name: Lynne Carty
+- 
+  role: Illustration
+  name: Victor Kerlow
+
+----
+
+Body: (link: https://www.technologyreview.com/s/603350/will-science-have-a-seat-at-president-trumps-table/ text: Will Science Have a Seat at Trump's Table?)
+
+----
+
+Images: 
+
+- mitsciencefinal1.jpg

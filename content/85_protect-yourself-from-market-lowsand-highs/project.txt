@@ -1,0 +1,43 @@
+Title: Protect Yourself from Market Lows...and Highs
+
+----
+
+Size: 1.5
+
+----
+
+Tags: Art Direction
+
+----
+
+Mainimage: 
+
+- market_protection.gif
+
+----
+
+Video: 
+
+----
+
+Credits: 
+
+- 
+  role: Client
+  name: "Barron's"
+- 
+  role: Art Direction
+  name: Lynne Carty
+- 
+  role: Illustration
+  name: Jan Buchczik
+
+----
+
+Body: (link: https://www.barrons.com/articles/structured-notes-can-new-etfs-make-them-actually-work-for-investors-1543612302 text: Structured notes work as a buffer for the market.)
+
+----
+
+Images: 
+
+- on-ct802_201812_ns_20181130130304.gif

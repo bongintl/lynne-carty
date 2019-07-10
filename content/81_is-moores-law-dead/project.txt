@@ -1,0 +1,41 @@
+Title: Is Moore's Law Dead?
+
+----
+
+Size: 1
+
+----
+
+Tags: Art Direction
+
+----
+
+Mainimage: 
+
+- moores_law.gif
+
+----
+
+Video: 
+
+----
+
+Credits: 
+
+- 
+  role: Client
+  name: MIT Technology Review
+- 
+  role: Art Direction
+  name: Lynne Carty
+- 
+  role: Illustration
+  name: Yukai Du
+
+----
+
+Body: (link: https://www.technologyreview.com/s/601441/moores-law-is-dead-now-what/ text: Moore's Law is dead. Now what?)
+
+----
+
+Images: 

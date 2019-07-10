@@ -6,13 +6,17 @@ Size: 1.5
 
 ----
 
-Tags: 
+Tags: Design, Art Direction
 
 ----
 
 Mainimage: 
 
 - ad-design-cancer-lottery-1.png
+
+----
+
+Video: 
 
 ----
 

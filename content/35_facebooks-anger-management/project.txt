@@ -2,7 +2,7 @@ Title: Facebook's Anger Management
 
 ----
 
-Size: 1.5
+Size: 2.5
 
 ----
 
@@ -13,6 +13,10 @@ Tags: Covers, Art Direction
 Mainimage: 
 
 - ad-cover_facebook-data-scandal.png
+
+----
+
+Video: 
 
 ----
 

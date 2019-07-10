@@ -2,7 +2,7 @@ Title: Online Trolls
 
 ----
 
-Size: 1.5
+Size: 2.5
 
 ----
 
@@ -13,6 +13,10 @@ Tags: Art Direction
 Mainimage: 
 
 - troll.gif
+
+----
+
+Video: 
 
 ----
 

@@ -1,0 +1,41 @@
+Title: Customer Service Bots Are Getting Better at Detecting Your Agitation
+
+----
+
+Size: 1.5
+
+----
+
+Tags: Art Direction
+
+----
+
+Mainimage: 
+
+- empathetic_bots.jpg
+
+----
+
+Video: 
+
+----
+
+Credits: 
+
+- 
+  role: Client
+  name: MIT Technology Review
+- 
+  role: Art Direction
+  name: Lynne Carty
+- 
+  role: Illustration
+  name: Oscar Bolton Green
+
+----
+
+Body: (link: https://www.technologyreview.com/s/602352/customer-service-bots-are-getting-better-at-detecting-your-agitation/ text: Customer Service Bots Are Getting Better at Detecting Your Agitation)
+
+----
+
+Images: 
