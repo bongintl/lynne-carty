@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { Link } from "react-router-dom";
-import useWindowSize from '../hooks/useWindowSize';
+import Image from './Image';
 import useIsMobile from '../hooks/useIsMobile';
 
 var offsets = {};
@@ -28,23 +28,33 @@ var Ring = ({ color }) => {
     )
 }
 
-var Thumbnail = ({ project, x, y, r, colors }) => (
-    <div
-        className="thumbnail"
-        style={{
-            width: r * 2 + 'px',
-            height: r * 2 + 'px',
-            transform: `
-                translate( -50%, -50% )
-                translate( ${ x }px, ${ y }px )
-            `
-        }}
-    >
-        { useIsMobile() && project.tags.map( tag => (
-            <Ring key={ tag } color={ colors[ tag ] }/>
-        )) }
-        <img src={ project.thumbnail }/>
-    </div>
-)
+var Thumbnail = ({ project, x, y, r, colors }) => {
+    var { w, h } = project.thumbnail[ 0 ];
+    var diagonal = Math.sqrt( w * w + h * h );
+    var scale = ( r * 2 ) / diagonal * .9;
+    return (
+        <Link
+            to={ project.url }
+            className="thumbnail"
+            style={{
+                width: r * 2 + 'px',
+                height: r * 2 + 'px',
+                transform: `translate( ${ x - r }px, ${ y - r }px )`
+            }}
+        >
+            { useIsMobile() && project.tags.map( tag => (
+                <Ring key={ tag } color={ colors[ tag ] }/>
+            )) }
+            <Image
+                srcs={ project.thumbnail }
+                ratio={ false }
+                style={{
+                    width: w * scale + 'px',
+                    height: h * scale + 'px'
+                }}
+            />
+        </Link>
+    )
+}
 
 export default Thumbnail;
