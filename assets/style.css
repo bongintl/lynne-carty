@@ -20,7 +20,7 @@
   font-weight: bold; }
 
 html {
-  font-family: "Authentic";
+  font-family: Helvetica, sans-serif;
   background: var(--background);
   -webkit-font-smoothing: antialiased;
   line-height: var(--line-height);
@@ -28,9 +28,6 @@ html {
   @media (min-width: 768px) {
     html {
       font-size: 16px; } }
-  @media (min-width: 1024px) {
-    html {
-      font-size: 18px; } }
 
 .fill {
   position: absolute;
@@ -136,8 +133,9 @@ html {
   display: flex;
   flex-direction: column;
   height: 100%;
-  overflow-x: hidden;
-  overflow-y: scroll; }
+  overflow-x: hidden; }
+  .project--current {
+    overflow-y: scroll; }
   .project__header {
     text-align: center;
     z-index: 50;
@@ -149,17 +147,29 @@ html {
         padding-top: 0;
         position: sticky;
         top: 0; } }
-  .project__body img, .project__body .vimeo {
+  .project__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center; }
+    .project__content img, .project__content .vimeo {
+      width: 100%; }
+    .project__content p {
+      padding-bottom: calc( var( --line ) * 2); }
+    @media (min-width: 768px) {
+      .project__content {
+        padding-bottom: 5em; } }
+  .project__image {
     width: 100%;
     padding-bottom: calc( var( --line ) * 2); }
-  .project__body p {
-    padding-bottom: calc( var( --line ) * 2); }
-  @media (min-width: 768px) {
-    .project__body {
-      padding-bottom: 5em; } }
+  .project__image--portrait, .project__body, .project .credits {
+    width: 100%;
+    max-width: 40em; }
+  .project__image--landscape {
+    max-width: 75vw; }
 
 .credits {
   text-align: center;
+  list-style: none;
   padding-bottom: calc( var( --line ) * 1); }
 
 .credit {
@@ -169,11 +179,12 @@ html {
 
 .home-button {
   margin: calc( var( --line ) * 1);
-  height: calc( var( --line ) * 4);
-  width: calc( var( --line ) * 4); }
+  height: calc( var( --line ) * 3);
+  width: calc( var( --line ) * 3); }
   @media (min-width: 768px) {
     .home-button {
       margin: calc( var( --line ) * 0.5);
+      height: calc( var( --line ) * 3);
       width: auto; } }
 
 .projects {
@@ -223,16 +234,8 @@ html {
       .projects__project {
         --project-width: calc( 100vw - 4em );
         --project-peek: 1em; } }
-    @media (min-width: 950px) {
-      .projects__project {
-        --project-width: 700px;
-        --project-peek: calc( ( 100vw - 900px ) / 2 ); } }
-    @media (min-width: 1800px) {
-      .projects__project {
-        --project-peek: 400px; } }
   .projects__link {
     position: absolute;
-    width: 100%;
     height: 100%;
     top: 0;
     left: -1em;

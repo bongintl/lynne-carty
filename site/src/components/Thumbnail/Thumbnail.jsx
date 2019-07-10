@@ -24,7 +24,7 @@ var ThumbnailImage = ({ srcs }) => {
     )
 }
 
-var Rings = tags => {
+var Rings = ({ tags }) => {
     var { colors } = useData();
     return tags.map( tag => (
         <Ring key={ tag } color={ colors[ tag ] }/>

@@ -39158,7 +39158,7 @@ var _default = function _default(bounds) {
 };
 
 exports.default = _default;
-},{"~/utils/math":"utils/math.js"}],"components/Simulation/forceGather.js":[function(require,module,exports) {
+},{"~/utils/math":"utils/math.js"}],"utils/vec2.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -39166,26 +39166,80 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
+var _math = require("./math");
+
+var vec2 = function vec2() {
+  var x = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+  var y = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+  return {
+    x: x,
+    y: y
+  };
+};
+
+vec2.add = function (a, b) {
+  return vec2(a.x + b.x, a.y + b.y);
+};
+
+vec2.sub = function (a, b) {
+  return vec2(a.x - b.x, a.y - b.y);
+};
+
+vec2.scale = function (v, s) {
+  return vec2(v.x * s, v.y * s);
+};
+
+vec2.len = function (v) {
+  return Math.sqrt(v.x * v.x + v.y * v.y);
+};
+
+vec2.lerp = function (a, b, t) {
+  return vec2((0, _math.lerp)(a.x, b.x, t), (0, _math.lerp)(a.y, b.y, t));
+};
+
+vec2.copy = function (a, b) {
+  a.x = b.x;
+  a.y = b.y;
+};
+
+vec2.normalize = function (v) {
+  var length = vec2.len(v);
+  return vec2(v.x / length, v.y / length);
+};
+
+var _default = vec2;
+exports.default = _default;
+},{"./math":"utils/math.js"}],"components/Simulation/forceGather.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _vec = _interopRequireDefault(require("~/utils/vec2"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 var _default = function _default(center, radius) {
   var nodes;
-  var strength = .1;
+  var strength = .05;
 
   var force = function force() {
     nodes.forEach(function (n) {
-      var d = {
-        x: n.x - center.x,
-        y: n.y - center.y
-      };
-      var dist = Math.sqrt(d.x * d.x + d.y * d.y);
-      var f = Math.max(dist - radius, 0); // debugger
+      var d = _vec.default.sub(n, center);
 
+      var dist = _vec.default.len(d);
+
+      var f = Math.max(dist - radius, 0);
       if (f === 0) return;
-      var dir = {
-        x: d.x / dist,
-        y: d.y / dist
-      };
-      n.vx += dir.x * f * -1 * strength;
-      n.vy += dir.y * f * -1 * strength;
+
+      var dir = _vec.default.normalize(d);
+
+      var v = _vec.default.scale(dir, f * -1 * strength);
+
+      n.vx += v.x;
+      n.vy += v.y;
     });
   };
 
@@ -39197,7 +39251,7 @@ var _default = function _default(center, radius) {
 };
 
 exports.default = _default;
-},{}],"hooks/useInitRef.js":[function(require,module,exports) {
+},{"~/utils/vec2":"utils/vec2.js"}],"hooks/useInitRef.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -39342,8 +39396,8 @@ var SimulationProvider = function SimulationProvider(_ref) {
   var filledArea = (0, _math.sum)(projects.map(function (p) {
     return Math.PI * Math.pow(p.size, 2);
   }));
-  var windowArea = windowSize[0] * windowSize[1];
-  var targetFilledArea = windowArea / 5;
+  var windowArea = Math.PI * Math.pow(Math.min(windowSize[0], windowSize[1]) / 2, 2);
+  var targetFilledArea = windowArea / 2;
   var scale = isMobile ? 35 : Math.sqrt(targetFilledArea / filledArea);
   var simulation = (0, _useInitRef.default)(function () {
     return d3force.forceSimulation(projects.map(function (p, i) {
@@ -39353,10 +39407,13 @@ var SimulationProvider = function SimulationProvider(_ref) {
         r: 0,
         index: i
       };
-    })).alphaDecay(0.0).velocityDecay(0.2).force("collide", d3force.forceCollide().radius(function (n) {
+    })).velocityDecay(0.2).force("collide", d3force.forceCollide().radius(function (n) {
       return n.r;
     }).strength(1).iterations(5));
   });
+  (0, _react.useEffect)(function () {
+    simulation.alphaDecay(isMobile ? 0.05 : 0);
+  }, [simulation, isMobile]);
   (0, _react.useEffect)(function () {
     var nodes = simulation.nodes();
     nodes.forEach(function (node, i) {
@@ -39371,7 +39428,7 @@ var SimulationProvider = function SimulationProvider(_ref) {
           target = _ref2.target;
       return (source.r + target.r) * 2;
     }).strength(function (link) {
-      return link.strength * 0.005;
+      return link.strength * 0.007;
     });
   }, [isMobile, projects]);
   useForce(simulation, 'center', function () {
@@ -39435,54 +39492,7 @@ Object.keys(_Simulation).forEach(function (key) {
 });
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
-},{"./Simulation":"components/Simulation/Simulation.jsx"}],"utils/vec2.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _math = require("./math");
-
-var vec2 = function vec2() {
-  var x = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
-  var y = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
-  return {
-    x: x,
-    y: y
-  };
-};
-
-vec2.add = function (a, b) {
-  return vec2(a.x + b.x, a.y + b.y);
-};
-
-vec2.sub = function (a, b) {
-  return vec2(a.x - b.x, a.y - b.y);
-};
-
-vec2.len = function (v) {
-  return Math.sqrt(v.x * v.x + v.y * v.y);
-};
-
-vec2.lerp = function (a, b, t) {
-  return vec2((0, _math.lerp)(a.x, b.x, t), (0, _math.lerp)(a.y, b.y, t));
-};
-
-vec2.copy = function (a, b) {
-  a.x = b.x;
-  a.y = b.y;
-};
-
-vec2.normalize = function (v) {
-  var length = vec2.len(v);
-  return vec2(v.x / length, v.y / length);
-};
-
-var _default = vec2;
-exports.default = _default;
-},{"./math":"utils/math.js"}],"components/Thumbnail/useDrag.js":[function(require,module,exports) {
+},{"./Simulation":"components/Simulation/Simulation.jsx"}],"components/Thumbnail/useDrag.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -39640,6 +39650,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
@@ -39648,10 +39660,24 @@ function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.
 
 function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
 
-var _default = function _default(be, ms) {
-  return [be].concat(_toConsumableArray(Object.keys(ms).filter(function (m) {
-    return ms[m];
-  }).map(function (m) {
+var _default = function _default(be) {
+  for (var _len = arguments.length, ms = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+    ms[_key - 1] = arguments[_key];
+  }
+
+  return [be].concat(_toConsumableArray(ms.reduce(function (classes, modifier) {
+    if (Array.isArray(modifier)) {
+      classes.push.apply(classes, _toConsumableArray(modifier.filter(Boolean)));
+    } else if (_typeof(modifier) === 'object') {
+      classes.push.apply(classes, _toConsumableArray(Object.keys(modifier).filter(function (m) {
+        return modifier[m];
+      })));
+    } else {
+      classes.push(modifier);
+    }
+
+    return classes;
+  }, []).map(function (m) {
     return "".concat(be, "--").concat(m);
   }))).join(' ');
 };
@@ -39706,7 +39732,9 @@ var ThumbnailImage = function ThumbnailImage(_ref) {
   });
 };
 
-var Rings = function Rings(tags) {
+var Rings = function Rings(_ref2) {
+  var tags = _ref2.tags;
+
   var _useData = (0, _Data.useData)(),
       colors = _useData.colors;
 
@@ -39718,11 +39746,11 @@ var Rings = function Rings(tags) {
   });
 };
 
-var Thumbnail = (0, _reactRouterDom.withRouter)(function (_ref2) {
-  var project = _ref2.project,
-      visible = _ref2.visible,
-      history = _ref2.history,
-      setTitle = _ref2.setTitle;
+var Thumbnail = (0, _reactRouterDom.withRouter)(function (_ref3) {
+  var project = _ref3.project,
+      visible = _ref3.visible,
+      history = _ref3.history,
+      setTitle = _ref3.setTitle;
   var ref = (0, _react.useRef)();
   var visited = (0, _Visited.useVisited)(project.url);
   var props = (0, _useDrag.useDragNode)({
@@ -49718,31 +49746,55 @@ var _Image = _interopRequireDefault(require("../Image"));
 
 var _reactVimeo = _interopRequireDefault(require("@u-wave/react-vimeo"));
 
+var _bem = _interopRequireDefault(require("~/utils/bem"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var ProjectContent = _react.default.memo(function (_ref) {
-  var project = _ref.project;
+var orientation = function orientation(srcs) {
+  return srcs[0].w > srcs[0].h ? 'landscape' : 'portrait';
+};
+
+var ProjectImage = function ProjectImage(_ref) {
+  var srcs = _ref.srcs;
   return _react.default.createElement("div", {
-    className: "project"
+    className: (0, _bem.default)('project__image', orientation(srcs))
+  }, _react.default.createElement(_Image.default, {
+    srcs: srcs
+  }));
+};
+
+var Project = function Project(_ref2) {
+  var url = _ref2.url,
+      isCurrent = _ref2.isCurrent;
+  var project = (0, _useFetch.default)(url + '.json');
+  (0, _Visited.useVisit)(url, isCurrent);
+  if (project === null) return null;
+  return _react.default.createElement("div", {
+    className: (0, _bem.default)('project', {
+      current: isCurrent
+    })
   }, _react.default.createElement("div", {
     className: "project__header"
   }, _react.default.createElement("h1", null, project.title)), _react.default.createElement("div", {
-    className: "project__body"
-  }, project.video ? _react.default.createElement(_reactVimeo.default, {
+    className: "project__content"
+  }, project.video ? _react.default.createElement("div", {
+    className: (0, _bem.default)('project__image', 'landscape')
+  }, _react.default.createElement(_reactVimeo.default, {
     video: project.video,
     responsive: true,
     className: "vimeo"
-  }) : _react.default.createElement(_Image.default, {
+  })) : _react.default.createElement(ProjectImage, {
     srcs: project.mainImage
   }), _react.default.createElement("div", {
+    className: "project__body",
     dangerouslySetInnerHTML: {
       __html: project.body
     }
   }), _react.default.createElement("ul", {
     className: "credits"
-  }, project.credits && project.credits.map(function (_ref2, i) {
-    var role = _ref2.role,
-        name = _ref2.name;
+  }, project.credits && project.credits.map(function (_ref3, i) {
+    var role = _ref3.role,
+        name = _ref3.name;
     return _react.default.createElement("li", {
       className: "credit",
       key: i
@@ -49752,30 +49804,16 @@ var ProjectContent = _react.default.memo(function (_ref) {
       className: "credit__name"
     }, name));
   })), project.additionalImages.map(function (srcs, i) {
-    return _react.default.createElement(_Image.default, {
+    return _react.default.createElement(ProjectImage, {
       key: i,
       srcs: srcs
     });
   })));
-});
-
-ProjectContent.displayName = 'ProjectContent';
-
-var Project = function Project(_ref3) {
-  var url = _ref3.url,
-      isCurrent = _ref3.isCurrent;
-  var project = (0, _useFetch.default)(url + '.json'); // debugger
-
-  (0, _Visited.useVisit)(url, isCurrent);
-  if (project === null) return null;
-  return _react.default.createElement(ProjectContent, {
-    project: project
-  });
 };
 
 var _default = Project;
 exports.default = _default;
-},{"react":"../../node_modules/react/index.js","~/hooks/useFetch":"hooks/useFetch.js","../Visited":"components/Visited/index.js","../Image":"components/Image/index.js","@u-wave/react-vimeo":"../../node_modules/@u-wave/react-vimeo/dist/react-vimeo.es.js"}],"components/Project/index.js":[function(require,module,exports) {
+},{"react":"../../node_modules/react/index.js","~/hooks/useFetch":"hooks/useFetch.js","../Visited":"components/Visited/index.js","../Image":"components/Image/index.js","@u-wave/react-vimeo":"../../node_modules/@u-wave/react-vimeo/dist/react-vimeo.es.js","~/utils/bem":"utils/bem.js"}],"components/Project/index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -52387,7 +52425,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53069" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64904" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

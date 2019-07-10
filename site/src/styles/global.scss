@@ -24,7 +24,8 @@
 }
 
 html {
-    font-family: "Authentic";
+    // font-family: "Authentic";
+    font-family: Helvetica, sans-serif;
     background: var( --background );
     -webkit-font-smoothing: antialiased;
     line-height: var( --line-height );
@@ -33,7 +34,7 @@ html {
         font-size: 16px;
     }
     @include large {
-        font-size: 18px;
+        // font-size: 18px;
     }
 }
 

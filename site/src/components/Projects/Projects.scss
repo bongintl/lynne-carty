@@ -41,11 +41,11 @@
             --project-peek: 1em;
         }
         @media ( min-width: 950px ) {
-            --project-width: 700px;
-            --project-peek: calc( ( 100vw - 900px ) / 2 );
+            // --project-width: 700px;
+            // --project-peek: calc( ( 100vw - 900px ) / 2 );
         }
         @media ( min-width: 1800px ) {
-            --project-peek: 400px;
+            // --project-peek: 400px;
         }
         --project-offset: calc(
             ( ( 100vw - var( --project-width ) ) / 2 ) -
@@ -58,7 +58,7 @@
     }
     &__link {
         position: absolute;
-        width: 100%;
+        // width: 100%;
         height: 100%;
         top: 0;
         left: -1em;

@@ -62,14 +62,13 @@ export var SimulationProvider = ({ children }) => {
     var windowSize = useWindowSize();
     var isMobile = useIsMobile();
     var filledArea = sum( projects.map( p => Math.PI * p.size ** 2 ) );
-    var windowArea = windowSize[ 0 ] * windowSize[ 1 ];
-    var targetFilledArea = windowArea / 5;
+    var windowArea = Math.PI * ( Math.min( windowSize[ 0 ], windowSize[ 1 ] ) / 2 ) ** 2
+    var targetFilledArea = windowArea / 2;
     var scale = isMobile ? 35 : Math.sqrt( targetFilledArea / filledArea );
     var simulation = useInitRef( () => (
         d3force.forceSimulation(
             projects.map( ( p, i ) => ({ x: windowSize[ 0 ] / 2, y: windowSize[ 1 ] / 2, r: 0, index: i }) )
         )
-            .alphaDecay( 0.0 )
             .velocityDecay( 0.2 )
             .force( "collide",
                 d3force.forceCollide()
@@ -78,6 +77,9 @@ export var SimulationProvider = ({ children }) => {
                     .iterations( 5 )
             )
     ))
+    useEffect( () => {
+        simulation.alphaDecay( isMobile ? 0.05 : 0 )
+    }, [ simulation, isMobile ])
     useEffect( () => {
         var nodes = simulation.nodes();
         nodes.forEach( ( node, i ) => {
@@ -90,7 +92,7 @@ export var SimulationProvider = ({ children }) => {
             if ( isMobile ) return null;
             return d3force.forceLink( createLinks( projects ) )
                 .distance( ({ source, target }) => ( source.r + target.r ) * 2 )
-                .strength( link => link.strength * 0.005 );
+                .strength( link => link.strength * 0.007 );
         },
         [ isMobile, projects ]
     )
