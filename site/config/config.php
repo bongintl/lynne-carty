@@ -4,6 +4,6 @@ return [
     'debug' => true,
     'thumbs' => [
         'driver' => 'im',
-        'bin' => '/usr/bin/convert'
+        'bin' => '/usr/local/bin/convert'
     ]
 ];

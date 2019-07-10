@@ -1,0 +1,62 @@
+.thumbnail {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    contain: layout;
+    will-change: transform;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    border-radius: 50%;
+    img {
+        transform: scale( 0, 0 );
+        transition: transform .1s;
+        transform-origin: 50% 50%;
+    }
+    &--visible {
+        pointer-events: visible;
+        img {
+            transform: scale( .8, .8 );
+            @include medium {
+                transform: none;
+            }
+        }
+    }
+    &--visited {
+        filter: blur( 3px );
+        transition: blur .1s;
+        &:hover {
+            filter: none;
+        }
+    }
+    &__title {
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        width: 20em;
+        text-align: center;
+        transform: translateX( -50% );
+        opacity: 0;
+        background: var( --background );
+        pointer-events: none;
+        .thumbnail:hover & {
+            opacity: 1;
+        }
+    }
+}
+
+.ring {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 80%;
+    height: 80%;
+    top: 10%;
+    left: 10%;
+    border-radius: 50%;
+    border-width: 1px;
+    border-style: solid;
+}

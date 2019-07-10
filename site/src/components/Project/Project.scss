@@ -1,0 +1,57 @@
+.project {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    &__header {
+        text-align: center;
+        z-index: 50;
+        padding-bottom: line();
+        padding-top: line();
+        background: linear-gradient( to bottom, var( --background ) calc( 100% - var( --line ) ), transparent 100% );
+        @include medium {
+            padding-top: 0;
+            position: sticky;
+            top: 0;
+        }
+        // h1 {
+        //     margin-top: 120px;
+        //     margin-bottom: .5em;        
+        // }
+        // &:after {
+        //     content: '';
+        //     display: block;
+        //     position: absolute;
+        //     top: 100%;
+        //     width: 100%;
+        //     height: 1.5em;
+        //     background: linear-gradient( to bottom, var( --background ) 0%, transparent 100% );
+        // }
+    }
+    &__body {
+        img, .vimeo {
+            width: 100%;
+            padding-bottom: line( 2 );
+        }
+        p {
+            padding-bottom: line( 2 );
+        }
+        @include medium {
+            // padding-top: line();
+            padding-bottom: 5em;
+        }
+    }
+}
+
+.credits {
+    text-align: center;
+    padding-bottom: line();
+}
+
+.credit {
+    padding-bottom: line();
+    &__role {
+        font-weight: bold;
+    }
+}

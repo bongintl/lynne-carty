@@ -1,0 +1,70 @@
+.projects {
+    position: fixed;
+    z-index: 100;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    &__header {
+        display: flex;
+        justify-content: space-around;
+        order: 1;
+        @include medium {
+            order: 0;
+        }
+        &:before {
+            content: '';
+            display: block;
+            position: absolute;
+            width: 100%;
+            bottom: 100%;
+            left: 0;
+            height: var( --line );
+            background: linear-gradient( to top, var( --background ) 0, transparent 100% );
+            z-index: 200;
+            @include medium {
+                display: none;
+            }
+        }
+    }
+    &__body {
+        flex-grow: 1;
+    }
+    &__project {
+        --project-width: calc( 100vw - 3em );
+        --project-peek: .5em;
+        @media ( min-width: 600px ) {
+            --project-width: calc( 100vw - 4em );
+            --project-peek: 1em;
+        }
+        @media ( min-width: 950px ) {
+            --project-width: 700px;
+            --project-peek: calc( ( 100vw - 900px ) / 2 );
+        }
+        @media ( min-width: 1800px ) {
+            --project-peek: 400px;
+        }
+        --project-offset: calc(
+            ( ( 100vw - var( --project-width ) ) / 2 ) -
+            ( var( --project-peek ) - var( --project-width ) )
+        );
+        width: var(--project-width);
+        height: 100%;
+        position: absolute;
+        left: calc( ( 100vw - var( --project-width ) ) / 2 );
+    }
+    &__link {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: -1em;
+        right: -1em;
+        display: block;
+        overflow-x: hidden;
+        overflow-y: scroll;
+    }
+}

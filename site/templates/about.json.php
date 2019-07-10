@@ -9,5 +9,8 @@ echo json_encode([
         : null,
     'body' => (string) $page -> body() -> kirbytext(),
     'resume' => $page -> resume() -> toStructure(),
-    'links' => $page -> links() -> toStructure()
+    'links' => $page -> links() -> toStructure(),
+    'additionalImages' => array_values(
+        $page -> content() -> get('images') -> toFiles() -> map( 'srcs' ) -> data
+    )
 ]);

@@ -1,0 +1,9 @@
+.home-button {
+    margin: line();
+    height: line( 4 );
+    width: line( 4 );
+    @include medium {
+        margin: line( .5 );
+        width: auto;
+    }
+}

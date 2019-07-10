@@ -7,6 +7,10 @@ echo json_encode([
     'mainImage' => $page -> mainImage() -> isNotEmpty()
         ? srcs( $page -> mainImage() -> toFile() )
         : null,
-    'credits' => $page -> credits() -> toStructure(),
-    'body' => (string) $page -> body() -> kirbytext()
+    'video' => (string) $page -> video(),
+    'credits' => $page -> credits() -> yaml(),
+    'body' => (string) $page -> body() -> kirbytext(),
+    'additionalImages' => array_values(
+        $page -> content() -> get('images') -> toFiles() -> map( 'srcs' ) -> data
+    )
 ]);
