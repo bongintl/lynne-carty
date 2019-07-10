@@ -11,7 +11,7 @@ $projects = array_values(
                 'title' => (string) $project -> title(),
                 'url' => "/" . (string) $project -> uri(),
                 'thumbnail' => $project -> mainImage() -> isNotEmpty()
-                    ? $project -> mainImage() -> toFile() -> resize( 200 ) -> url()
+                    ? srcs( $project -> mainImage() -> toFile() )
                     : null,
                 'tags' => $project -> tags() -> split(),
                 "size" => (float) $project -> size() -> value()
