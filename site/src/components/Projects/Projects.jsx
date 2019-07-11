@@ -20,7 +20,7 @@ var Projects = ({ match }) => {
             </div>
             <div className="projects__body">
                 { range( fromIdx, toIdx + 1 ).map( i => {
-                    var url = projects[ i ].url;
+                    var project = projects[ i ];
                     var transform = spring.target.interpolate( target => (
                         `translateX( calc( ${ ( i - target ) } * var( --project-offset ) ) )`
                     ))
@@ -28,10 +28,19 @@ var Projects = ({ match }) => {
                         <animated.div
                             className="projects__project"
                             style={{ transform }}
-                            key={ url }
+                            key={ project.url }
                         >
-                            <Project isCurrent={ i === target } url={ url }/>
-                            { i !== target && <Link className="projects__link" to={ url }/> }
+                            <Project
+                                title={ project.title }
+                                isCurrent={ i === target }
+                                url={ project.url }
+                            />
+                            { i !== target && (
+                                <Link
+                                    className="projects__link"
+                                    to={ project.url }
+                                />
+                            ) }
                         </animated.div>
                     )
                 }) }

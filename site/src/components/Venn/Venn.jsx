@@ -68,12 +68,12 @@ var VennShader = ({ scale }) => {
         gl.enable( gl.SCISSOR_TEST );
         shader.uniforms.resolution = [ gl.canvas.width, gl.canvas.height ];
         // shader.uniforms.power = Number( power );
-        var extend = Math.min( gl.canvas.width, gl.canvas.height ) * .2;
+        var extend = Math.min( gl.canvas.width, gl.canvas.height ) * .15;
         groupLayers( nodes, byTag, colors ).forEach( ({ color, positions }) => {
             shader.uniforms.count = positions.length;
             var scaledPositions = positions.map( ({ x, y, r }) => ({ x: x * scale, y: y * scale, r: r * scale }))
             scaledPositions.forEach( ({ x, y, r }, i ) => {
-                shader.uniforms.positions[ i ] = [ x, y ];
+                shader.uniforms.positions[ i ] = [ x, y ]
                 shader.uniforms.radii[ i ] = r;
             })
             var { r, g, b } = color.toRgb();

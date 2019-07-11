@@ -13,36 +13,37 @@ var ProjectImage = ({ srcs }) => (
     </div>
 )
 
-var Project = ({ url, isCurrent }) => {
+var Project = ({ title, url, isCurrent }) => {
     var project = useFetch( url + '.json' );
     useVisit( url, isCurrent );
-    if ( project === null ) return null;
     return (
         <div className={ bem( 'project', { current: isCurrent } )}>
             <div className="project__header">
-                <h1>{ project.title }</h1>
+                <h1>{ title }</h1>
             </div>
-            <div className="project__content">
-                { project.video ? (
-                    <div className={ bem( 'project__image', 'landscape' ) }>
-                        <Vimeo video={ project.video } responsive={ true } className="vimeo"/>
-                    </div>
-                ) : (
-                    <ProjectImage srcs={ project.mainImage }/>
-                ) }
-                <div className="project__body" dangerouslySetInnerHTML={{ __html: project.body }}/>
-                <ul className="credits">
-                    { project.credits && project.credits.map( ( { role, name }, i ) => (
-                        <li className="credit" key={ i }>
-                            <div className="credit__role">{ role }</div>
-                            <div className="credit__name">{ name }</div>
-                        </li>
-                    ))}
-                </ul>
-                { project.additionalImages.map( ( srcs, i ) => (
-                    <ProjectImage key={ i } srcs={ srcs }/>
-                )) }
-            </div>
+            { project && (
+                <div className="project__content">
+                    { project.video ? (
+                        <div className={ bem( 'project__image', 'landscape' ) }>
+                            <Vimeo video={ project.video } responsive={ true } className="vimeo"/>
+                        </div>
+                    ) : (
+                        <ProjectImage srcs={ project.mainImage }/>
+                    ) }
+                    <div className="project__body" dangerouslySetInnerHTML={{ __html: project.body }}/>
+                    <ul className="credits">
+                        { project.credits && project.credits.map( ( { role, name }, i ) => (
+                            <li className="credit" key={ i }>
+                                <div className="credit__role">{ role }</div>
+                                <div className="credit__name">{ name }</div>
+                            </li>
+                        ))}
+                    </ul>
+                    { project.additionalImages.map( ( srcs, i ) => (
+                        <ProjectImage key={ i } srcs={ srcs }/>
+                    )) }
+                </div>
+            ) }
         </div>
     )
 }

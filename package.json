@@ -6,11 +6,11 @@
   "scripts": {
     "watch:sass": "npm run build:sass && onchange 'site/src/**/*.scss' -- npm run build:sass",
     "build:sass": "node-sass site/src/style.scss --importer node_modules/node-sass-glob/index.js --output assets",
-    "watch:js": "NODE_ENV=development parcel watch site/src/main.js -d assets",
+    "watch:js": "NODE_ENV=development parcel watch site/src/main.js -d assets --no-hmr",
     "build:js": "parcel build site/src/main.js -d assets",
     "dev": "npm run watch:js & npm run watch:sass",
     "dev-local": "npm run dev & npm run start",
-    "build": "npm run build:js && npm rum build:scss",
+    "build": "npm run build:js && npm rum build:sass",
     "start": "php -S localhost:8000 kirby/router.php"
   },
   "keywords": [],

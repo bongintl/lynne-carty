@@ -59,6 +59,7 @@ export var useDragNode = ({
 
     var position = useRef( null );
     var prevPosition = useRef( null );
+    var radius = useRef( null );
 
     var onMouseEnter = useCallback( e => {
         position.current = getCenter( e.target );
@@ -94,11 +95,12 @@ export var useDragNode = ({
             }
         }
         var { x, y, r } = node;
-        Object.assign( ref.current.style, {
-            width: r * 2 + 'px',
-            height: r * 2 + 'px',
-            transform: `translate( ${ x - r }px, ${ y - r }px )`
-        })
+        if ( r !== radius.current ) {
+            ref.current.style.width =
+            ref.current.style.height = r * 2 + 'px';
+            radius.current = r;
+        }
+        ref.current.style.transform = `translate( ${ x - r }px, ${ y - r }px )`
     }, [ position, prevPosition, ref ] );
 
     return { onMouseEnter, onMouseLeave, onMouseDown };
