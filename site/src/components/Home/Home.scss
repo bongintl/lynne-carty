@@ -27,6 +27,7 @@
         padding: 1em;
         display: none;
         z-index: 200;
+        pointer-events: none;
         @include medium {
             display: block;
         }

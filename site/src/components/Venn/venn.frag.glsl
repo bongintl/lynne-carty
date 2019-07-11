@@ -10,25 +10,26 @@ uniform float power;
 float sample ( vec2 coord ) {
     float x = coord.x;
     float y = coord.y;
-    float v = 0.0;
+    float v = 0.;
     for ( int i = 0; i < MAX; i++ ) {
         vec2 position = positions[ i ];
         float radius = radii[ i ];
         position.y = resolution.y - position.y;
         float dx = position.x - x;
         float dy = position.y - y;
+        float d = sqrt( dx*dx + dy*dy );
         v += radius * radius / ( dx*dx + dy*dy );
         if ( i == count - 1 ) break;
     }
     return v;
 }
 
-float edge () {
+float edge ( vec2 coord ) {
     vec2 px = vec2( .5 );
-    float up = step( 1., sample( gl_FragCoord.xy + vec2( 0., px.y ) ) );
-    float down = step( 1., sample( gl_FragCoord.xy + vec2( 0., -px.y ) ) );
-    float left = step( 1., sample( gl_FragCoord.xy + vec2( -px.x, 0. ) ) );
-    float right = step( 1., sample( gl_FragCoord.xy + vec2( px.x, 0. ) ) );
+    float up = step( 1., sample( coord + vec2( 0., px.y ) ) );
+    float down = step( 1., sample( coord + vec2( 0., -px.y ) ) );
+    float left = step( 1., sample( coord + vec2( -px.x, 0. ) ) );
+    float right = step( 1., sample( coord + vec2( px.x, 0. ) ) );
     if ( up == down && up == left && up == right ) {
         return 0.;
     } else {
@@ -37,5 +38,5 @@ float edge () {
 }
 
 void main () {
-    gl_FragColor = vec4( color, 1. ) * edge();
+    gl_FragColor = vec4( color, 1. ) * edge( gl_FragCoord.xy );
 }

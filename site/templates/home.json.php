@@ -6,6 +6,7 @@ $projects = array_values(
         -> listed()
         -> published()
         -> flip()
+        // -> limit( 20 )
         -> toArray( function ( $project ) {
             return [
                 'title' => (string) $project -> title(),
@@ -19,9 +20,6 @@ $projects = array_values(
         })
 );
 
-$tags = $site
-    -> tags()
-    -> toStructure()
-    -> toArray();
+$tags = $site -> tags() -> yaml();
 
 echo json_encode([ 'projects' => $projects, 'tags' => $tags ]);

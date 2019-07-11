@@ -2,7 +2,7 @@ import vec2 from '~/utils/vec2';
 
 export default ( center, radius ) => {
     var nodes;
-    var strength = .05;
+    var strength = .02;
     var force = () => {
         nodes.forEach( n => {
             var d = vec2.sub( n, center );

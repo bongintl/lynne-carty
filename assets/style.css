@@ -63,7 +63,8 @@ html {
     text-align: center;
     padding: 1em;
     display: none;
-    z-index: 200; }
+    z-index: 200;
+    pointer-events: none; }
     @media (min-width: 768px) {
       .home__title {
         display: block; } }
@@ -101,7 +102,8 @@ html {
       transform: translateY(-50%);
       flex-direction: column;
       padding: 2em;
-      width: auto; } }
+      width: auto;
+      z-index: 500; } }
   .legend__item {
     color: transparent;
     display: flex;

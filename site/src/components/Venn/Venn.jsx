@@ -45,13 +45,17 @@ var VennShader = ({ scale }) => {
             size: 2
         }]);
     }, [ gl ] )
-    var maxNodes = useMemo( () => Math.min(
-        gl.getParameter( gl.MAX_FRAGMENT_UNIFORM_VECTORS ),
-        Math.max( ...Object.values( byTag ).map( a => a.length ) )
-    ), [ gl, byTag ] )
-    var shader = useMemo( () => (
-        createShader( gl, vert, `#define MAX ${ maxNodes }\n` + frag )
-    ), [ gl, maxNodes ] )
+    var shader = useMemo( () => {
+        var counts = Object.values( byTag ).map( a => a.length );
+        var maxUniforms = gl.getParameter( gl.MAX_FRAGMENT_UNIFORM_VECTORS );
+        var min = Math.min( ...counts )
+        var max = Math.min( maxUniforms, Math.max( ...counts ) )
+        return createShader( gl, vert, `
+            #define MIN ${ min }
+            #define MAX ${ max }
+            ${ frag }`
+        )
+    }, [ gl, byTag ] )
     var draw = useCallback( nodes => {
         gl.clearColor( ...backgroundColor );
         gl.clear( gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT | gl.STENCIL_BUFFER_BIT );

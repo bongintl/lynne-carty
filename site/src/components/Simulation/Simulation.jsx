@@ -6,6 +6,9 @@ import isEqual from 'lodash/isEqual';
 import useWindowSize from '~/hooks/useWindowSize';
 import useIsMobile from '~/hooks/useIsMobile';
 import forceCenter from './forceCenter';
+import forceSort from './forceSort';
+import forceRepel from './forceRepel';
+import forceGroup from './forceGroup';
 import forceBounds from './forceBounds';
 import forceGather from './forceGather';
 import { sum } from '~/utils/math';
@@ -48,6 +51,15 @@ var createLinks = projects => {
     return links;
 }
 
+var countLinks = links => {
+    var count = [];
+    links.forEach( ({ source, target }) => {
+        count[ source ] = ( count[ source ] || 0 ) + 1;
+        count[ target ] = ( count[ target ] || 0 ) + 1;
+    })
+    return count;
+}
+
 var useForce = ( simulation, name, force, deps = [] ) => {
     useEffect( () => {
         var f = force();
@@ -58,24 +70,18 @@ var useForce = ( simulation, name, force, deps = [] ) => {
 }
 
 export var SimulationProvider = ({ children }) => {
-    var { projects } = useData();
+    var data = useData();
+    var { projects } = data;
     var windowSize = useWindowSize();
     var isMobile = useIsMobile();
     var filledArea = sum( projects.map( p => Math.PI * p.size ** 2 ) );
     var windowArea = Math.PI * ( Math.min( windowSize[ 0 ], windowSize[ 1 ] ) / 2 ) ** 2
-    var targetFilledArea = windowArea / 2;
+    var targetFilledArea = windowArea / 2.5;
     var scale = isMobile ? 35 : Math.sqrt( targetFilledArea / filledArea );
     var simulation = useInitRef( () => (
         d3force.forceSimulation(
-            projects.map( ( p, i ) => ({ x: windowSize[ 0 ] / 2, y: windowSize[ 1 ] / 2, r: 0, index: i }) )
-        )
-            .velocityDecay( 0.2 )
-            .force( "collide",
-                d3force.forceCollide()
-                    .radius( n => n.r )
-                    .strength( 1 )
-                    .iterations( 5 )
-            )
+            projects.map( ( p, i ) => ({ x: windowSize[ 0 ] * Math.random(), y: windowSize[ 1 ] * Math.random(), r: 0, index: i }) )
+        ).velocityDecay( 0.2 )
     ))
     useEffect( () => {
         simulation.alphaDecay( isMobile ? 0.05 : 0 )
@@ -87,15 +93,32 @@ export var SimulationProvider = ({ children }) => {
         })
         simulation.nodes( nodes );
     }, [ simulation, projects, scale ] );
-    useForce( simulation, 'links',
-        () => {
-            if ( isMobile ) return null;
-            return d3force.forceLink( createLinks( projects ) )
-                .distance( ({ source, target }) => ( source.r + target.r ) * 2 )
-                .strength( link => link.strength * 0.007 );
-        },
-        [ isMobile, projects ]
+    // useForce( simulation, 'links',
+    //     () => {
+    //         if ( isMobile ) return null;
+    //         var links = createLinks( projects );
+    //         var count = countLinks( links );
+    //         return d3force.forceLink( createLinks( projects ) )
+    //             .distance( ({ source, target }) => ( source.r + target.r ) * 2 )
+    //             .strength( ({ source, target, strength }) => {
+    //                 var bias = 1 / Math.min( count[ source.index ], count[ target.index ] );
+    //                 return bias * strength * ( 200 / links.length );
+    //             });
+    //     },
+    //     [ isMobile, projects ]
+    // )
+    useForce( simulation, 'sort',
+        () => !isMobile && forceSort( data ),
+        [ projects ]
     )
+    // useForce( simulation, 'repel',
+    //     () => !isMobile && forceRepel( data ),
+    //     [ projects ]
+    // )
+    // useForce( simulation, 'group',
+    //     () => !isMobile && forceGroup( data ),
+    //     [ projects ]
+    // )
     useForce( simulation, 'center',
         () => !isMobile && forceCenter({ x: windowSize[ 0 ] / 2, y: windowSize[ 1 ] / 2 }),
         [ isMobile, windowSize ]
@@ -107,6 +130,13 @@ export var SimulationProvider = ({ children }) => {
         }),
         [ isMobile, windowSize ]
     )
+    useForce( simulation, 'collide',
+        () => d3force.forceCollide()
+            .radius( n => n.r )
+            .strength( 1 )
+            .iterations( 5 ),
+        []
+    )
     useForce( simulation, 'gather',
         () => !isMobile && forceGather(
             { x: windowSize[ 0 ] / 2, y: windowSize[ 1 ] / 2 },
@@ -114,10 +144,10 @@ export var SimulationProvider = ({ children }) => {
         ),
         [ isMobile, windowSize ]
     )
-    useForce( simulation, 'gravity',
-        () => isMobile && d3force.forceY( 0 ).strength( 0.001 ),
-        [ isMobile ]
-    )
+    // useForce( simulation, 'gravity',
+    //     () => isMobile && d3force.forceY( 0 ).strength( 0.001 ),
+    //     [ isMobile ]
+    // )
     return (
         <SimulationContext.Provider value={ simulation }>
             { children }
