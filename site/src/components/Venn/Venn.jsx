@@ -6,7 +6,7 @@ import createShader from 'gl-shader';
 import frag from './venn.frag.glsl'
 import tinycolor from 'tinycolor2';
 import { useData } from '../Data';
-import { useNodes } from '../Simulation';
+import { useTick } from '../Simulation';
 import useWindowSize from '~/hooks/useWindowSize';
 
 var backgroundColor = (() => {
@@ -68,7 +68,7 @@ var VennShader = ({ scale }) => {
         gl.enable( gl.SCISSOR_TEST );
         shader.uniforms.resolution = [ gl.canvas.width, gl.canvas.height ];
         // shader.uniforms.power = Number( power );
-        var extend = Math.min( gl.canvas.width, gl.canvas.height ) * .15;
+        var extend = Math.min( gl.canvas.width, gl.canvas.height ) * .1;
         groupLayers( nodes, byTag, colors ).forEach( ({ color, positions }) => {
             shader.uniforms.count = positions.length;
             var scaledPositions = positions.map( ({ x, y, r }) => ({ x: x * scale, y: y * scale, r: r * scale }))
@@ -89,7 +89,7 @@ var VennShader = ({ scale }) => {
         })
         gl.disable( gl.SCISSOR_TEST );
     }, [ byTag, colors, gl, shader, triangle, scale ])
-    useNodes( nodes => draw( nodes ) )
+    useTick( simulation => draw( simulation.nodes() ) )
     return null;
 }
 

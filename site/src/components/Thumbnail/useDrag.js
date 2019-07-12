@@ -1,5 +1,5 @@
 import { useState, useRef, useCallback, useLayoutEffect } from 'react';
-import { useNode } from '../Simulation';
+import { useNodeUpdate } from '../Simulation';
 import vec2 from '~/utils/vec2';
 
 var getCenter = el => {
@@ -50,26 +50,26 @@ export var useDrag = ({ onDrag, onEnd, onClick }) => {
 }
 
 export var useDragNode = ({
-    ref,
     index,
-    onMouseEnter: _onMouseEnter,
-    onMouseLeave: _onMouseLeave,
-    onClick
+    // onMouseEnter: _onMouseEnter,
+    // onMouseLeave: _onMouseLeave,
+    onClick,
+    onUpdate
 }) => {
 
     var position = useRef( null );
     var prevPosition = useRef( null );
-    var radius = useRef( null );
+    // var radius = useRef( null );
 
     var onMouseEnter = useCallback( e => {
         position.current = getCenter( e.target );
-        _onMouseEnter( e );
-    }, [ _onMouseEnter ])
+        // _onMouseEnter( e );
+    }, [ /*_onMouseEnter*/ ])
 
     var onMouseLeave = useCallback( e => {
         position.current = null;
-        _onMouseLeave( e )
-    }, [ _onMouseLeave ])
+        // _onMouseLeave( e )
+    }, [ /*_onMouseLeave*/ ])
 
     var onMouseDown = useDrag({
         onDrag: p => {
@@ -80,7 +80,7 @@ export var useDragNode = ({
         onClick
     })
 
-    useNode( index, node => {
+    useNodeUpdate( index, node => {
         if ( !node ) return;
         var p = position.current;
         var prev = prevPosition.current;
@@ -95,13 +95,9 @@ export var useDragNode = ({
             }
         }
         var { x, y, r } = node;
-        if ( r !== radius.current ) {
-            ref.current.style.width =
-            ref.current.style.height = r * 2 + 'px';
-            radius.current = r;
-        }
-        ref.current.style.transform = `translate( ${ x - r }px, ${ y - r }px )`
-    }, [ position, prevPosition, ref ] );
+        // ref.current.style.transform = `translate( ${ x }px, ${ y }px ) translate( -50%, -50% )`
+        onUpdate( node );
+    }, [ position, prevPosition, onUpdate ] );
 
     return { onMouseEnter, onMouseLeave, onMouseDown };
 

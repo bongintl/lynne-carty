@@ -253,23 +253,20 @@ html {
   z-index: 100;
   contain: layout;
   will-change: transform;
+  overflow: hidden;
+  contain: layout;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  pointer-events: none;
-  border-radius: 50%; }
+  pointer-events: none; }
   .thumbnail img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
     transform: scale(0, 0);
-    transition: transform .1s;
-    transform-origin: 50% 50%; }
+    transition: transform .1s; }
+  .thumbnail--visible img {
+    transform: none; }
   .thumbnail--visible {
     pointer-events: visible; }
-    .thumbnail--visible img {
-      transform: scale(0.8, 0.8); }
-      @media (min-width: 768px) {
-        .thumbnail--visible img {
-          transform: none; } }
   .thumbnail--visited {
     filter: blur(3px);
     transition: blur .1s; }

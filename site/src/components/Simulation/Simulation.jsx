@@ -24,14 +24,13 @@ export var useTick = ( onUpdate, deps = [] ) => {
     }, [ simulation, ...deps ] );
 }
 
-export var useNodes = ( onUpdate, deps = [] ) => {
-    useTick( simulation => onUpdate( simulation.nodes() ), deps )
-}
+export var useNode = index => useSimulation().nodes()[ index ];
 
-export var useNode = ( index, onUpdate, deps ) => {
-    useNodes( nodes => {
-        nodes[ index ] && onUpdate( nodes[ index ] )
-    }, deps );
+export var useNodeUpdate = ( index, onUpdate, deps ) => {
+    useTick( simulation => {
+        var nodes = simulation.nodes();
+        if ( nodes[ index ] ) onUpdate( nodes[ index ] )
+    }, deps )
 }
 
 var useForce = ( simulation, name, force, deps = [] ) => {
@@ -70,9 +69,9 @@ export var SimulationProvider = ({ children }) => {
     var scale = isMobile ? 35 : Math.sqrt( targetFilledArea / filledArea );
     var simulation = useInitRef( () => (
         d3force.forceSimulation(
-            projects.map( ( p, i ) => ({
-                ...getInitialPosition( p, Object.keys( data.byTag ), windowSize ),
-                r: 0,
+            projects.map( ( project, i ) => ({
+                ...getInitialPosition( project, Object.keys( data.byTag ), windowSize ),
+                r: project.size * scale,
                 index: i
             }) )
         ).velocityDecay( 0.2 )
