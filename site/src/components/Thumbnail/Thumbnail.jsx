@@ -9,39 +9,11 @@ import { useNode } from '../Simulation';
 import useIsMobile from '~/hooks/useIsMobile';
 import bem from '~/utils/bem';
 
-var thumbnailImageSizeProps = ( srcs, r ) => {
-    var { w, h } = srcs[ 0 ];
-    var diagonal = Math.sqrt( w * w + h * h );
-    var scale = ( r * 2 ) / diagonal * .9;
-    return {
-        style: { width: w * scale + 'px', height: h * scale + 'px' },
-        sizes: w * scale * 2 + 'px'
-    }
-}
-
-
 var thumbnailImageSize = ( srcs, r ) => {
     var { w, h } = srcs[ 0 ];
     var diagonal = Math.sqrt( w * w + h * h );
     var scale = ( r * 2 ) / diagonal * .9;
     return { width: w * scale, height: h * scale }
-}
-
-
-var ThumbnailImage = ({ srcs }) => {
-    var { w, h } = srcs[ 0 ];
-    var diagonal = Math.sqrt( w * w + h * h );
-    var scale = 100 / diagonal * .9;
-    return (
-        <Image
-            srcs={ srcs }
-            ratio={ false }
-            style={{
-                width: w * scale + '%',
-                height: h * scale + '%'
-            }}
-        />
-    )
 }
 
 var Rings = ({ tags }) => {
@@ -73,8 +45,6 @@ var Thumbnail = withRouter( ({ project, visible, history, setTitle }) => {
                 translate( ${ node.x - width / 2 }px, ${ node.y - height / 2 }px )
             `;
         }, [ ref, width, height, visible ] )
-        // onMouseEnter: useCallback( () => setTitle( project.title ), [ project ] ),
-        // onMouseLeave: useCallback( () => setTitle( null ), [] )
     })
 
     var onMouseEnter = useCallback( e => {
@@ -95,21 +65,18 @@ var Thumbnail = withRouter( ({ project, visible, history, setTitle }) => {
         onMouseLeave,
         ...listeners
     }
-
+    
     var imageProps = {
         srcSet: srcset( project.thumbnail ),
         sizes: width * 2 + 'px'
     }
 
-    // if ( useIsMobile() ) {   
-        return (
-            <a { ...containerProps }>
-                { useIsMobile() && <Rings tags={ project.tags }/> }
-                <img { ...imageProps }/>
-            </a>
-        )
-    // }
-    // return <img { ...containerProps } { ...imageProps } />
+    return (
+        <a { ...containerProps }>
+            { useIsMobile() && <Rings tags={ project.tags }/> }
+            <img { ...imageProps }/>
+        </a>
+    )
 })
 
 export default Thumbnail;

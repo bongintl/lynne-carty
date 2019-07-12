@@ -51,25 +51,20 @@ export var useDrag = ({ onDrag, onEnd, onClick }) => {
 
 export var useDragNode = ({
     index,
-    // onMouseEnter: _onMouseEnter,
-    // onMouseLeave: _onMouseLeave,
     onClick,
     onUpdate
 }) => {
 
     var position = useRef( null );
     var prevPosition = useRef( null );
-    // var radius = useRef( null );
 
     var onMouseEnter = useCallback( e => {
         position.current = getCenter( e.target );
-        // _onMouseEnter( e );
-    }, [ /*_onMouseEnter*/ ])
+    }, [ position ] )
 
-    var onMouseLeave = useCallback( e => {
+    var onMouseLeave = useCallback( () => {
         position.current = null;
-        // _onMouseLeave( e )
-    }, [ /*_onMouseLeave*/ ])
+    }, [ position ] )
 
     var onMouseDown = useDrag({
         onDrag: p => {
@@ -94,8 +89,6 @@ export var useDragNode = ({
                 node.vx = node.vy = 0;
             }
         }
-        var { x, y, r } = node;
-        // ref.current.style.transform = `translate( ${ x }px, ${ y }px ) translate( -50%, -50% )`
         onUpdate( node );
     }, [ position, prevPosition, onUpdate ] );
 

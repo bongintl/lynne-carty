@@ -17,7 +17,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@u-wave/react-vimeo": "^0.8.0",
+    "@u-wave/react-vimeo": "^0.8.1",
     "classnames": "^2.2.6",
     "d3": "^3.5.17",
     "d3-force": "^2.0.1",
@@ -25,19 +25,17 @@
     "gl-buffer": "^2.1.2",
     "gl-shader": "^4.2.1",
     "gl-vao": "^1.3.0",
-    "gr8": "^3.1.5",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.14",
     "node-sass": "^4.12.0",
     "node-sass-glob": "^1.0.4",
     "onchange": "^6.0.0",
     "parcel-bundler": "^1.12.3",
     "postcss": "^7.0.17",
-    "postcss-preset-env": "^6.6.0",
+    "postcss-preset-env": "^6.7.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-router-dom": "^5.0.1",
-    "react-spring": "^8.0.25",
-    "reset-css": "^4.0.1",
+    "react-spring": "^8.0.27",
     "resize-observer-polyfill": "^1.5.1",
     "tinycolor2": "^1.4.1"
   },
@@ -48,6 +46,6 @@
     "glslify-bundle": "^5.1.1",
     "glslify-deps": "^1.3.1",
     "postcss-modules": "^1.4.1",
-    "sass": "^1.20.3"
+    "sass": "^1.22.4"
   }
 }
