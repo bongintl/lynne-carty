@@ -5,6 +5,7 @@ import VennShader from '../Venn'
 import { useData } from '../Data';
 import useWindowSize from '~/hooks/useWindowSize';
 import useIsMobile from '~/hooks/useIsMobile';
+import './Home.scss';
 
 var Home = () => {
     var windowSize = useWindowSize();

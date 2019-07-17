@@ -5,6 +5,7 @@ import Project from '../Project';
 import HomeButton from './HomeButton';
 import { useSpring, animated } from 'react-spring';
 import range from 'lodash/range';
+import './Projects.scss';
 
 var Projects = ({ match }) => {
     var { projects } = useData();

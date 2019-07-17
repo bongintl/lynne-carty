@@ -1,3 +1,5 @@
+@import './breakpoints';
+
 :root {
     --background: #DFDFDF;
     --line-height: 1.65;
@@ -12,19 +14,7 @@
     box-sizing: border-box;
 }
 
-@font-face {
-    font-family: "Authentic";
-    src: url("/assets/fonts/AUTHENTICSans-90.woff");
-}
-
-@font-face {
-    font-family: "Authentic";
-    src: url("/assets/fonts/AUTHENTICSans-130.woff");
-    font-weight: bold;
-}
-
 html {
-    // font-family: "Authentic";
     font-family: Helvetica, sans-serif;
     background: var( --background );
     -webkit-font-smoothing: antialiased;
@@ -32,9 +22,6 @@ html {
     font-size: 14px;
     @include medium {
         font-size: 16px;
-    }
-    @include large {
-        // font-size: 18px;
     }
 }
 

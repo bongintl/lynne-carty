@@ -6,6 +6,7 @@ import useWindowSize from '~/hooks/useWindowSize';
 import useIsMobile from '~/hooks/useIsMobile';
 import useSize from '~/hooks/useSize';
 import { useData } from '../Data';
+import './HomeButton.scss';
 
 var DesktopHomeButton = () => {
     var ref = useRef();

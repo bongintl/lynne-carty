@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import bem from '~/utils/bem';
+import './Legend.scss';
 
 var isTouch = 'ontouchstart' in window;
 

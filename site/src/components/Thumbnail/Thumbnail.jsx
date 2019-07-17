@@ -8,6 +8,7 @@ import { useDragNode } from './useDrag';
 import { useNode } from '../Simulation';
 import useIsMobile from '~/hooks/useIsMobile';
 import bem from '~/utils/bem';
+import './Thumbnail.scss'
 
 var thumbnailImageSize = ( srcs, r ) => {
     var { w, h } = srcs[ 0 ];

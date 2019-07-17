@@ -4,6 +4,7 @@ import { useVisit } from '../Visited';
 import Image from '../Image';
 import Vimeo from '@u-wave/react-vimeo';
 import bem from '~/utils/bem';
+import './Project.scss';
 
 var orientation = srcs => srcs[ 0 ].w > srcs[ 0 ].h ? 'landscape' : 'portrait';
 

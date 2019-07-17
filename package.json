@@ -8,6 +8,7 @@
     "build:sass": "node-sass site/src/style.scss --importer node_modules/node-sass-glob/index.js --output assets",
     "watch:js": "NODE_ENV=development parcel watch site/src/main.js -d assets --no-hmr",
     "build:js": "parcel build site/src/main.js -d assets",
+    "dev:all": "parcel watch site/src/main.js -d assets --no-hmr",
     "dev": "npm run watch:js & npm run watch:sass",
     "dev-local": "npm run dev & npm run start",
     "build": "npm run build:js && npm rum build:sass",
@@ -45,7 +46,6 @@
     "babel-preset-stage-2": "^6.24.1",
     "glslify-bundle": "^5.1.1",
     "glslify-deps": "^1.3.1",
-    "postcss-modules": "^1.4.1",
-    "sass": "^1.22.4"
+    "postcss-modules": "^1.4.1"
   }
 }

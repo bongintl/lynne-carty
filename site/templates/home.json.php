@@ -6,7 +6,7 @@ $projects = array_values(
         -> listed()
         -> published()
         -> flip()
-        // -> limit( 20 )
+        -> limit( 10 )
         -> toArray( function ( $project ) {
             return [
                 'title' => (string) $project -> title(),
