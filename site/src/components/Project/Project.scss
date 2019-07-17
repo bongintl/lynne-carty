@@ -1,4 +1,4 @@
-@import '~/styles/breakpoints';
+@import '~/styles/utils';
 
 .project {
     display: flex;
@@ -34,6 +34,17 @@
             // padding-top: line();
             padding-bottom: 5em;
         }
+        & > * {
+            // transition: transform .5s;
+            // transform: none;
+            transform: translateX( calc( ( var( --project-width ) * .5 - 50% ) * var( --project-content-offset ) ) );
+            // .project--off-left & {
+                
+            // }
+            // .project--off-right & {
+            //     transform: translateX( calc( var( --project-width ) * -.5 + 50% ) );
+            // }
+        }
     }
     &__image {
         width: 100%;
@@ -47,7 +58,7 @@
         max-width: 40em;
     }
     &__image--landscape {
-        max-width: 75vw;
+        max-width: 80em;
     }
 }
 

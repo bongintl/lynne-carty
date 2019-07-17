@@ -17,3 +17,5 @@
 @mixin xxlarge {
     @media ( min-width: 1600px ) { @content; }
 }
+
+@function line ( $n: 1 ) { @return calc( var( --line ) * #{ $n } ) }

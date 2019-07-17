@@ -1,4 +1,4 @@
-@import '~/styles/breakpoints';
+@import '~/styles/utils';
 
 .projects {
     position: fixed;
@@ -36,15 +36,16 @@
         flex-grow: 1;
     }
     &__project {
-        --project-width: calc( 100vw - 3em );
-        --project-peek: .5em;
+        --project-peek: 1em;
+        --project-width: calc( 100vw - 4em );
         @media ( min-width: 600px ) {
-            --project-width: calc( 100vw - 4em );
-            --project-peek: 1em;
+            --project-peek: 2em;
+            --project-width: calc( 100vw - 8em );
         }
         @media ( min-width: 950px ) {
             // --project-width: 700px;
-            // --project-peek: calc( ( 100vw - 900px ) / 2 );
+            --project-peek: 5em;
+            --project-width: calc( 100vw - 24em );
         }
         @media ( min-width: 1800px ) {
             // --project-peek: 400px;

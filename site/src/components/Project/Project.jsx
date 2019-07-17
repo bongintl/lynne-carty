@@ -14,11 +14,17 @@ var ProjectImage = ({ srcs }) => (
     </div>
 )
 
-var Project = ({ title, url, isCurrent }) => {
+var Project = ({ title, url, offset }) => {
     var project = useFetch( url + '.json' );
+    var isCurrent = offset === 0;
     useVisit( url, isCurrent );
+    var className = bem( 'project', {
+        current: isCurrent,
+        'off-left': offset < 0,
+        'off-right': offset > 0
+    })
     return (
-        <div className={ bem( 'project', { current: isCurrent } )}>
+        <div className={ className }>
             <div className="project__header">
                 <h1>{ title }</h1>
             </div>
