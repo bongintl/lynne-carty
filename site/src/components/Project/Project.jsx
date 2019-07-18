@@ -1,4 +1,5 @@
 import React from 'react';
+import { basename } from '../App';
 import useFetch from '~/hooks/useFetch';
 import { useVisit } from '../Visited';
 import Image from '../Image';
@@ -15,7 +16,7 @@ var ProjectImage = ({ srcs }) => (
 )
 
 var Project = ({ title, url, offset }) => {
-    var project = useFetch( url + '.json' );
+    var project = useFetch( `${ basename }${ url }.json` );
     var isCurrent = offset === 0;
     useVisit( url, isCurrent );
     var className = bem( 'project', {

@@ -11,9 +11,8 @@ import useWindowSize from '~/hooks/useWindowSize';
 import './Projects.scss';
 
 var Projects = ({ match, history }) => {
-    // var onSwipeEnd = useCallback()
     var { projects } = useData();
-    var target = projects.findIndex( p => p.url === match.url ) || 0;
+    var target = projects.findIndex( p => p.url === match.params.page ) || 0;
     var [ curr, setCurr ] = useState( target );
     var spring = useSpring({ target, onRest: ({ target }) => setCurr( target ) })
     var fromIdx = Math.max( Math.min( curr, target ) - 1, 0 );

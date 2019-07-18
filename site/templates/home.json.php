@@ -16,7 +16,7 @@ $projects = array_values(
         -> toArray( function ( $project ) {
             return [
                 'title' => (string) $project -> title(),
-                'url' => '/' . (string) $project -> uri(),
+                'url' => (string) $project -> uri(),
                 'thumbnail' => $project -> mainImage() -> isNotEmpty()
                     ? srcs( $project -> mainImage() -> toFile(), [ 100, 200, 400 ] )
                     : null,

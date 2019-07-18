@@ -1,14 +1,14 @@
 import React, { createContext, useContext, useMemo } from 'react';
-import { withRouter } from 'react-router-dom';
 import tinycolor from 'tinycolor2'
 import useFetch from '~/hooks/useFetch';
+import { basename } from '../App';
 
 var DataContext = createContext();
 
 export var useData = () => useContext( DataContext );
 
 export var DataProvider = ({ children }) => {
-    var data = useFetch( './home.json' );
+    var data = useFetch( `${ basename }home.json` );
     var transformedData = useMemo(() => {
         if ( data === null ) return null;
         var { projects, tags } = data;
