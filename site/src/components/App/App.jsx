@@ -6,7 +6,7 @@ import { DataProvider } from '../Data';
 import { VisitedProvider } from '../Visited';
 import { SimulationProvider } from '../Simulation';
 
-var basename = document.querySelector('base').href;
+var basename = new URL( document.querySelector('base').href ).pathname;
 
 var App = () => {
     return (

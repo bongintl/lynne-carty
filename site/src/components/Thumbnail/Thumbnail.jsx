@@ -41,7 +41,7 @@ var Thumbnail = withRouter( ({ project, visible, history, setTitle }) => {
     } = useDragNode({
         ref,
         index: project.i,
-        onClick: useCallback( () => history.push( project.url ), [ history, project ] ),
+        onClick: useCallback( () => { debugger; history.push( project.url ) }, [ history, project ] ),
         onUpdate: useCallback( node => {
             ref.current.style.transform = `
                 ${ visible ? '' : 'scale( 0, 0 )' }

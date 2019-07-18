@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useMemo } from 'react';
+import { withRouter } from 'react-router-dom';
 import tinycolor from 'tinycolor2'
 import useFetch from '~/hooks/useFetch';
 
@@ -6,7 +7,7 @@ var DataContext = createContext();
 
 export var useData = () => useContext( DataContext );
 
-export var DataProvider = ({ children }) => {
+export var DataProvider = withRouter( ({ children, location }) => {
     var data = useFetch( './home.json' );
     var transformedData = useMemo(() => {
         if ( data === null ) return null;
@@ -33,4 +34,4 @@ export var DataProvider = ({ children }) => {
             { data === null ? null : children }
         </DataContext.Provider>
     )
-}
+})
