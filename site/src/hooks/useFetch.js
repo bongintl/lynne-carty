@@ -6,7 +6,7 @@ export default url => {
     var [ data, setData ] = useState( null );
     useEffect(() => {
         var cancelled = false;
-        fetch( new URL( url, base ) )
+        fetch( new URL( url, base ).href )
             .then( r => r.json() )
             .then( d => {
                 if ( !cancelled ) setData( d )
