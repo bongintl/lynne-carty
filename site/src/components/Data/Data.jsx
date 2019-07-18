@@ -7,7 +7,7 @@ var DataContext = createContext();
 
 export var useData = () => useContext( DataContext );
 
-export var DataProvider = withRouter( ({ children, location }) => {
+export var DataProvider = ({ children }) => {
     var data = useFetch( './home.json' );
     var transformedData = useMemo(() => {
         if ( data === null ) return null;
@@ -34,4 +34,4 @@ export var DataProvider = withRouter( ({ children, location }) => {
             { data === null ? null : children }
         </DataContext.Provider>
     )
-})
+}
