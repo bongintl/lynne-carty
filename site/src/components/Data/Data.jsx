@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useMemo } from 'react';
 import tinycolor from 'tinycolor2'
 import useFetch from '~/hooks/useFetch';
+import urlJoin from 'url-join';
 import { basename } from '../App';
 
 var DataContext = createContext();
@@ -8,7 +9,7 @@ var DataContext = createContext();
 export var useData = () => useContext( DataContext );
 
 export var DataProvider = ({ children }) => {
-    var data = useFetch( `${ basename }home.json` );
+    var data = useFetch( urlJoin( basename, 'home.json' ) );
     var transformedData = useMemo(() => {
         if ( data === null ) return null;
         var { projects, tags } = data;

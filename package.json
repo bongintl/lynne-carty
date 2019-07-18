@@ -27,7 +27,8 @@
     "react-router-dom": "^5.0.1",
     "react-spring": "^8.0.27",
     "resize-observer-polyfill": "^1.5.1",
-    "tinycolor2": "^1.4.1"
+    "tinycolor2": "^1.4.1",
+    "url-join": "^4.0.1"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",

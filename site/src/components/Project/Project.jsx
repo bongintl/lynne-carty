@@ -6,6 +6,7 @@ import Image from '../Image';
 import Vimeo from '@u-wave/react-vimeo';
 import bem from '~/utils/bem';
 import './Project.scss';
+import urlJoin from 'url-join';
 
 var orientation = srcs => srcs[ 0 ].w > srcs[ 0 ].h ? 'landscape' : 'portrait';
 
@@ -16,7 +17,7 @@ var ProjectImage = ({ srcs }) => (
 )
 
 var Project = ({ title, url, offset }) => {
-    var project = useFetch( `${ basename }${ url }.json` );
+    var project = useFetch( urlJoin( basename, `${ url }.json` ) );
     var isCurrent = offset === 0;
     useVisit( url, isCurrent );
     var className = bem( 'project', {
