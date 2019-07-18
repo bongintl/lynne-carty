@@ -6,9 +6,11 @@ import { DataProvider } from '../Data';
 import { VisitedProvider } from '../Visited';
 import { SimulationProvider } from '../Simulation';
 
+var basename = document.querySelector('base').href;
+
 var App = () => {
     return (
-        <Router>
+        <Router basename={ basename }>
             <DataProvider>
                 <VisitedProvider>
                     <SimulationProvider>

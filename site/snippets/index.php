@@ -8,6 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="./assets/main.css">
     <title><?= $site -> title() -> html() ?></title>
+    <base href="<?= $site -> url() ?>">
     <?php snippet( 'meta', [
         'title' => $site -> title() -> html(),
         'url' => kirby() -> urls() -> index(),
