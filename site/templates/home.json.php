@@ -12,7 +12,7 @@ $projects = array_values(
                 $project -> mainImage() -> toFile() -> extension() !== 'gif'
             );
         })
-        // -> limit( 40 )
+        // -> limit( 1 )
         -> toArray( function ( $project ) {
             return [
                 'title' => (string) $project -> title(),

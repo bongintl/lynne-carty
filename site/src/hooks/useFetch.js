@@ -3,7 +3,13 @@ var { useState, useEffect } = require( 'react' );
 export default url => {
     var [ data, setData ] = useState( null );
     useEffect(() => {
-        if ( url ) fetch( url ).then( r => r.json() ).then( setData );
+        var cancelled = false;
+        fetch( url )
+            .then( r => r.json() )
+            .then( d => {
+                if ( !cancelled ) setData( d )
+            });
+        return () => cancelled = true;
     }, [ url ] );
     return data;
 }

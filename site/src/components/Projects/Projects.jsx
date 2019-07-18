@@ -13,22 +13,13 @@ import './Projects.scss';
 var Projects = ({ match, history }) => {
     // var onSwipeEnd = useCallback()
     var { projects } = useData();
-    var targetIdx = projects.findIndex( p => p.url === match.url ) || 0;
-    var windowSize = useWindowSize();
-    var onSwipeEnd = useCallback( distance => {
-        var idx = distance < 0 ? targetIdx + 1 : targetIdx - 1 //Math.round( targetIdx - distance / windowSize[ 0 ] )
-        var project = projects[ clamp( idx, 0, projects.length - 1 ) ]
-        history.push( project.url );
-    }, [ history, projects, windowSize, targetIdx ])
-    var [ dragDistance, events ] = useSwipe( onSwipeEnd );
-    var target = targetIdx - dragDistance / windowSize[ 0 ];
-    // console.log( dragDistance / windowSize[ 0 ] );
+    var target = projects.findIndex( p => p.url === match.url ) || 0;
     var [ curr, setCurr ] = useState( target );
     var spring = useSpring({ target, onRest: ({ target }) => setCurr( target ) })
-    var fromIdx = Math.max( Math.floor( Math.min( curr, target ) ) - 1, 0 );
-    var toIdx = Math.min( Math.ceil( Math.max( curr, target ) ) + 1, projects.length - 1 );
+    var fromIdx = Math.max( Math.min( curr, target ) - 1, 0 );
+    var toIdx = Math.min( Math.max( curr, target ) + 1, projects.length - 1 );
     return (
-        <div className="projects" { ...events }>
+        <div className="projects">
             <div className="projects__header">
                 <HomeButton/>
             </div>

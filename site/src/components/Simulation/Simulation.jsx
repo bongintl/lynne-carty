@@ -20,6 +20,7 @@ export var useTick = ( onUpdate, deps = [] ) => {
     useEffect( () => {
         var event = `tick.${ Math.random() }`;
         simulation.on( event, () => onUpdate( simulation ) )
+        onUpdate( simulation );
         return () => simulation.on( event, null );
     }, [ simulation, ...deps ] );
 }
@@ -38,6 +39,7 @@ var useForce = ( simulation, name, force, deps = [] ) => {
         var f = force();
         if ( !f ) return;
         simulation.force( name, f );
+        simulation.restart()
         return () => simulation.force( name, null );
     }, [ simulation, name, force, ...deps ] )
 }

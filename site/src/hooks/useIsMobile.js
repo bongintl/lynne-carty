@@ -1,17 +1,5 @@
-import { useState, useLayoutEffect } from 'react';
+import useWindowSize from './useWindowSize';
 
-var useMediaQuery = query => {
-    var [ matches, setMatches ] = useState( false );
-    useLayoutEffect(() => {
-        var mq = window.matchMedia( query );
-        var onChange = () => setMatches( mq.matches );
-        onChange();
-        mq.addListener( onChange );
-        return () => mq.removeListener( onChange );
-    }, [] );
-    return matches;
-}
-
-var useIsMobile = () => useMediaQuery( '( max-width: 768px )' );
+var useIsMobile = () => useWindowSize()[ 0 ] < 768;
 
 export default useIsMobile;
