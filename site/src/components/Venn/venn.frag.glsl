@@ -17,7 +17,6 @@ float sample ( vec2 coord ) {
         position.y = resolution.y - position.y;
         float dx = position.x - x;
         float dy = position.y - y;
-        float d = sqrt( dx*dx + dy*dy );
         v += radius * radius / ( dx*dx + dy*dy );
         if ( i == count - 1 ) break;
     }
@@ -25,7 +24,6 @@ float sample ( vec2 coord ) {
 }
 
 float edge ( vec2 coord ) {
-    vec2 px = vec2( .5 );
     float up = step( 1., sample( coord + vec2( 0., px.y ) ) );
     float down = step( 1., sample( coord + vec2( 0., -px.y ) ) );
     float left = step( 1., sample( coord + vec2( -px.x, 0. ) ) );

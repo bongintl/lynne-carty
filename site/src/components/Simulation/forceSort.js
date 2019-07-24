@@ -11,17 +11,33 @@ export default data => {
     var forces = [];
     var attractStrength = .0000000003;
     var repelStrength = 2000000;
+    var d = new Float32Array( 2 );
     var force = () => {
-        for ( var [ a, b, strength ] of forces ) {
-            var d = vec2.sub( b, a );
-            var dist = vec2.len( d );
-            if ( dist <= a.r + b.r ) continue;
+        for ( var i = 0; i < forces.length; i++ ) {
+        // for ( var [ a, b, strength ] of forces ) {
+            var force = forces[ i ];
+            var a = force[ 0 ];
+            var b = force[ 1 ];
+            var strength = force[ 2 ];
+            // var d = vec2.sub( b, a );
+            d[ 0 ] = b.x - a.x;
+            d[ 1 ] = b.y - a.y;
+            var dist2 = d[ 0 ] * d[ 0 ] + d[ 1 ] * d[ 1 ];
+            if ( dist2 <= a.r + b.r ) continue;
+            var dist = Math.sqrt( dist2 );
+            var dist3 = dist * dist * dist;
             var f = strength > 0
-                ? strength * ( dist ** 3 ) * attractStrength
-                : strength * ( 1 / ( dist ** 3 ) ) * repelStrength;
-            var dir = vec2.normalize( d, dist );
-            apply( a, vec2.scale( dir, .5 * f ) )
-            apply( b, vec2.scale( dir, -.5 * f ) )
+                ? strength * dist3 * attractStrength
+                : strength * ( 1 / dist3 ) * repelStrength;
+            // var dir = vec2.normalize( d, dist );
+            d[ 0 ] /= dist;
+            d[ 1 ] /= dist;
+            // apply( a, vec2.scale( dir, .5 * f ) )
+            a.vx += d[ 0 ] * f * .5;
+            a.vy += d[ 1 ] * f * .5;
+            // apply( b, vec2.scale( dir, -.5 * f ) )
+            b.vx += d[ 0 ] * f * -.5;
+            b.vx += d[ 1 ] * f * -.5;
         }
     }
     force.initialize = ns => {

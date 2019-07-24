@@ -37857,8 +37857,12 @@ vec2.scale = function (v, s) {
   return vec2(v.x * s, v.y * s);
 };
 
+vec2.len2 = function (v) {
+  return v.x * v.x + v.y * v.y;
+};
+
 vec2.len = function (v) {
-  return Math.sqrt(v.x * v.x + v.y * v.y);
+  return Math.sqrt(vec2.len2(v));
 };
 
 vec2.lerp = function (a, b, t) {
@@ -37903,14 +37907,6 @@ var _vec = _interopRequireDefault(require("~/utils/vec2"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
-
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
-
-function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
 var apply = function apply(node, force) {
   node.vx += force.x;
   node.vy += force.y;
@@ -37921,25 +37917,32 @@ var _default = function _default(data) {
   var forces = [];
   var attractStrength = .0000000003;
   var repelStrength = 2000000;
+  var d = new Float32Array(2);
 
   var force = function force() {
-    for (var _i = 0, _forces = forces; _i < _forces.length; _i++) {
-      var _forces$_i = _slicedToArray(_forces[_i], 3),
-          a = _forces$_i[0],
-          b = _forces$_i[1],
-          strength = _forces$_i[2];
+    for (var i = 0; i < forces.length; i++) {
+      // for ( var [ a, b, strength ] of forces ) {
+      var force = forces[i];
+      var a = force[0];
+      var b = force[1];
+      var strength = force[2]; // var d = vec2.sub( b, a );
 
-      var d = _vec.default.sub(b, a);
+      d[0] = b.x - a.x;
+      d[1] = b.y - a.y;
+      var dist2 = d[0] * d[0] + d[1] * d[1];
+      if (dist2 <= a.r + b.r) continue;
+      var dist = Math.sqrt(dist2);
+      var dist3 = dist * dist * dist;
+      var f = strength > 0 ? strength * dist3 * attractStrength : strength * (1 / dist3) * repelStrength; // var dir = vec2.normalize( d, dist );
 
-      var dist = _vec.default.len(d);
+      d[0] /= dist;
+      d[1] /= dist; // apply( a, vec2.scale( dir, .5 * f ) )
 
-      if (dist <= a.r + b.r) continue;
-      var f = strength > 0 ? strength * Math.pow(dist, 3) * attractStrength : strength * (1 / Math.pow(dist, 3)) * repelStrength;
+      a.vx += d[0] * f * .5;
+      a.vy += d[1] * f * .5; // apply( b, vec2.scale( dir, -.5 * f ) )
 
-      var dir = _vec.default.normalize(d, dist);
-
-      apply(a, _vec.default.scale(dir, .5 * f));
-      apply(b, _vec.default.scale(dir, -.5 * f));
+      b.vx += d[0] * f * -.5;
+      b.vx += d[1] * f * -.5;
     }
   };
 
@@ -45694,7 +45697,7 @@ function createShader(
 module.exports = createShader
 
 },{"./lib/create-uniforms":"../../node_modules/gl-shader/lib/create-uniforms.js","./lib/create-attributes":"../../node_modules/gl-shader/lib/create-attributes.js","./lib/reflect":"../../node_modules/gl-shader/lib/reflect.js","./lib/shader-cache":"../../node_modules/gl-shader/lib/shader-cache.js","./lib/runtime-reflect":"../../node_modules/gl-shader/lib/runtime-reflect.js","./lib/GLError":"../../node_modules/gl-shader/lib/GLError.js"}],"components/Venn/venn.frag.glsl":[function(require,module,exports) {
-module.exports = "precision highp float;\n#define GLSLIFY 1\n\nuniform vec2 resolution;\nuniform vec2 positions[ MAX ];\nuniform float radii[ MAX ];\nuniform vec3 color;\nuniform int count;\nuniform float power;\n\nfloat sample ( vec2 coord ) {\n    float x = coord.x;\n    float y = coord.y;\n    float v = 0.;\n    for ( int i = 0; i < MAX; i++ ) {\n        vec2 position = positions[ i ];\n        float radius = radii[ i ];\n        position.y = resolution.y - position.y;\n        float dx = position.x - x;\n        float dy = position.y - y;\n        float d = sqrt( dx*dx + dy*dy );\n        v += radius * radius / ( dx*dx + dy*dy );\n        if ( i == count - 1 ) break;\n    }\n    return v;\n}\n\nfloat edge ( vec2 coord ) {\n    vec2 px = vec2( .5 );\n    float up = step( 1., sample( coord + vec2( 0., px.y ) ) );\n    float down = step( 1., sample( coord + vec2( 0., -px.y ) ) );\n    float left = step( 1., sample( coord + vec2( -px.x, 0. ) ) );\n    float right = step( 1., sample( coord + vec2( px.x, 0. ) ) );\n    if ( up == down && up == left && up == right ) {\n        return 0.;\n    } else {\n        return 1.;\n    }\n}\n\nvoid main () {\n    gl_FragColor = vec4( color, 1. ) * edge( gl_FragCoord.xy );\n}";
+module.exports = "precision highp float;\n#define GLSLIFY 1\n\nuniform vec2 resolution;\nuniform vec2 positions[ MAX ];\nuniform float radii[ MAX ];\nuniform vec3 color;\nuniform int count;\nuniform float power;\n\nfloat sample ( vec2 coord ) {\n    float x = coord.x;\n    float y = coord.y;\n    float v = 0.;\n    for ( int i = 0; i < MAX; i++ ) {\n        vec2 position = positions[ i ];\n        float radius = radii[ i ];\n        position.y = resolution.y - position.y;\n        float dx = position.x - x;\n        float dy = position.y - y;\n        v += radius * radius / ( dx*dx + dy*dy );\n        if ( i == count - 1 ) break;\n    }\n    return v;\n}\n\nfloat edge ( vec2 coord ) {\n    float dir = mix( -1., 1., mod( coord.x, 2. ) );\n    float s0 = step( 1., sample( coord + vec2( 0., dir * .5 ) ) );\n    float s1 = step( 1., sample( coord + vec2( -.5, dir * -.5 ) ) );\n    float s2 = step( 1., sample( coord + vec2( .5, dir * -.5 ) ) );\n    if ( s0 == s1 && s0 == s2 ) {\n        return 0.;\n    } else {\n        return 1.;\n    }\n    // float px = sample( coord );\n    // if ( px >= 1. && px <= 1.01 ) {\n    //     return 1.;\n    // } else {\n    //     return 0.;\n    // }\n    // vec2 px = vec2( .5 );\n    // float upleft = step( 1., sample( coord + px ) );\n    // float downright = step( 1., sample( coord - px ) );\n    // if ( upleft == downright ) {\n    //     return 0.;\n    // } else {\n    //     return 1.;\n    // }\n    // float up = step( 1., sample( coord + vec2( 0., px.y ) ) );\n    // float down = step( 1., sample( coord + vec2( 0., -px.y ) ) );\n    // float left = step( 1., sample( coord + vec2( -px.x, 0. ) ) );\n    // float right = step( 1., sample( coord + vec2( px.x, 0. ) ) );\n    // if ( up == down && up == left /* && up == right */ ) {\n    //     return 0.;\n    // } else {\n    //     return 1.;\n    // }\n}\n\nvoid main () {\n    gl_FragColor = vec4( color, 1. ) * edge( gl_FragCoord.xy );\n}";
 },{}],"components/Venn/Venn.jsx":[function(require,module,exports) {
 "use strict";
 
