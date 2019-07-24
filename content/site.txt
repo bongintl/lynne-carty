@@ -1,0 +1,27 @@
+Title: Lynne Carty
+
+----
+
+Tags: 
+
+- 
+  name: Lynne Carty
+  color: '#AD00FF'
+- 
+  name: Art Direction
+  color: '#FF0000'
+- 
+  name: Animation
+  color: '#FF9838'
+- 
+  name: Video
+  color: '#BDFF00'
+- 
+  name: Covers
+  color: '#FC49CA'
+- 
+  name: Design
+  color: '#00C2FF'
+- 
+  name: Illustration
+  color: '#FCFF80'

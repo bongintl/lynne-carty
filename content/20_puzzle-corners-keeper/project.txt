@@ -1,0 +1,40 @@
+Title: Puzzle Corner's Keeper
+
+----
+
+Size: 1
+
+----
+
+Tags: Art Direction, Design
+
+----
+
+Mainimage: 
+
+- puzzle0.png
+
+----
+
+Credits: 
+
+- 
+  role: Client
+  name: MIT News
+- 
+  role: 'Art Direction & Design'
+  name: Lynne Carty
+- 
+  role: Photograph
+  name: "Boru O'Brien O'Connell"
+
+----
+
+Body: MIT News (link: https://www.technologyreview.com/s/543891/puzzle-corners-keeper/ text: feature on Allan Gottlieb), editor of the alumni magazine's most popular column "Puzzle Corner" for 50 years.
+
+----
+
+Images: 
+
+- puzzle1.png
+- puzzle2.png

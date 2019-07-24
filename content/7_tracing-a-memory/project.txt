@@ -1,0 +1,37 @@
+Title: Tracing a Memory
+
+----
+
+Size: 2
+
+----
+
+Tags: Covers, Art Direction
+
+----
+
+Mainimage: 
+
+- ad-cover-tracing-memory.png
+
+----
+
+Credits: 
+
+- 
+  role: Client
+  name: MIT News
+- 
+  role: Art Direction
+  name: Lynne Carty
+- 
+  role: Illustration
+  name: Jacob Escobedo
+
+----
+
+Body: MIT News(link: https://www.technologyreview.com/s/602558/tracing-a-memory/ text:  cover story) on how a professor is finding out how the brain stores and retrieves individual memories.
+
+----
+
+Images: 

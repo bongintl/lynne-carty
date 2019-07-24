@@ -1,0 +1,41 @@
+Title: The Phablet Revolution Has Arrived
+
+----
+
+Size: 1
+
+----
+
+Tags: Art Direction
+
+----
+
+Mainimage: 
+
+- phablets.gif
+
+----
+
+Video: 
+
+----
+
+Credits: 
+
+- 
+  role: Client
+  name: MIT Technology Review
+- 
+  role: Art Direction
+  name: Lynne Carty
+- 
+  role: Illustration
+  name: Max Bode
+
+----
+
+Body: (link: https://www.technologyreview.com/s/538641/inside-indias-phablet-revolution/ text: Long live the phablet)
+
+----
+
+Images: 

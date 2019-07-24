@@ -1,0 +1,43 @@
+Title: How We Feel About Robots That Feel
+
+----
+
+Size: 1
+
+----
+
+Tags: Art Direction, Design
+
+----
+
+Mainimage: 
+
+- feelingrobotsv.png
+
+----
+
+Video: 
+
+----
+
+Credits: 
+
+- 
+  role: Client
+  name: MIT Technology Review
+- 
+  role: 'Art Direction & Design'
+  name: Lynne Carty
+- 
+  role: Illustration
+  name: 'Pablo Delcan & Jenue'
+
+----
+
+Body: The impact of robots with "emotion." (link: https://www.technologyreview.com/s/609074/how-we-feel-about-robots-that-feel/ text: Read the article)
+
+----
+
+Images: 
+
+- ad-design-robots-who-feel.png

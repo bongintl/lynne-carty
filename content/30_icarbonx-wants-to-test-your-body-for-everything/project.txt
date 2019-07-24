@@ -1,0 +1,41 @@
+Title: iCarbonX wants to test your body for everything
+
+----
+
+Size: 1
+
+----
+
+Tags: Art Direction, Design
+
+----
+
+Mainimage: 
+
+- ad-design-icarbonx.png
+
+----
+
+Video: 
+
+----
+
+Credits: 
+
+- 
+  role: Client
+  name: MIT Technology Review
+- 
+  role: 'Art Direction & Design'
+  name: Lynne Carty
+- 
+  role: Illustration
+  name: Yann Kebbi
+
+----
+
+Body: (link: https://www.technologyreview.com/s/608987/how-ai-will-keep-you-healthy/ text: Can AI Keep You Healthy?)
+
+----
+
+Images: 

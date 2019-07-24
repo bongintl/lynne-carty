@@ -1,0 +1,37 @@
+Title: The Build-Up of MIT’s Building Spaces
+
+----
+
+Size: 1
+
+----
+
+Tags: Art Direction, Covers
+
+----
+
+Mainimage: 
+
+- ad-cover-design-makerspaces.png
+
+----
+
+Credits: 
+
+- 
+  role: Client
+  name: MIT News
+- 
+  role: 'Art Direction & Design'
+  name: 'Lynne Carty & Bryan Fountain'
+- 
+  role: Illustration
+  name: Patrick Kyle
+
+----
+
+Body: MIT News (link: https://www.technologyreview.com/s/604048/the-build-up-of-mits-building-spaces/ text: cover story) on building the school's new, hi-tech engineering and design workshops.
+
+----
+
+Images: 

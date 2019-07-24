@@ -1,0 +1,46 @@
+Title: The Cancer Lottery
+
+----
+
+Size: 1.5
+
+----
+
+Tags: Design, Art Direction
+
+----
+
+Mainimage: 
+
+- ad-design-cancer-lottery-1.png
+
+----
+
+Video: 
+
+----
+
+Credits: 
+
+- 
+  role: Client
+  name: MIT Technology Review
+- 
+  role: 'Art Direction & Design'
+  name: Lynne Carty
+- 
+  role: Photographs
+  name: Jonno Rattman
+
+----
+
+Body: (link: https://www.technologyreview.com/s/603082/the-cancer-lottery/ text: The Cancer Lottery): Precision oncology may be the answer for a lucky few who's mutations are “actionable.” We sent a photographer to Sloan Kettering to profile the doctor, and to the patient's home for her side of the story.
+
+----
+
+Images: 
+
+- ad-design-cancer-lottery-2.jpg
+- ad-design-cancer-lottery-s.jpg
+- ad-design-cancer-lottery-t.jpg
+- ad-design-cancer-lottery-u.jpg

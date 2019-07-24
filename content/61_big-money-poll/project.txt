@@ -1,0 +1,43 @@
+Title: Big Money Poll
+
+----
+
+Size: 1
+
+----
+
+Tags: Art Direction, Design
+
+----
+
+Mainimage: 
+
+- ad-design-money-poll-1.png
+
+----
+
+Video: 
+
+----
+
+Credits: 
+
+- 
+  role: Client
+  name: "Barron's"
+- 
+  role: 'Art Direction, Design & Infographics'
+  name: Lynne Carty
+- 
+  role: Lettering
+  name: Charles Williams
+
+----
+
+Body: (link: https://www.barrons.com/articles/stocks-will-rally-more-than-10-in-2019-barrons-big-money-poll-finds-1539979367 text: Big Money Poll) surveys over 200 money managers for their opinions on market trends.
+
+----
+
+Images: 
+
+- ad-design-money-poll-2.png

@@ -1,0 +1,34 @@
+Title: Low Interest Rates Yield a Slew of Zombie and Unicorn Companies
+
+----
+
+Size: 1
+
+----
+
+Tags: Illustration
+
+----
+
+Mainimage: 
+
+- illustration-unicorn.jpg
+
+----
+
+Credits: 
+
+- 
+  role: Client
+  name: "Barron's"
+- 
+  role: Illustration
+  name: Lynne Carty
+
+----
+
+Body: Illustration for a story about (link: https://www.barrons.com/articles/savers-lost-big-on-interest-rates-bond-investors-could-too-51555101437 text: low rates leading to lots of zombie and unicorn companies).
+
+----
+
+Images: 

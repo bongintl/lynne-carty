@@ -1,0 +1,41 @@
+Title: Building New CRISPR Facilities
+
+----
+
+Size: 1
+
+----
+
+Tags: Art Direction
+
+----
+
+Mainimage: 
+
+- crispr_facilities.jpg
+
+----
+
+Video: 
+
+----
+
+Credits: 
+
+- 
+  role: Client
+  name: MIT Technology Review
+- 
+  role: Art Direction
+  name: Lynne Carty
+- 
+  role: Illustration
+  name: Josh Cochran
+
+----
+
+Body: 
+
+----
+
+Images: 

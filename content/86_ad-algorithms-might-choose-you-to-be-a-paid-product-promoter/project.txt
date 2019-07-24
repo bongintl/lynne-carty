@@ -1,0 +1,41 @@
+Title: Ad Algorithms Might Choose You to Be a Paid Product Promoter
+
+----
+
+Size: 1
+
+----
+
+Tags: Art Direction
+
+----
+
+Mainimage: 
+
+- product_promoter.gif
+
+----
+
+Video: 
+
+----
+
+Credits: 
+
+- 
+  role: 'Client '
+  name: MIT Technology Review
+- 
+  role: Art Direction
+  name: Lynne Carty
+- 
+  role: Illustration
+  name: Jan Buchczik
+
+----
+
+Body: (link: https://www.technologyreview.com/s/602597/ad-algorithms-might-choose-you-to-be-a-paid-product-promoter/ text: Ad Algorithms Might Choose You to Be a Paid Product Promoter)
+
+----
+
+Images: 

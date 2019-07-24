@@ -1,0 +1,39 @@
+Title: MIT 2018 Holiday Card
+
+----
+
+Size: 1
+
+----
+
+Tags: Art Direction
+
+----
+
+Mainimage: 
+
+- ad-2018-mit-holiday-card-web.gif
+
+----
+
+Credits: 
+
+- 
+  role: Client
+  name: MIT Technology Review
+- 
+  role: Art Direction
+  name: Lynne Carty
+- 
+  role: 'Illustration & Animation'
+  name: Simon Landrein
+
+----
+
+Body: Best wishes for a virtually perfect holiday season. Print and digital holiday cards for MIT Technology Review.
+
+----
+
+Images: 
+
+- ad-2018-mit-holiday-card-print.jpg
