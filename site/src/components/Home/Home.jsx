@@ -1,11 +1,22 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import Thumbnail from '../Thumbnail/Thumbnail';
 import Legend from './Legend';
 import VennShader from '../Venn'
 import { useData } from '../Data';
+import { useTick } from '../Simulation';
 import useWindowSize from '~/hooks/useWindowSize';
 import useIsMobile from '~/hooks/useIsMobile';
 import './Home.scss';
+
+var Sizer = () => {
+    var ref = useRef();
+    useTick( simulation => {
+        if ( !ref.current ) return;
+        var max = Math.max( ...simulation.nodes().map( n => n.y + n.r ) );
+        ref.current.style.height = max + 20 + 'px';
+    }, [ ref ] )
+    return <div ref={ ref }/>
+}
 
 var Home = () => {
     var windowSize = useWindowSize();
@@ -18,6 +29,7 @@ var Home = () => {
             { !isMobile && <VennShader size={ windowSize }/> }
             { !isMobile && <div className="home__title">{ title }</div> }
             <div className="home__thumbnails">
+                { isMobile && <Sizer/> }
                 { data.projects
                     .map( project => {
                         return (

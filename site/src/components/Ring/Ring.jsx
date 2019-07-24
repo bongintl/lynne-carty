@@ -4,11 +4,14 @@ var Ring = ({ color, radius }) => {
     var offset = useMemo( () => {
         var x = Math.random() * 2 - 1;
         var y = Math.random() * 2 - 1;
-        return `translate( ${ x * 5 }%, ${ y * 5 }% )`
+        return `
+            translate( -50%, -50% )
+            translate( ${ x * 2 }px, ${ y * 2 }px )
+        `
     }, [] );
     var style = {
         borderColor: color,
-        // transform: offset,
+        transform: offset,
         width: radius * 2 + 'px',
         height: radius * 2 + 'px'
     }

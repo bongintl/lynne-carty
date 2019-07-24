@@ -4,6 +4,7 @@
     padding: 1em 1em 0 1em;
     display: flex;
     flex-wrap: wrap;
+    flex-shrink: 0;
     &:after {
         content: '';
         position: absolute;
@@ -12,7 +13,7 @@
         left: 0;
         height: 2em;
         width: 100%;
-        background: linear-gradient( to bottom, transparent 0, var( --background ) 100% );
+        background: linear-gradient( to bottom, var( --background-transparent ) 0, var( --background ) 100% );
         z-index: 200;
         @include medium {
             display: none;

@@ -34,6 +34,7 @@ var Thumbnail = withRouter( ({ project, visible, history, setTitle }) => {
     var { r } = useNode( project.i );
     var { width, height } = thumbnailImageSize( project.thumbnail, r );
 
+    var onClick = useCallback( () => history.push( project.url ), [ history, project ] );
     var {
         onMouseEnter: dragOnMouseEnter,
         onMouseLeave: dragOnMouseLeave,
@@ -41,7 +42,7 @@ var Thumbnail = withRouter( ({ project, visible, history, setTitle }) => {
     } = useDragNode({
         ref,
         index: project.i,
-        onClick: useCallback( () => history.push( project.url ), [ history, project ] ),
+        onClick,
         onUpdate: useCallback( node => {
             ref.current.style.transform = `
                 ${ visible ? '' : 'scale( 0, 0 )' }
@@ -66,7 +67,7 @@ var Thumbnail = withRouter( ({ project, visible, history, setTitle }) => {
         style: { width: width + 'px', height: height + 'px' },
         onMouseEnter,
         onMouseLeave,
-        ...( isMobile ? {} : dragListeners )
+        ...( isMobile ? { onClick } : dragListeners )
     }
     
     var imageProps = {

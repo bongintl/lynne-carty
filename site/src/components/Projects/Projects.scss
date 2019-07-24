@@ -25,7 +25,7 @@
             bottom: 100%;
             left: 0;
             height: var( --line );
-            background: linear-gradient( to top, var( --background ) 0, transparent 100% );
+            background: linear-gradient( to top, var( --background ) 0, var( --background-transparent ) 100% );
             z-index: 200;
             @include medium {
                 display: none;

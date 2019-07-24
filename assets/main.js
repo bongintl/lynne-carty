@@ -32744,11 +32744,11 @@ var Ring = function Ring(_ref) {
   var offset = (0, _react.useMemo)(function () {
     var x = Math.random() * 2 - 1;
     var y = Math.random() * 2 - 1;
-    return "translate( ".concat(x * 5, "%, ").concat(y * 5, "% )");
+    return "\n            translate( -50%, -50% )\n            translate( ".concat(x * 2, "px, ").concat(y * 2, "px )\n        ");
   }, []);
   var style = {
     borderColor: color,
-    // transform: offset,
+    transform: offset,
     width: radius * 2 + 'px',
     height: radius * 2 + 'px'
   };
@@ -37930,7 +37930,8 @@ var _default = function _default(data) {
       d[0] = b.x - a.x;
       d[1] = b.y - a.y;
       var dist2 = d[0] * d[0] + d[1] * d[1];
-      if (dist2 <= a.r + b.r) continue;
+      var minDist = a.r + b.r;
+      if (dist2 <= minDist * minDist) continue;
       var dist = Math.sqrt(dist2);
       var dist3 = dist * dist * dist;
       var f = strength > 0 ? strength * dist3 * attractStrength : strength * (1 / dist3) * repelStrength; // var dir = vec2.normalize( d, dist );
@@ -38545,12 +38546,14 @@ var Thumbnail = (0, _reactRouterDom.withRouter)(function (_ref2) {
       width = _thumbnailImageSize.width,
       height = _thumbnailImageSize.height;
 
+  var onClick = (0, _react.useCallback)(function () {
+    return history.push(project.url);
+  }, [history, project]);
+
   var _useDragNode = (0, _useDrag.useDragNode)({
     ref: ref,
     index: project.i,
-    onClick: (0, _react.useCallback)(function () {
-      return history.push(project.url);
-    }, [history, project]),
+    onClick: onClick,
     onUpdate: (0, _react.useCallback)(function (node) {
       ref.current.style.transform = "\n                ".concat(visible ? '' : 'scale( 0, 0 )', "\n                translate( ").concat(node.x - width / 2, "px, ").concat(node.y - height / 2, "px )\n            ");
     }, [ref, width, height, visible])
@@ -38580,7 +38583,9 @@ var Thumbnail = (0, _reactRouterDom.withRouter)(function (_ref2) {
     },
     onMouseEnter: onMouseEnter,
     onMouseLeave: onMouseLeave
-  }, isMobile ? {} : dragListeners);
+  }, isMobile ? {
+    onClick: onClick
+  } : dragListeners);
 
   var imageProps = {
     srcSet: (0, _Image.srcset)(project.thumbnail),
@@ -43059,7 +43064,1037 @@ function createVAO(gl, attributes, elements, elementsType) {
 
 module.exports = createVAO
 
-},{"./lib/vao-native.js":"../../node_modules/gl-vao/lib/vao-native.js","./lib/vao-emulated.js":"../../node_modules/gl-vao/lib/vao-emulated.js"}],"../../node_modules/gl-shader/lib/reflect.js":[function(require,module,exports) {
+},{"./lib/vao-native.js":"../../node_modules/gl-vao/lib/vao-native.js","./lib/vao-emulated.js":"../../node_modules/gl-vao/lib/vao-emulated.js"}],"../../node_modules/gl-texture2d/texture.js":[function(require,module,exports) {
+'use strict'
+
+var ndarray = require('ndarray')
+var ops     = require('ndarray-ops')
+var pool    = require('typedarray-pool')
+
+module.exports = createTexture2D
+
+var linearTypes = null
+var filterTypes = null
+var wrapTypes   = null
+
+function lazyInitLinearTypes(gl) {
+  linearTypes = [
+    gl.LINEAR,
+    gl.NEAREST_MIPMAP_LINEAR,
+    gl.LINEAR_MIPMAP_NEAREST,
+    gl.LINEAR_MIPMAP_NEAREST
+  ]
+  filterTypes = [
+    gl.NEAREST,
+    gl.LINEAR,
+    gl.NEAREST_MIPMAP_NEAREST,
+    gl.NEAREST_MIPMAP_LINEAR,
+    gl.LINEAR_MIPMAP_NEAREST,
+    gl.LINEAR_MIPMAP_LINEAR
+  ]
+  wrapTypes = [
+    gl.REPEAT,
+    gl.CLAMP_TO_EDGE,
+    gl.MIRRORED_REPEAT
+  ]
+}
+
+function acceptTextureDOM (obj) {
+  return (
+    ('undefined' != typeof HTMLCanvasElement && obj instanceof HTMLCanvasElement) ||
+    ('undefined' != typeof HTMLImageElement && obj instanceof HTMLImageElement) ||
+    ('undefined' != typeof HTMLVideoElement && obj instanceof HTMLVideoElement) ||
+    ('undefined' != typeof ImageData && obj instanceof ImageData))
+}
+
+var convertFloatToUint8 = function(out, inp) {
+  ops.muls(out, inp, 255.0)
+}
+
+function reshapeTexture(tex, w, h) {
+  var gl = tex.gl
+  var maxSize = gl.getParameter(gl.MAX_TEXTURE_SIZE)
+  if(w < 0 || w > maxSize || h < 0 || h > maxSize) {
+    throw new Error('gl-texture2d: Invalid texture size')
+  }
+  tex._shape = [w, h]
+  tex.bind()
+  gl.texImage2D(gl.TEXTURE_2D, 0, tex.format, w, h, 0, tex.format, tex.type, null)
+  tex._mipLevels = [0]
+  return tex
+}
+
+function Texture2D(gl, handle, width, height, format, type) {
+  this.gl = gl
+  this.handle = handle
+  this.format = format
+  this.type = type
+  this._shape = [width, height]
+  this._mipLevels = [0]
+  this._magFilter = gl.NEAREST
+  this._minFilter = gl.NEAREST
+  this._wrapS = gl.CLAMP_TO_EDGE
+  this._wrapT = gl.CLAMP_TO_EDGE
+  this._anisoSamples = 1
+
+  var parent = this
+  var wrapVector = [this._wrapS, this._wrapT]
+  Object.defineProperties(wrapVector, [
+    {
+      get: function() {
+        return parent._wrapS
+      },
+      set: function(v) {
+        return parent.wrapS = v
+      }
+    },
+    {
+      get: function() {
+        return parent._wrapT
+      },
+      set: function(v) {
+        return parent.wrapT = v
+      }
+    }
+  ])
+  this._wrapVector = wrapVector
+
+  var shapeVector = [this._shape[0], this._shape[1]]
+  Object.defineProperties(shapeVector, [
+    {
+      get: function() {
+        return parent._shape[0]
+      },
+      set: function(v) {
+        return parent.width = v
+      }
+    },
+    {
+      get: function() {
+        return parent._shape[1]
+      },
+      set: function(v) {
+        return parent.height = v
+      }
+    }
+  ])
+  this._shapeVector = shapeVector
+}
+
+var proto = Texture2D.prototype
+
+Object.defineProperties(proto, {
+  minFilter: {
+    get: function() {
+      return this._minFilter
+    },
+    set: function(v) {
+      this.bind()
+      var gl = this.gl
+      if(this.type === gl.FLOAT && linearTypes.indexOf(v) >= 0) {
+        if(!gl.getExtension('OES_texture_float_linear')) {
+          v = gl.NEAREST
+        }
+      }
+      if(filterTypes.indexOf(v) < 0) {
+        throw new Error('gl-texture2d: Unknown filter mode ' + v)
+      }
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, v)
+      return this._minFilter = v
+    }
+  },
+  magFilter: {
+    get: function() {
+      return this._magFilter
+    },
+    set: function(v) {
+      this.bind()
+      var gl = this.gl
+      if(this.type === gl.FLOAT && linearTypes.indexOf(v) >= 0) {
+        if(!gl.getExtension('OES_texture_float_linear')) {
+          v = gl.NEAREST
+        }
+      }
+      if(filterTypes.indexOf(v) < 0) {
+        throw new Error('gl-texture2d: Unknown filter mode ' + v)
+      }
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, v)
+      return this._magFilter = v
+    }
+  },
+  mipSamples: {
+    get: function() {
+      return this._anisoSamples
+    },
+    set: function(i) {
+      var psamples = this._anisoSamples
+      this._anisoSamples = Math.max(i, 1)|0
+      if(psamples !== this._anisoSamples) {
+        var ext = this.gl.getExtension('EXT_texture_filter_anisotropic')
+        if(ext) {
+          this.gl.texParameterf(this.gl.TEXTURE_2D, ext.TEXTURE_MAX_ANISOTROPY_EXT, this._anisoSamples)
+        }
+      }
+      return this._anisoSamples
+    }
+  },
+  wrapS: {
+    get: function() {
+      return this._wrapS
+    },
+    set: function(v) {
+      this.bind()
+      if(wrapTypes.indexOf(v) < 0) {
+        throw new Error('gl-texture2d: Unknown wrap mode ' + v)
+      }
+      this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_WRAP_S, v)
+      return this._wrapS = v
+    }
+  },
+  wrapT: {
+    get: function() {
+      return this._wrapT
+    },
+    set: function(v) {
+      this.bind()
+      if(wrapTypes.indexOf(v) < 0) {
+        throw new Error('gl-texture2d: Unknown wrap mode ' + v)
+      }
+      this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_WRAP_T, v)
+      return this._wrapT = v
+    }
+  },
+  wrap: {
+    get: function() {
+      return this._wrapVector
+    },
+    set: function(v) {
+      if(!Array.isArray(v)) {
+        v = [v,v]
+      }
+      if(v.length !== 2) {
+        throw new Error('gl-texture2d: Must specify wrap mode for rows and columns')
+      }
+      for(var i=0; i<2; ++i) {
+        if(wrapTypes.indexOf(v[i]) < 0) {
+          throw new Error('gl-texture2d: Unknown wrap mode ' + v)
+        }
+      }
+      this._wrapS = v[0]
+      this._wrapT = v[1]
+
+      var gl = this.gl
+      this.bind()
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, this._wrapS)
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, this._wrapT)
+
+      return v
+    }
+  },
+  shape: {
+    get: function() {
+      return this._shapeVector
+    },
+    set: function(x) {
+      if(!Array.isArray(x)) {
+        x = [x|0,x|0]
+      } else {
+        if(x.length !== 2) {
+          throw new Error('gl-texture2d: Invalid texture shape')
+        }
+      }
+      reshapeTexture(this, x[0]|0, x[1]|0)
+      return [x[0]|0, x[1]|0]
+    }
+  },
+  width: {
+    get: function() {
+      return this._shape[0]
+    },
+    set: function(w) {
+      w = w|0
+      reshapeTexture(this, w, this._shape[1])
+      return w
+    }
+  },
+  height: {
+    get: function() {
+      return this._shape[1]
+    },
+    set: function(h) {
+      h = h|0
+      reshapeTexture(this, this._shape[0], h)
+      return h
+    }
+  }
+})
+
+proto.bind = function(unit) {
+  var gl = this.gl
+  if(unit !== undefined) {
+    gl.activeTexture(gl.TEXTURE0 + (unit|0))
+  }
+  gl.bindTexture(gl.TEXTURE_2D, this.handle)
+  if(unit !== undefined) {
+    return (unit|0)
+  }
+  return gl.getParameter(gl.ACTIVE_TEXTURE) - gl.TEXTURE0
+}
+
+proto.dispose = function() {
+  this.gl.deleteTexture(this.handle)
+}
+
+proto.generateMipmap = function() {
+  this.bind()
+  this.gl.generateMipmap(this.gl.TEXTURE_2D)
+
+  //Update mip levels
+  var l = Math.min(this._shape[0], this._shape[1])
+  for(var i=0; l>0; ++i, l>>>=1) {
+    if(this._mipLevels.indexOf(i) < 0) {
+      this._mipLevels.push(i)
+    }
+  }
+}
+
+proto.setPixels = function(data, x_off, y_off, mip_level) {
+  var gl = this.gl
+  this.bind()
+  if(Array.isArray(x_off)) {
+    mip_level = y_off
+    y_off = x_off[1]|0
+    x_off = x_off[0]|0
+  } else {
+    x_off = x_off || 0
+    y_off = y_off || 0
+  }
+  mip_level = mip_level || 0
+  var directData = acceptTextureDOM(data) ? data : data.raw
+  if(directData) {
+    var needsMip = this._mipLevels.indexOf(mip_level) < 0
+    if(needsMip) {
+      gl.texImage2D(gl.TEXTURE_2D, 0, this.format, this.format, this.type, directData)
+      this._mipLevels.push(mip_level)
+    } else {
+      gl.texSubImage2D(gl.TEXTURE_2D, mip_level, x_off, y_off, this.format, this.type, directData)
+    }
+  } else if(data.shape && data.stride && data.data) {
+    if(data.shape.length < 2 ||
+       x_off + data.shape[1] > this._shape[1]>>>mip_level ||
+       y_off + data.shape[0] > this._shape[0]>>>mip_level ||
+       x_off < 0 ||
+       y_off < 0) {
+      throw new Error('gl-texture2d: Texture dimensions are out of bounds')
+    }
+    texSubImageArray(gl, x_off, y_off, mip_level, this.format, this.type, this._mipLevels, data)
+  } else {
+    throw new Error('gl-texture2d: Unsupported data type')
+  }
+}
+
+
+function isPacked(shape, stride) {
+  if(shape.length === 3) {
+    return  (stride[2] === 1) &&
+            (stride[1] === shape[0]*shape[2]) &&
+            (stride[0] === shape[2])
+  }
+  return  (stride[0] === 1) &&
+          (stride[1] === shape[0])
+}
+
+function texSubImageArray(gl, x_off, y_off, mip_level, cformat, ctype, mipLevels, array) {
+  var dtype = array.dtype
+  var shape = array.shape.slice()
+  if(shape.length < 2 || shape.length > 3) {
+    throw new Error('gl-texture2d: Invalid ndarray, must be 2d or 3d')
+  }
+  var type = 0, format = 0
+  var packed = isPacked(shape, array.stride.slice())
+  if(dtype === 'float32') {
+    type = gl.FLOAT
+  } else if(dtype === 'float64') {
+    type = gl.FLOAT
+    packed = false
+    dtype = 'float32'
+  } else if(dtype === 'uint8') {
+    type = gl.UNSIGNED_BYTE
+  } else {
+    type = gl.UNSIGNED_BYTE
+    packed = false
+    dtype = 'uint8'
+  }
+  var channels = 1
+  if(shape.length === 2) {
+    format = gl.LUMINANCE
+    shape = [shape[0], shape[1], 1]
+    array = ndarray(array.data, shape, [array.stride[0], array.stride[1], 1], array.offset)
+  } else if(shape.length === 3) {
+    if(shape[2] === 1) {
+      format = gl.ALPHA
+    } else if(shape[2] === 2) {
+      format = gl.LUMINANCE_ALPHA
+    } else if(shape[2] === 3) {
+      format = gl.RGB
+    } else if(shape[2] === 4) {
+      format = gl.RGBA
+    } else {
+      throw new Error('gl-texture2d: Invalid shape for pixel coords')
+    }
+    channels = shape[2]
+  } else {
+    throw new Error('gl-texture2d: Invalid shape for texture')
+  }
+  //For 1-channel textures allow conversion between formats
+  if((format  === gl.LUMINANCE || format  === gl.ALPHA) &&
+     (cformat === gl.LUMINANCE || cformat === gl.ALPHA)) {
+    format = cformat
+  }
+  if(format !== cformat) {
+    throw new Error('gl-texture2d: Incompatible texture format for setPixels')
+  }
+  var size = array.size
+  var needsMip = mipLevels.indexOf(mip_level) < 0
+  if(needsMip) {
+    mipLevels.push(mip_level)
+  }
+  if(type === ctype && packed) {
+    //Array data types are compatible, can directly copy into texture
+    if(array.offset === 0 && array.data.length === size) {
+      if(needsMip) {
+        gl.texImage2D(gl.TEXTURE_2D, mip_level, cformat, shape[0], shape[1], 0, cformat, ctype, array.data)
+      } else {
+        gl.texSubImage2D(gl.TEXTURE_2D, mip_level, x_off, y_off, shape[0], shape[1], cformat, ctype, array.data)
+      }
+    } else {
+      if(needsMip) {
+        gl.texImage2D(gl.TEXTURE_2D, mip_level, cformat, shape[0], shape[1], 0, cformat, ctype, array.data.subarray(array.offset, array.offset+size))
+      } else {
+        gl.texSubImage2D(gl.TEXTURE_2D, mip_level, x_off, y_off, shape[0], shape[1], cformat, ctype, array.data.subarray(array.offset, array.offset+size))
+      }
+    }
+  } else {
+    //Need to do type conversion to pack data into buffer
+    var pack_buffer
+    if(ctype === gl.FLOAT) {
+      pack_buffer = pool.mallocFloat32(size)
+    } else {
+      pack_buffer = pool.mallocUint8(size)
+    }
+    var pack_view = ndarray(pack_buffer, shape, [shape[2], shape[2]*shape[0], 1])
+    if(type === gl.FLOAT && ctype === gl.UNSIGNED_BYTE) {
+      convertFloatToUint8(pack_view, array)
+    } else {
+      ops.assign(pack_view, array)
+    }
+    if(needsMip) {
+      gl.texImage2D(gl.TEXTURE_2D, mip_level, cformat, shape[0], shape[1], 0, cformat, ctype, pack_buffer.subarray(0, size))
+    } else {
+      gl.texSubImage2D(gl.TEXTURE_2D, mip_level, x_off, y_off, shape[0], shape[1], cformat, ctype, pack_buffer.subarray(0, size))
+    }
+    if(ctype === gl.FLOAT) {
+      pool.freeFloat32(pack_buffer)
+    } else {
+      pool.freeUint8(pack_buffer)
+    }
+  }
+}
+
+function initTexture(gl) {
+  var tex = gl.createTexture()
+  gl.bindTexture(gl.TEXTURE_2D, tex)
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST)
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST)
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE)
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE)
+  return tex
+}
+
+function createTextureShape(gl, width, height, format, type) {
+  var maxTextureSize = gl.getParameter(gl.MAX_TEXTURE_SIZE)
+  if(width < 0 || width > maxTextureSize || height < 0 || height  > maxTextureSize) {
+    throw new Error('gl-texture2d: Invalid texture shape')
+  }
+  if(type === gl.FLOAT && !gl.getExtension('OES_texture_float')) {
+    throw new Error('gl-texture2d: Floating point textures not supported on this platform')
+  }
+  var tex = initTexture(gl)
+  gl.texImage2D(gl.TEXTURE_2D, 0, format, width, height, 0, format, type, null)
+  return new Texture2D(gl, tex, width, height, format, type)
+}
+
+function createTextureDOM(gl, directData, width, height, format, type) {
+  var tex = initTexture(gl)
+  gl.texImage2D(gl.TEXTURE_2D, 0, format, format, type, directData)
+  return new Texture2D(gl, tex, width, height, format, type)
+}
+
+//Creates a texture from an ndarray
+function createTextureArray(gl, array) {
+  var dtype = array.dtype
+  var shape = array.shape.slice()
+  var maxSize = gl.getParameter(gl.MAX_TEXTURE_SIZE)
+  if(shape[0] < 0 || shape[0] > maxSize || shape[1] < 0 || shape[1] > maxSize) {
+    throw new Error('gl-texture2d: Invalid texture size')
+  }
+  var packed = isPacked(shape, array.stride.slice())
+  var type = 0
+  if(dtype === 'float32') {
+    type = gl.FLOAT
+  } else if(dtype === 'float64') {
+    type = gl.FLOAT
+    packed = false
+    dtype = 'float32'
+  } else if(dtype === 'uint8') {
+    type = gl.UNSIGNED_BYTE
+  } else {
+    type = gl.UNSIGNED_BYTE
+    packed = false
+    dtype = 'uint8'
+  }
+  var format = 0
+  if(shape.length === 2) {
+    format = gl.LUMINANCE
+    shape = [shape[0], shape[1], 1]
+    array = ndarray(array.data, shape, [array.stride[0], array.stride[1], 1], array.offset)
+  } else if(shape.length === 3) {
+    if(shape[2] === 1) {
+      format = gl.ALPHA
+    } else if(shape[2] === 2) {
+      format = gl.LUMINANCE_ALPHA
+    } else if(shape[2] === 3) {
+      format = gl.RGB
+    } else if(shape[2] === 4) {
+      format = gl.RGBA
+    } else {
+      throw new Error('gl-texture2d: Invalid shape for pixel coords')
+    }
+  } else {
+    throw new Error('gl-texture2d: Invalid shape for texture')
+  }
+  if(type === gl.FLOAT && !gl.getExtension('OES_texture_float')) {
+    type = gl.UNSIGNED_BYTE
+    packed = false
+  }
+  var buffer, buf_store
+  var size = array.size
+  if(!packed) {
+    var stride = [shape[2], shape[2]*shape[0], 1]
+    buf_store = pool.malloc(size, dtype)
+    var buf_array = ndarray(buf_store, shape, stride, 0)
+    if((dtype === 'float32' || dtype === 'float64') && type === gl.UNSIGNED_BYTE) {
+      convertFloatToUint8(buf_array, array)
+    } else {
+      ops.assign(buf_array, array)
+    }
+    buffer = buf_store.subarray(0, size)
+  } else if (array.offset === 0 && array.data.length === size) {
+    buffer = array.data
+  } else {
+    buffer = array.data.subarray(array.offset, array.offset + size)
+  }
+  var tex = initTexture(gl)
+  gl.texImage2D(gl.TEXTURE_2D, 0, format, shape[0], shape[1], 0, format, type, buffer)
+  if(!packed) {
+    pool.free(buf_store)
+  }
+  return new Texture2D(gl, tex, shape[0], shape[1], format, type)
+}
+
+function createTexture2D(gl) {
+  if(arguments.length <= 1) {
+    throw new Error('gl-texture2d: Missing arguments for texture2d constructor')
+  }
+  if(!linearTypes) {
+    lazyInitLinearTypes(gl)
+  }
+  if(typeof arguments[1] === 'number') {
+    return createTextureShape(gl, arguments[1], arguments[2], arguments[3]||gl.RGBA, arguments[4]||gl.UNSIGNED_BYTE)
+  }
+  if(Array.isArray(arguments[1])) {
+    return createTextureShape(gl, arguments[1][0]|0, arguments[1][1]|0, arguments[2]||gl.RGBA, arguments[3]||gl.UNSIGNED_BYTE)
+  }
+  if(typeof arguments[1] === 'object') {
+    var obj = arguments[1]
+    var directData = acceptTextureDOM(obj) ? obj : obj.raw
+    if (directData) {
+      return createTextureDOM(gl, directData, obj.width|0, obj.height|0, arguments[2]||gl.RGBA, arguments[3]||gl.UNSIGNED_BYTE)
+    } else if(obj.shape && obj.data && obj.stride) {
+      return createTextureArray(gl, obj)
+    }
+  }
+  throw new Error('gl-texture2d: Invalid arguments for texture2d constructor')
+}
+
+},{"ndarray":"../../node_modules/ndarray/ndarray.js","ndarray-ops":"../../node_modules/ndarray-ops/ndarray-ops.js","typedarray-pool":"../../node_modules/typedarray-pool/pool.js"}],"../../node_modules/gl-fbo/fbo.js":[function(require,module,exports) {
+'use strict'
+
+var createTexture = require('gl-texture2d')
+
+module.exports = createFBO
+
+var colorAttachmentArrays = null
+var FRAMEBUFFER_UNSUPPORTED
+var FRAMEBUFFER_INCOMPLETE_ATTACHMENT
+var FRAMEBUFFER_INCOMPLETE_DIMENSIONS
+var FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT
+
+function saveFBOState(gl) {
+  var fbo = gl.getParameter(gl.FRAMEBUFFER_BINDING)
+  var rbo = gl.getParameter(gl.RENDERBUFFER_BINDING)
+  var tex = gl.getParameter(gl.TEXTURE_BINDING_2D)
+  return [fbo, rbo, tex]
+}
+
+function restoreFBOState(gl, data) {
+  gl.bindFramebuffer(gl.FRAMEBUFFER, data[0])
+  gl.bindRenderbuffer(gl.RENDERBUFFER, data[1])
+  gl.bindTexture(gl.TEXTURE_2D, data[2])
+}
+
+function lazyInitColorAttachments(gl, ext) {
+  var maxColorAttachments = gl.getParameter(ext.MAX_COLOR_ATTACHMENTS_WEBGL)
+  colorAttachmentArrays = new Array(maxColorAttachments + 1)
+  for(var i=0; i<=maxColorAttachments; ++i) {
+    var x = new Array(maxColorAttachments)
+    for(var j=0; j<i; ++j) {
+      x[j] = gl.COLOR_ATTACHMENT0 + j
+    }
+    for(var j=i; j<maxColorAttachments; ++j) {
+      x[j] = gl.NONE
+    }
+    colorAttachmentArrays[i] = x
+  }
+}
+
+//Throw an appropriate error
+function throwFBOError(status) {
+  switch(status){
+    case FRAMEBUFFER_UNSUPPORTED:
+      throw new Error('gl-fbo: Framebuffer unsupported')
+    case FRAMEBUFFER_INCOMPLETE_ATTACHMENT:
+      throw new Error('gl-fbo: Framebuffer incomplete attachment')
+    case FRAMEBUFFER_INCOMPLETE_DIMENSIONS:
+      throw new Error('gl-fbo: Framebuffer incomplete dimensions')
+    case FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT:
+      throw new Error('gl-fbo: Framebuffer incomplete missing attachment')
+    default:
+      throw new Error('gl-fbo: Framebuffer failed for unspecified reason')
+  }
+}
+
+//Initialize a texture object
+function initTexture(gl, width, height, type, format, attachment) {
+  if(!type) {
+    return null
+  }
+  var result = createTexture(gl, width, height, format, type)
+  result.magFilter = gl.NEAREST
+  result.minFilter = gl.NEAREST
+  result.mipSamples = 1
+  result.bind()
+  gl.framebufferTexture2D(gl.FRAMEBUFFER, attachment, gl.TEXTURE_2D, result.handle, 0)
+  return result
+}
+
+//Initialize a render buffer object
+function initRenderBuffer(gl, width, height, component, attachment) {
+  var result = gl.createRenderbuffer()
+  gl.bindRenderbuffer(gl.RENDERBUFFER, result)
+  gl.renderbufferStorage(gl.RENDERBUFFER, component, width, height)
+  gl.framebufferRenderbuffer(gl.FRAMEBUFFER, attachment, gl.RENDERBUFFER, result)
+  return result
+}
+
+//Rebuild the frame buffer
+function rebuildFBO(fbo) {
+
+  //Save FBO state
+  var state = saveFBOState(fbo.gl)
+
+  var gl = fbo.gl
+  var handle = fbo.handle = gl.createFramebuffer()
+  var width = fbo._shape[0]
+  var height = fbo._shape[1]
+  var numColors = fbo.color.length
+  var ext = fbo._ext
+  var useStencil = fbo._useStencil
+  var useDepth = fbo._useDepth
+  var colorType = fbo._colorType
+
+  //Bind the fbo
+  gl.bindFramebuffer(gl.FRAMEBUFFER, handle)
+
+  //Allocate color buffers
+  for(var i=0; i<numColors; ++i) {
+    fbo.color[i] = initTexture(gl, width, height, colorType, gl.RGBA, gl.COLOR_ATTACHMENT0 + i)
+  }
+  if(numColors === 0) {
+    fbo._color_rb = initRenderBuffer(gl, width, height, gl.RGBA4, gl.COLOR_ATTACHMENT0)
+    if(ext) {
+      ext.drawBuffersWEBGL(colorAttachmentArrays[0])
+    }
+  } else if(numColors > 1) {
+    ext.drawBuffersWEBGL(colorAttachmentArrays[numColors])
+  }
+
+  //Allocate depth/stencil buffers
+  var WEBGL_depth_texture = gl.getExtension('WEBGL_depth_texture')
+  if(WEBGL_depth_texture) {
+    if(useStencil) {
+      fbo.depth = initTexture(gl, width, height,
+                          WEBGL_depth_texture.UNSIGNED_INT_24_8_WEBGL,
+                          gl.DEPTH_STENCIL,
+                          gl.DEPTH_STENCIL_ATTACHMENT)
+    } else if(useDepth) {
+      fbo.depth = initTexture(gl, width, height,
+                          gl.UNSIGNED_SHORT,
+                          gl.DEPTH_COMPONENT,
+                          gl.DEPTH_ATTACHMENT)
+    }
+  } else {
+    if(useDepth && useStencil) {
+      fbo._depth_rb = initRenderBuffer(gl, width, height, gl.DEPTH_STENCIL, gl.DEPTH_STENCIL_ATTACHMENT)
+    } else if(useDepth) {
+      fbo._depth_rb = initRenderBuffer(gl, width, height, gl.DEPTH_COMPONENT16, gl.DEPTH_ATTACHMENT)
+    } else if(useStencil) {
+      fbo._depth_rb = initRenderBuffer(gl, width, height, gl.STENCIL_INDEX, gl.STENCIL_ATTACHMENT)
+    }
+  }
+
+  //Check frame buffer state
+  var status = gl.checkFramebufferStatus(gl.FRAMEBUFFER)
+  if(status !== gl.FRAMEBUFFER_COMPLETE) {
+
+    //Release all partially allocated resources
+    fbo._destroyed = true
+
+    //Release all resources
+    gl.bindFramebuffer(gl.FRAMEBUFFER, null)
+    gl.deleteFramebuffer(fbo.handle)
+    fbo.handle = null
+    if(fbo.depth) {
+      fbo.depth.dispose()
+      fbo.depth = null
+    }
+    if(fbo._depth_rb) {
+      gl.deleteRenderbuffer(fbo._depth_rb)
+      fbo._depth_rb = null
+    }
+    for(var i=0; i<fbo.color.length; ++i) {
+      fbo.color[i].dispose()
+      fbo.color[i] = null
+    }
+    if(fbo._color_rb) {
+      gl.deleteRenderbuffer(fbo._color_rb)
+      fbo._color_rb = null
+    }
+
+    restoreFBOState(gl, state)
+
+    //Throw the frame buffer error
+    throwFBOError(status)
+  }
+
+  //Everything ok, let's get on with life
+  restoreFBOState(gl, state)
+}
+
+function Framebuffer(gl, width, height, colorType, numColors, useDepth, useStencil, ext) {
+
+  //Handle and set properties
+  this.gl = gl
+  this._shape = [width|0, height|0]
+  this._destroyed = false
+  this._ext = ext
+
+  //Allocate buffers
+  this.color = new Array(numColors)
+  for(var i=0; i<numColors; ++i) {
+    this.color[i] = null
+  }
+  this._color_rb = null
+  this.depth = null
+  this._depth_rb = null
+
+  //Save depth and stencil flags
+  this._colorType = colorType
+  this._useDepth = useDepth
+  this._useStencil = useStencil
+
+  //Shape vector for resizing
+  var parent = this
+  var shapeVector = [width|0, height|0]
+  Object.defineProperties(shapeVector, {
+    0: {
+      get: function() {
+        return parent._shape[0]
+      },
+      set: function(w) {
+        return parent.width = w
+      }
+    },
+    1: {
+      get: function() {
+        return parent._shape[1]
+      },
+      set: function(h) {
+        return parent.height = h
+      }
+    }
+  })
+  this._shapeVector = shapeVector
+
+  //Initialize all attachments
+  rebuildFBO(this)
+}
+
+var proto = Framebuffer.prototype
+
+function reshapeFBO(fbo, w, h) {
+  //If fbo is invalid, just skip this
+  if(fbo._destroyed) {
+    throw new Error('gl-fbo: Can\'t resize destroyed FBO')
+  }
+
+  //Don't resize if no change in shape
+  if( (fbo._shape[0] === w) &&
+      (fbo._shape[1] === h) ) {
+    return
+  }
+
+  var gl = fbo.gl
+
+  //Check parameter ranges
+  var maxFBOSize = gl.getParameter(gl.MAX_RENDERBUFFER_SIZE)
+  if( w < 0 || w > maxFBOSize ||
+      h < 0 || h > maxFBOSize) {
+    throw new Error('gl-fbo: Can\'t resize FBO, invalid dimensions')
+  }
+
+  //Update shape
+  fbo._shape[0] = w
+  fbo._shape[1] = h
+
+  //Save framebuffer state
+  var state = saveFBOState(gl)
+
+  //Resize framebuffer attachments
+  for(var i=0; i<fbo.color.length; ++i) {
+    fbo.color[i].shape = fbo._shape
+  }
+  if(fbo._color_rb) {
+    gl.bindRenderbuffer(gl.RENDERBUFFER, fbo._color_rb)
+    gl.renderbufferStorage(gl.RENDERBUFFER, gl.RGBA4, fbo._shape[0], fbo._shape[1])
+  }
+  if(fbo.depth) {
+    fbo.depth.shape = fbo._shape
+  }
+  if(fbo._depth_rb) {
+    gl.bindRenderbuffer(gl.RENDERBUFFER, fbo._depth_rb)
+    if(fbo._useDepth && fbo._useStencil) {
+      gl.renderbufferStorage(gl.RENDERBUFFER, gl.DEPTH_STENCIL, fbo._shape[0], fbo._shape[1])
+    } else if(fbo._useDepth) {
+      gl.renderbufferStorage(gl.RENDERBUFFER, gl.DEPTH_COMPONENT16, fbo._shape[0], fbo._shape[1])
+    } else if(fbo._useStencil) {
+      gl.renderbufferStorage(gl.RENDERBUFFER, gl.STENCIL_INDEX, fbo._shape[0], fbo._shape[1])
+    }
+  }
+
+  //Check FBO status after resize, if something broke then die in a fire
+  gl.bindFramebuffer(gl.FRAMEBUFFER, fbo.handle)
+  var status = gl.checkFramebufferStatus(gl.FRAMEBUFFER)
+  if(status !== gl.FRAMEBUFFER_COMPLETE) {
+    fbo.dispose()
+    restoreFBOState(gl, state)
+    throwFBOError(status)
+  }
+
+  //Restore framebuffer state
+  restoreFBOState(gl, state)
+}
+
+Object.defineProperties(proto, {
+  'shape': {
+    get: function() {
+      if(this._destroyed) {
+        return [0,0]
+      }
+      return this._shapeVector
+    },
+    set: function(x) {
+      if(!Array.isArray(x)) {
+        x = [x|0, x|0]
+      }
+      if(x.length !== 2) {
+        throw new Error('gl-fbo: Shape vector must be length 2')
+      }
+
+      var w = x[0]|0
+      var h = x[1]|0
+      reshapeFBO(this, w, h)
+
+      return [w, h]
+    },
+    enumerable: false
+  },
+  'width': {
+    get: function() {
+      if(this._destroyed) {
+        return 0
+      }
+      return this._shape[0]
+    },
+    set: function(w) {
+      w = w|0
+      reshapeFBO(this, w, this._shape[1])
+      return w
+    },
+    enumerable: false
+  },
+  'height': {
+    get: function() {
+      if(this._destroyed) {
+        return 0
+      }
+      return this._shape[1]
+    },
+    set: function(h) {
+      h = h|0
+      reshapeFBO(this, this._shape[0], h)
+      return h
+    },
+    enumerable: false
+  }
+})
+
+proto.bind = function() {
+  if(this._destroyed) {
+    return
+  }
+  var gl = this.gl
+  gl.bindFramebuffer(gl.FRAMEBUFFER, this.handle)
+  gl.viewport(0, 0, this._shape[0], this._shape[1])
+}
+
+proto.dispose = function() {
+  if(this._destroyed) {
+    return
+  }
+  this._destroyed = true
+  var gl = this.gl
+  gl.deleteFramebuffer(this.handle)
+  this.handle = null
+  if(this.depth) {
+    this.depth.dispose()
+    this.depth = null
+  }
+  if(this._depth_rb) {
+    gl.deleteRenderbuffer(this._depth_rb)
+    this._depth_rb = null
+  }
+  for(var i=0; i<this.color.length; ++i) {
+    this.color[i].dispose()
+    this.color[i] = null
+  }
+  if(this._color_rb) {
+    gl.deleteRenderbuffer(this._color_rb)
+    this._color_rb = null
+  }
+}
+
+function createFBO(gl, width, height, options) {
+
+  //Update frame buffer error code values
+  if(!FRAMEBUFFER_UNSUPPORTED) {
+    FRAMEBUFFER_UNSUPPORTED = gl.FRAMEBUFFER_UNSUPPORTED
+    FRAMEBUFFER_INCOMPLETE_ATTACHMENT = gl.FRAMEBUFFER_INCOMPLETE_ATTACHMENT
+    FRAMEBUFFER_INCOMPLETE_DIMENSIONS = gl.FRAMEBUFFER_INCOMPLETE_DIMENSIONS
+    FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT = gl.FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT
+  }
+
+  //Lazily initialize color attachment arrays
+  var WEBGL_draw_buffers = gl.getExtension('WEBGL_draw_buffers')
+  if(!colorAttachmentArrays && WEBGL_draw_buffers) {
+    lazyInitColorAttachments(gl, WEBGL_draw_buffers)
+  }
+
+  //Special case: Can accept an array as argument
+  if(Array.isArray(width)) {
+    options = height
+    height = width[1]|0
+    width = width[0]|0
+  }
+
+  if(typeof width !== 'number') {
+    throw new Error('gl-fbo: Missing shape parameter')
+  }
+
+  //Validate width/height properties
+  var maxFBOSize = gl.getParameter(gl.MAX_RENDERBUFFER_SIZE)
+  if(width < 0 || width > maxFBOSize || height < 0 || height > maxFBOSize) {
+    throw new Error('gl-fbo: Parameters are too large for FBO')
+  }
+
+  //Handle each option type
+  options = options || {}
+
+  //Figure out number of color buffers to use
+  var numColors = 1
+  if('color' in options) {
+    numColors = Math.max(options.color|0, 0)
+    if(numColors < 0) {
+      throw new Error('gl-fbo: Must specify a nonnegative number of colors')
+    }
+    if(numColors > 1) {
+      //Check if multiple render targets supported
+      if(!WEBGL_draw_buffers) {
+        throw new Error('gl-fbo: Multiple draw buffer extension not supported')
+      } else if(numColors > gl.getParameter(WEBGL_draw_buffers.MAX_COLOR_ATTACHMENTS_WEBGL)) {
+        throw new Error('gl-fbo: Context does not support ' + numColors + ' draw buffers')
+      }
+    }
+  }
+
+  //Determine whether to use floating point textures
+  var colorType = gl.UNSIGNED_BYTE
+  var OES_texture_float = gl.getExtension('OES_texture_float')
+  if(options.float && numColors > 0) {
+    if(!OES_texture_float) {
+      throw new Error('gl-fbo: Context does not support floating point textures')
+    }
+    colorType = gl.FLOAT
+  } else if(options.preferFloat && numColors > 0) {
+    if(OES_texture_float) {
+      colorType = gl.FLOAT
+    }
+  }
+
+  //Check if we should use depth buffer
+  var useDepth = true
+  if('depth' in options) {
+    useDepth = !!options.depth
+  }
+
+  //Check if we should use a stencil buffer
+  var useStencil = false
+  if('stencil' in options) {
+    useStencil = !!options.stencil
+  }
+
+  return new Framebuffer(
+    gl,
+    width,
+    height,
+    colorType,
+    numColors,
+    useDepth,
+    useStencil,
+    WEBGL_draw_buffers)
+}
+
+},{"gl-texture2d":"../../node_modules/gl-texture2d/texture.js"}],"../../node_modules/gl-shader/lib/reflect.js":[function(require,module,exports) {
 'use strict'
 
 module.exports = makeReflectTypes
@@ -45697,7 +46732,9 @@ function createShader(
 module.exports = createShader
 
 },{"./lib/create-uniforms":"../../node_modules/gl-shader/lib/create-uniforms.js","./lib/create-attributes":"../../node_modules/gl-shader/lib/create-attributes.js","./lib/reflect":"../../node_modules/gl-shader/lib/reflect.js","./lib/shader-cache":"../../node_modules/gl-shader/lib/shader-cache.js","./lib/runtime-reflect":"../../node_modules/gl-shader/lib/runtime-reflect.js","./lib/GLError":"../../node_modules/gl-shader/lib/GLError.js"}],"components/Venn/venn.frag.glsl":[function(require,module,exports) {
-module.exports = "precision highp float;\n#define GLSLIFY 1\n\nuniform vec2 resolution;\nuniform vec2 positions[ MAX ];\nuniform float radii[ MAX ];\nuniform vec3 color;\nuniform int count;\nuniform float power;\n\nfloat sample ( vec2 coord ) {\n    float x = coord.x;\n    float y = coord.y;\n    float v = 0.;\n    for ( int i = 0; i < MAX; i++ ) {\n        vec2 position = positions[ i ];\n        float radius = radii[ i ];\n        position.y = resolution.y - position.y;\n        float dx = position.x - x;\n        float dy = position.y - y;\n        v += radius * radius / ( dx*dx + dy*dy );\n        if ( i == count - 1 ) break;\n    }\n    return v;\n}\n\nfloat edge ( vec2 coord ) {\n    vec2 px = vec2( .5 );\n    float up = step( 1., sample( coord + vec2( 0., px.y ) ) );\n    float down = step( 1., sample( coord + vec2( 0., -px.y ) ) );\n    float left = step( 1., sample( coord + vec2( -px.x, 0. ) ) );\n    float right = step( 1., sample( coord + vec2( px.x, 0. ) ) );\n    if ( up == down && up == left /* && up == right */ ) {\n        return 0.;\n    } else {\n        return 1.;\n    }\n}\n\nvoid main () {\n    gl_FragColor = vec4( color, 1. ) * edge( gl_FragCoord.xy );\n}";
+module.exports = "precision highp float;\n#define GLSLIFY 1\n\nuniform vec2 resolution;\nuniform vec2 positions[ MAX ];\nuniform float radii[ MAX ];\nuniform int count;\n\nfloat sample ( vec2 coord ) {\n    float x = coord.x;\n    float y = coord.y;\n    float v = 0.;\n    for ( int i = 0; i < MAX; i++ ) {\n        vec2 position = positions[ i ];\n        position.y = resolution.y - position.y;\n        float radius = radii[ i ];\n        float dx = position.x - x;\n        float dy = position.y - y;\n        v += radius * radius / ( dx*dx + dy*dy );\n        if ( i == count - 1 ) break;\n    }\n    return v;\n}\n\n// float edge ( vec2 coord ) {\n//     vec2 px = vec2( .5 );\n//     float up = step( 1., sample( coord + vec2( 0., px.y ) ) );\n//     float down = step( 1., sample( coord + vec2( 0., -px.y ) ) );\n//     float left = step( 1., sample( coord + vec2( -px.x, 0. ) ) );\n//     float right = step( 1., sample( coord + vec2( px.x, 0. ) ) );\n//     if ( up == down && up == left && up == right ) {\n//         return 0.;\n//     } else {\n//         return 1.;\n//     }\n// }\n\nvoid main () {\n    float value = sample( gl_FragCoord.xy );\n    gl_FragColor = vec4( step( 1., value ) );\n}";
+},{}],"components/Venn/outline.frag.glsl":[function(require,module,exports) {
+module.exports = "precision highp float;\n#define GLSLIFY 1\n\nuniform vec2 resolution;\nuniform sampler2D distance;\nuniform vec3 color;\n\nfloat sample ( vec2 coord ) {\n    return texture2D( distance, coord / resolution ).a;\n}\n\nfloat edge ( vec2 coord ) {\n    float center = sample( coord );\n    float up = sample( coord + vec2( 0., 1. ) );\n    float down = sample( coord + vec2( 0., -1. ) );\n    float left = sample( coord + vec2( -1., 0. ) );\n    float right = sample( coord + vec2( 1., 0. ) );\n    if ( up > center || down > center || right > center || left > center ) {\n        return 1.;\n    } else {\n        return 0.;\n    }\n}\n\nvoid main () {\n    gl_FragColor = vec4( color, edge( gl_FragCoord.xy ) );\n}";
 },{}],"components/Venn/Venn.jsx":[function(require,module,exports) {
 "use strict";
 
@@ -45714,9 +46751,13 @@ var _glBuffer = _interopRequireDefault(require("gl-buffer"));
 
 var _glVao = _interopRequireDefault(require("gl-vao"));
 
+var _glFbo = _interopRequireDefault(require("gl-fbo"));
+
 var _glShader = _interopRequireDefault(require("gl-shader"));
 
 var _vennFrag = _interopRequireDefault(require("./venn.frag.glsl"));
+
+var _outlineFrag = _interopRequireDefault(require("./outline.frag.glsl"));
 
 var _tinycolor = _interopRequireDefault(require("tinycolor2"));
 
@@ -45796,7 +46837,7 @@ var VennShader = function VennShader(_ref3) {
       size: 2
     }]);
   }, [gl]);
-  var shader = (0, _react.useMemo)(function () {
+  var vennShader = (0, _react.useMemo)(function () {
     var counts = Object.values(byTag).map(function (a) {
       return a.length;
     });
@@ -45805,23 +46846,33 @@ var VennShader = function VennShader(_ref3) {
     var max = Math.min(maxUniforms, Math.max.apply(Math, _toConsumableArray(counts)));
     return (0, _glShader.default)(gl, vert, "\n            #define MIN ".concat(min, "\n            #define MAX ").concat(max, "\n            ").concat(_vennFrag.default));
   }, [gl, byTag]);
+  var outlineShader = (0, _react.useMemo)(function () {
+    return (0, _glShader.default)(gl, vert, _outlineFrag.default);
+  }, [gl]);
+  var fbo = (0, _react.useMemo)(function () {
+    return (0, _glFbo.default)(gl, 1, 1);
+  }, [gl]);
   var draw = (0, _react.useCallback)(function (nodes) {
+    gl.bindFramebuffer(gl.FRAMEBUFFER, null);
     gl.clearColor.apply(gl, _toConsumableArray(backgroundColor));
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT | gl.STENCIL_BUFFER_BIT);
-    gl.enable(gl.BLEND);
     gl.disable(gl.DEPTH_TEST);
     gl.blendEquation(gl.FUNC_ADD);
     gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
-    shader.bind();
-    triangle.bind();
-    gl.enable(gl.SCISSOR_TEST);
-    shader.uniforms.resolution = [gl.canvas.width, gl.canvas.height]; // shader.uniforms.power = Number( power );
+    triangle.bind(); // gl.enable( gl.SCISSOR_TEST );
 
+    var resolution = [gl.canvas.width, gl.canvas.height];
+    vennShader.bind();
+    vennShader.uniforms.resolution = resolution;
+    outlineShader.bind();
+    outlineShader.uniforms.resolution = resolution;
+    fbo.shape = resolution;
     var extend = Math.min(gl.canvas.width, gl.canvas.height) * .1;
     groupLayers(nodes, byTag, colors).forEach(function (_ref4) {
       var color = _ref4.color,
           positions = _ref4.positions;
-      shader.uniforms.count = positions.length;
+      vennShader.bind();
+      vennShader.uniforms.count = positions.length;
       var scaledPositions = positions.map(function (_ref5) {
         var x = _ref5.x,
             y = _ref5.y,
@@ -45836,8 +46887,8 @@ var VennShader = function VennShader(_ref3) {
         var x = _ref6.x,
             y = _ref6.y,
             r = _ref6.r;
-        shader.uniforms.positions[i] = [x, y];
-        shader.uniforms.radii[i] = r;
+        vennShader.uniforms.positions[i] = [x, y];
+        vennShader.uniforms.radii[i] = r;
       });
 
       var _color$toRgb = color.toRgb(),
@@ -45845,7 +46896,6 @@ var VennShader = function VennShader(_ref3) {
           g = _color$toRgb.g,
           b = _color$toRgb.b;
 
-      shader.uniforms.color = [r / 255, g / 255, b / 255];
       var xs = scaledPositions.map(function (p) {
         return p.x;
       });
@@ -45856,11 +46906,24 @@ var VennShader = function VennShader(_ref3) {
       var minY = Math.floor(Math.min.apply(Math, _toConsumableArray(ys))) - extend;
       var maxX = Math.floor(Math.max.apply(Math, _toConsumableArray(xs))) + extend;
       var maxY = Math.floor(Math.max.apply(Math, _toConsumableArray(ys))) + extend;
+      fbo.bind(); // gl.bindFramebuffer( gl.FRAMEBUFFER, null );
+
+      gl.clearColor(0, 0, 0, 0);
+      gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT | gl.STENCIL_BUFFER_BIT);
+      gl.disable(gl.BLEND);
+      gl.enable(gl.SCISSOR_TEST);
       gl.scissor(minX, gl.canvas.height - maxY, maxX - minX, maxY - minY);
+      gl.drawArrays(gl.TRIANGLES, 0, 3); // gl.disable( gl.SCISSOR_TEST );
+
+      gl.enable(gl.BLEND);
+      outlineShader.bind();
+      outlineShader.uniforms.color = [r / 255, g / 255, b / 255];
+      outlineShader.uniforms.distance = fbo.color[0].bind();
+      gl.bindFramebuffer(gl.FRAMEBUFFER, null);
       gl.drawArrays(gl.TRIANGLES, 0, 3);
     });
     gl.disable(gl.SCISSOR_TEST);
-  }, [byTag, colors, gl, shader, triangle, scale]);
+  }, [byTag, colors, gl, vennShader, outlineShader, triangle, scale]);
   (0, _Simulation.useTick)(function (simulation) {
     return draw(simulation.nodes());
   });
@@ -45882,7 +46945,7 @@ var Venn = function Venn(_ref7) {
 
 var _default = Venn;
 exports.default = _default;
-},{"react":"../../node_modules/react/index.js","./GL":"components/Venn/GL.jsx","gl-buffer":"../../node_modules/gl-buffer/buffer.js","gl-vao":"../../node_modules/gl-vao/vao.js","gl-shader":"../../node_modules/gl-shader/index.js","./venn.frag.glsl":"components/Venn/venn.frag.glsl","tinycolor2":"../../node_modules/tinycolor2/tinycolor.js","../Data":"components/Data/index.js","../Simulation":"components/Simulation/index.js","~/hooks/useWindowSize":"hooks/useWindowSize.js"}],"components/Venn/index.js":[function(require,module,exports) {
+},{"react":"../../node_modules/react/index.js","./GL":"components/Venn/GL.jsx","gl-buffer":"../../node_modules/gl-buffer/buffer.js","gl-vao":"../../node_modules/gl-vao/vao.js","gl-fbo":"../../node_modules/gl-fbo/fbo.js","gl-shader":"../../node_modules/gl-shader/index.js","./venn.frag.glsl":"components/Venn/venn.frag.glsl","./outline.frag.glsl":"components/Venn/outline.frag.glsl","tinycolor2":"../../node_modules/tinycolor2/tinycolor.js","../Data":"components/Data/index.js","../Simulation":"components/Simulation/index.js","~/hooks/useWindowSize":"hooks/useWindowSize.js"}],"components/Venn/index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -45916,6 +46979,8 @@ var _Venn = _interopRequireDefault(require("../Venn"));
 
 var _Data = require("../Data");
 
+var _Simulation = require("../Simulation");
+
 var _useWindowSize = _interopRequireDefault(require("~/hooks/useWindowSize"));
 
 var _useIsMobile = _interopRequireDefault(require("~/hooks/useIsMobile"));
@@ -45933,6 +46998,28 @@ function _nonIterableRest() { throw new TypeError("Invalid attempt to destructur
 function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
+var Sizer = function Sizer() {
+  var ref = (0, _react.useRef)();
+  (0, _Simulation.useTick)(function (simulation) {
+    if (!ref.current) return;
+    var max = Math.max.apply(Math, _toConsumableArray(simulation.nodes().map(function (n) {
+      return n.y + n.r;
+    })));
+    ref.current.style.height = max + 20 + 'px';
+  }, [ref]);
+  return _react.default.createElement("div", {
+    ref: ref
+  });
+};
 
 var Home = function Home() {
   var windowSize = (0, _useWindowSize.default)();
@@ -45957,7 +47044,7 @@ var Home = function Home() {
     className: "home__title"
   }, title), _react.default.createElement("div", {
     className: "home__thumbnails"
-  }, data.projects.map(function (project) {
+  }, isMobile && _react.default.createElement(Sizer, null), data.projects.map(function (project) {
     return _react.default.createElement(_Thumbnail.default, {
       key: project.url,
       project: project,
@@ -45975,7 +47062,7 @@ var Home = function Home() {
 
 var _default = Home;
 exports.default = _default;
-},{"react":"../../node_modules/react/index.js","../Thumbnail/Thumbnail":"components/Thumbnail/Thumbnail.jsx","./Legend":"components/Home/Legend.jsx","../Venn":"components/Venn/index.js","../Data":"components/Data/index.js","~/hooks/useWindowSize":"hooks/useWindowSize.js","~/hooks/useIsMobile":"hooks/useIsMobile.js","./Home.scss":"components/Thumbnail/Thumbnail.scss"}],"components/Home/index.js":[function(require,module,exports) {
+},{"react":"../../node_modules/react/index.js","../Thumbnail/Thumbnail":"components/Thumbnail/Thumbnail.jsx","./Legend":"components/Home/Legend.jsx","../Venn":"components/Venn/index.js","../Data":"components/Data/index.js","../Simulation":"components/Simulation/index.js","~/hooks/useWindowSize":"hooks/useWindowSize.js","~/hooks/useIsMobile":"hooks/useIsMobile.js","./Home.scss":"components/Thumbnail/Thumbnail.scss"}],"components/Home/index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
