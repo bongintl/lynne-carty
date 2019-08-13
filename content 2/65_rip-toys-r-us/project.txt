@@ -1,0 +1,34 @@
+Title: RIP Toys R Us
+
+----
+
+Size: 1
+
+----
+
+Tags: Illustration
+
+----
+
+Mainimage: 
+
+- illustration-rip-toys-r-us-copy.jpg
+
+----
+
+Credits: 
+
+- 
+  role: Client
+  name: "Barron's"
+- 
+  role: Illustration
+  name: Lynne Carty
+
+----
+
+Body: Spot illustration for an article about the(link: https://www.barrons.com/articles/toys-were-us-the-perils-of-debt-1523060503 text:  bankruptcy of Toys R Us)
+
+----
+
+Images: 

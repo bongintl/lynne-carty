@@ -1,0 +1,41 @@
+Title: Genetic Superheroes
+
+----
+
+Size: 1
+
+----
+
+Tags: Art Direction
+
+----
+
+Mainimage: 
+
+- medical_superheroes.jpg
+
+----
+
+Video: 
+
+----
+
+Credits: 
+
+- 
+  role: Client
+  name: MIT Technology Review
+- 
+  role: Art Direction
+  name: Lynne Carty
+- 
+  role: Illustration
+  name: Tomi Um
+
+----
+
+Body: (link: https://www.technologyreview.com/s/601239/search-for-new-medical-treatments-zeroes-in-on-genetic-superheroes/ text: Search for New Medical Treatments Zeroes In on Genetic Superheroes)
+
+----
+
+Images: 

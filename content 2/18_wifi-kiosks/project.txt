@@ -1,0 +1,41 @@
+Title: WiFi Kiosks
+
+----
+
+Size: 1
+
+----
+
+Tags: Art Direction
+
+----
+
+Mainimage: 
+
+- public_wifi_kiosks.gif
+
+----
+
+Video: 
+
+----
+
+Credits: 
+
+- 
+  role: Client
+  name: MIT Technology Review
+- 
+  role: Art Direction
+  name: Lynne Carty
+- 
+  role: Illustration
+  name: Simon Landrein
+
+----
+
+Body: (link: https://www.technologyreview.com/s/608281/the-startup-behind-nycs-plan-to-replace-phone-booths-with-7500-connected-kiosks/ text: The Startup Behind NYC’s Plan to Replace Phone Booths with 7,500 Connected Kiosks)
+
+----
+
+Images: 

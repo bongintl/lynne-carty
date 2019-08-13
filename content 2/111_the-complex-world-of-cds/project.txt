@@ -1,0 +1,41 @@
+Title: The Complex World of CDS
+
+----
+
+Size: 1
+
+----
+
+Tags: Art Direction
+
+----
+
+Mainimage: 
+
+- credit_default_swaps.jpg
+
+----
+
+Video: 
+
+----
+
+Credits: 
+
+- 
+  role: Client
+  name: "Barron's"
+- 
+  role: Art Direction
+  name: Lynne Carty
+- 
+  role: Illustration
+  name: Clay Rodery
+
+----
+
+Body: (link: https://www.barrons.com/articles/can-the-credit-default-swap-market-be-fixed-1528489730 text: Can the Credit-Default-Swap Market Be Fixed?)
+
+----
+
+Images: 

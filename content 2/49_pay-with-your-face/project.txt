@@ -1,0 +1,44 @@
+Title: Pay with Your Face
+
+----
+
+Size: 1.5
+
+----
+
+Tags: Video, Art Direction
+
+----
+
+Mainimage: 
+
+- ad-video-10-breakthrough.png
+
+----
+
+Video: https://www.youtube.com/watch?v=0o-Ihzi4MN0
+
+----
+
+Credits: 
+
+- 
+  role: Client
+  name: MIT Technology Review
+- 
+  role: Art Direction
+  name: Lynne Carty
+- 
+  role: Motion Graphics
+  name: Erik Carter
+- 
+  role: Videography
+  name: Daniel Lovering
+
+----
+
+Body: Art direction for a series of 10 videos explaining our 10 breakthrough technologies of 2017
+
+----
+
+Images: 

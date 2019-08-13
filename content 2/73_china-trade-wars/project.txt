@@ -1,0 +1,39 @@
+Title: China Trade Wars
+
+----
+
+Size: 1
+
+----
+
+Tags: Art Direction, Covers
+
+----
+
+Mainimage: 
+
+- ad-cover-china-trade-war.png
+
+----
+
+Credits: 
+
+- 
+  role: Client
+  name: "Barron's"
+- 
+  role: Art Direction
+  name: Lynne Carty
+- 
+  role: Lettering and Illustration
+  name: 'Delcan & Company'
+
+----
+
+Body: The Trade War Will Make Stocks Scary. (link: https://www.barrons.com/articles/china-internet-stocks-to-buy-alibaba-baidu-tencent-51561750564 text: 5 Reasons Not to Panic.)
+
+----
+
+Images: 
+
+- dont_panic.jpg

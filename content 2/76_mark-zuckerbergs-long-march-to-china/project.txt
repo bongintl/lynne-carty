@@ -1,0 +1,41 @@
+Title: Mark Zuckerberg’s Long March to China
+
+----
+
+Size: 1
+
+----
+
+Tags: Art Direction
+
+----
+
+Mainimage: 
+
+- zuckerberg_china.jpg
+
+----
+
+Video: 
+
+----
+
+Credits: 
+
+- 
+  role: Client
+  name: MIT Technology Review
+- 
+  role: Art Direction
+  name: Lynne Carty
+- 
+  role: Illustration
+  name: R. Kikuo Johnson
+
+----
+
+Body: (link: https://www.technologyreview.com/s/602493/mark-zuckerbergs-long-march-to-china/ text: Mark Zuckerberg’s Long March to China)
+
+----
+
+Images: 

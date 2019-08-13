@@ -1,0 +1,43 @@
+Title: Female Trump Voters
+
+----
+
+Size: 1
+
+----
+
+Tags: Art Direction, Design
+
+----
+
+Mainimage: 
+
+- women_voting_trump.jpg
+
+----
+
+Video: 
+
+----
+
+Credits: 
+
+- 
+  role: Client
+  name: MIT News
+- 
+  role: 'Art Direction & Design'
+  name: Lynne Carty
+- 
+  role: Illustration
+  name: Selman Design
+
+----
+
+Body: (link: https://www.technologyreview.com/s/603439/why-make-america-great-again-won-out-over-stronger-together/ text: Why voters overlooked Trump's sexism)
+
+----
+
+Images: 
+
+- women_voting_trump2.jpg

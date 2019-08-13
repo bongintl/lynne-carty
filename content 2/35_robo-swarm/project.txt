@@ -1,0 +1,41 @@
+Title: Robo Swarm
+
+----
+
+Size: 1
+
+----
+
+Tags: Art Direction, Design
+
+----
+
+Mainimage: 
+
+- ad-design-robo-swarm.jpg
+
+----
+
+Video: 
+
+----
+
+Credits: 
+
+- 
+  role: Client
+  name: MIT News
+- 
+  role: 'Art Direction & Design'
+  name: Lynne Carty
+- 
+  role: Illustration
+  name: Matt Chase
+
+----
+
+Body: This MIT professor is teaching 1,000 robots to act together. (link: https://www.technologyreview.com/s/602100/robo-swarm/ text: Read the article)
+
+----
+
+Images: 

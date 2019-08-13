@@ -1,0 +1,34 @@
+Title: The Biggest Technology Failures of 2017: Trump's Twitter
+
+----
+
+Size: 1
+
+----
+
+Tags: Illustration
+
+----
+
+Mainimage: 
+
+- worsttechtwitter.png
+
+----
+
+Credits: 
+
+- 
+  role: Client
+  name: MIT Technology Review
+- 
+  role: Illustration
+  name: Lynne Carty
+
+----
+
+Body: 
+
+----
+
+Images: 

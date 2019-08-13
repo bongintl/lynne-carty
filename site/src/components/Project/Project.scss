@@ -7,13 +7,14 @@
     overflow-x: hidden;
     &--current {
         overflow-y: scroll;
+        -webkit-overflow-scrolling: touch;
     }
     &__header {
         text-align: center;
         z-index: 50;
-        padding-bottom: line();
+        padding-bottom: line( .5 );
         padding-top: line();
-        background: linear-gradient( to bottom, var( --background ) calc( 100% - var( --line ) ), var( --background-transparent ) 100% );
+        background: linear-gradient( to bottom, var( --background ) calc( 100% - var( --line ) * .5 ), var( --background-transparent ) 100% );
         @include medium {
             padding-top: 0;
             position: sticky;
@@ -52,6 +53,10 @@
         &--portrait {
             // max-width: 40em;
         }
+        &--headshot {
+            width: 100%;
+            max-width: 20em;
+        }
     }
     &__image--portrait, &__body, .credits {
         width: 100%;
@@ -73,4 +78,18 @@
     &__role {
         font-weight: bold;
     }
+}
+
+.cv {
+    &__row {
+        display: flex;
+    }
+    &__dates {
+        width: 50%;
+        // text-transform: uppercase;
+    }
+    &__job {
+        width: 50%;
+    }
+    padding-bottom: line(2);
 }

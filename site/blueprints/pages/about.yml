@@ -37,8 +37,8 @@ columns:
             layout: cards
             size: huge
             required: true
-          body:
-            label: Body
+          bio:
+            label: Bio
             type: textarea
           resume:
             label: Resume
@@ -50,20 +50,9 @@ columns:
               job:
                 type: text
                 width: 1/2
-          links:
-            label: Links
-            type: structure
-            fields:
-              label:
-                type: text
-              url:
-                type: text
-          images:
-            label: Additional Images
-            type: files
-            multiple: true
-            layout: cards
-            size: huge
+          contact:
+            label: Contact
+            type: textarea
   -
     width: 1/4
     sections:

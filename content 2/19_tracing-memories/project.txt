@@ -1,0 +1,34 @@
+Title: Tracing Memories
+
+----
+
+Size: 1.5
+
+----
+
+Tags: Design
+
+----
+
+Mainimage: 
+
+- design-memory-science.jpg
+
+----
+
+Credits: 
+
+- 
+  role: Client
+  name: MIT News
+- 
+  role: Design
+  name: Lynne Carty
+
+----
+
+Body: MIT News(link: https://www.technologyreview.com/s/602558/tracing-a-memory/ text: story) on how a professor is finding out how the brain stores and retrieves individual memories.
+
+----
+
+Images: 

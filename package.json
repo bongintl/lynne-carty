@@ -7,16 +7,21 @@
     "dev": "parcel watch site/src/main.js -d assets --no-hmr",
     "dev-local": "npm run dev & npm start",
     "build": "parcel build site/src/main.js -d assets",
-    "start": "php -S localhost:8000 kirby/router.php"
+    "start": "php -S $( ipconfig getifaddr en0 ):8000 kirby/router.php"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "eslintConfig": {
+    "extends": "react-app"
+  },
   "dependencies": {
     "@u-wave/react-vimeo": "^0.8.1",
+    "babel-eslint": "^10.0.2",
     "classnames": "^2.2.6",
     "d3-force": "^2.0.1",
     "es6-map": "^0.1.5",
+    "eslint-config-react-app": "^5.0.0",
     "gl-buffer": "^2.1.2",
     "gl-fbo": "^2.0.5",
     "gl-shader": "^4.2.1",

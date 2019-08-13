@@ -15,14 +15,14 @@ var SimulationContext = createContext();
 
 export var useSimulation = () => useContext( SimulationContext );
 
-export var useTick = ( onUpdate, deps = [] ) => {
+export var useTick = onUpdate => {
     var simulation = useSimulation();
     useEffect( () => {
         var event = `tick.${ Math.random() }`;
         simulation.on( event, () => onUpdate( simulation ) )
         onUpdate( simulation );
         return () => simulation.on( event, null );
-    }, [ simulation, ...deps ] );
+    }, [ simulation, onUpdate ] );
 }
 
 export var useNode = index => useSimulation().nodes()[ index ];
@@ -44,7 +44,7 @@ var useForce = ( simulation, name, force, deps = [] ) => {
     }, [ simulation, name, force, ...deps ] )
 }
 
-var getTagPosition = ( tag, tags, windowSize ) => {
+var getTagInitialPosition = ( tag, tags, windowSize ) => {
     var t = tags.indexOf( tag ) / tags.length;
     var a = t * Math.PI * 2;
     var c = vec2( windowSize[ 0 ] / 2, windowSize[ 1 ] / 2 );
@@ -55,7 +55,7 @@ var getTagPosition = ( tag, tags, windowSize ) => {
 
 var getInitialPosition = ( project, tags, windowSize ) => (
     vec2.add(
-        vec2.mean( project.tags.map( tag => getTagPosition( tag, tags, windowSize ) ) ),
+        vec2.mean( project.tags.map( tag => getTagInitialPosition( tag, tags, windowSize ) ) ),
         vec2( Math.random() * 10, Math.random() * 10 )
     )
 )

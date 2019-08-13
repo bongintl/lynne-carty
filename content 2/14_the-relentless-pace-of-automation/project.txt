@@ -1,0 +1,39 @@
+Title: The Relentless Pace of Automation
+
+----
+
+Size: 1
+
+----
+
+Tags: Art Direction, Design
+
+----
+
+Mainimage: 
+
+- ad-design-automation.png
+
+----
+
+Credits: 
+
+- 
+  role: Client
+  name: MIT Technology Review
+- 
+  role: 'Art Direction & Design'
+  name: Lynne Carty
+- 
+  role: Illustration
+  name: Pablo Delcan
+
+----
+
+Body: (link: https://www.technologyreview.com/s/603465/the-relentless-pace-of-automation/ text: Review section opener) on pros and cons of AI in the workplace.
+
+----
+
+Images: 
+
+- tumblr_olblqsfos81u20bgko1_1280.jpg

@@ -1,0 +1,41 @@
+Title: 50 Smartest Companies promo
+
+----
+
+Size: 2
+
+----
+
+Tags: Video, Animation
+
+----
+
+Mainimage: 
+
+- ad-animation-video-50-smartest.png
+
+----
+
+Video: https://vimeo.com/224082104
+
+----
+
+Credits: 
+
+- 
+  role: Client
+  name: MIT Technology Review
+- 
+  role: Animation
+  name: Lynne Carty
+- 
+  role: Music
+  name: Blank Banshee
+
+----
+
+Body: 
+
+----
+
+Images: 

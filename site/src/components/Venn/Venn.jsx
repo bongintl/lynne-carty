@@ -79,22 +79,24 @@ var VennShader = ({ scale }) => {
         groupLayers( nodes, byTag, colors ).forEach( ({ color, positions }) => {
             vennShader.bind();
             vennShader.uniforms.count = positions.length;
-            var scaledPositions = positions.map( ({ x, y, r }) => ({ x: x * scale, y: y * scale, r: r * scale }))
+            var scaledPositions = positions.map(
+                ({ x, y, r }) => ({ x: x * scale, y: y * scale, r: r * scale })
+            )
             scaledPositions.forEach( ({ x, y, r }, i ) => {
                 vennShader.uniforms.positions[ i ] = [ x, y ]
                 vennShader.uniforms.radii[ i ] = r;
             })
             var { r, g, b } = color.toRgb();
-            var xs = scaledPositions.map( p => p.x );
-            var ys = scaledPositions.map( p => p.y );
-            var minX = Math.floor( Math.min( ...xs ) ) - extend;
-            var minY = Math.floor( Math.min( ...ys ) ) - extend;
-            var maxX = Math.floor( Math.max( ...xs ) ) + extend;
-            var maxY = Math.floor( Math.max( ...ys ) ) + extend;
+            // var xs = scaledPositions.map( p => p.x );
+            // var ys = scaledPositions.map( p => p.y );
+            var minX = Math.floor( Math.min( ...scaledPositions.map( p => p.x - p.r * 4 ) ) );
+            var minY = Math.floor( Math.min( ...scaledPositions.map( p => p.y - p.r * 4 ) ) );
+            var maxX = Math.floor( Math.max( ...scaledPositions.map( p => p.x + p.r * 4 ) ) );
+            var maxY = Math.floor( Math.max( ...scaledPositions.map( p => p.y + p.r * 4 ) ) );
             fbo.bind();
             // gl.bindFramebuffer( gl.FRAMEBUFFER, null );
             gl.clearColor( 0, 0, 0, 0 );
-            gl.clear( gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT | gl.STENCIL_BUFFER_BIT );
+            gl.clear( gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT |  gl.STENCIL_BUFFER_BIT );
             gl.disable( gl.BLEND );
             gl.enable( gl.SCISSOR_TEST );
             gl.scissor( minX, gl.canvas.height - maxY, maxX - minX, maxY - minY );

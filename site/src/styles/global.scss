@@ -34,6 +34,12 @@ html {
     left: 0;
 }
 
+a {
+    color: inherit;
+    // border-bottom: 1px solid blue;
+    text-decoration-color: blue;
+}
+
 .dev{outline:1px solid #912eff}
 .dev > * {outline:1px solid #5497ff}
 .dev > * > * {outline:1px solid #51feff}

@@ -1,0 +1,37 @@
+Title: Gene Therapy
+
+----
+
+Size: 1
+
+----
+
+Tags: Art Direction, Cover
+
+----
+
+Mainimage: 
+
+- ad-cover-gene-therapy.png
+
+----
+
+Credits: 
+
+- 
+  role: Client
+  name: "Barron's"
+- 
+  role: Art Direction, Design
+  name: Lynne Carty
+- 
+  role: Illustration
+  name: Merlijn Hos
+
+----
+
+Body: 
+
+----
+
+Images: 

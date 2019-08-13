@@ -1,0 +1,41 @@
+Title: Transforming the Classroom with Google Cardboard
+
+----
+
+Size: 1
+
+----
+
+Tags: Art Direction
+
+----
+
+Mainimage: 
+
+- virtual_classroom.gif
+
+----
+
+Video: 
+
+----
+
+Credits: 
+
+- 
+  role: Client
+  name: MIT Technology Review
+- 
+  role: Art Direction
+  name: Lynne Carty
+- 
+  role: Illustration
+  name: Sophia Foster-Dimino
+
+----
+
+Body: (link: https://www.technologyreview.com/s/542991/google-aims-to-make-vr-hardware-irrelevant-before-it-even-gets-going/ text: Google Aims to Make VR Hardware Irrelevant Before It Even Gets Going)
+
+----
+
+Images: 
