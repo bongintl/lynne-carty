@@ -11,4 +11,9 @@ vec2.copy = ( a, b ) => { a.x = b.x; a.y = b.y };
 vec2.normalize = ( v, length = vec2.len( v ) ) => vec2( v.x / length, v.y / length );
 vec2.mean = vs => vec2( mean( vs.map( v => v.x ) ), mean( vs.map( v => v.y ) ) );
 vec2.isZero = v => v.x === 0 && v.y === 0;
+vec2.rotate = ( v, a ) => vec2(
+    v.x + Math.cos( a ) - v.y * Math.sin( a ),
+    v.y + Math.sin( a ) - v.y * Math.cos( a )
+)
+
 export default vec2;

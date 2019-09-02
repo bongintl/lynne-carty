@@ -21,6 +21,7 @@ var Legend = ({ tags, colors, filter, setFilter }) => {
                     }
                 >
                     { tag }
+                    { tag === selected && ' ×' }
                 </li>
             )) }
         </ul>

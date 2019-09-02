@@ -7,6 +7,7 @@ import forceCenter from './forceCenter';
 import forceSort from './forceSort';
 import forceBounds from './forceBounds';
 import forceGather from './forceGather';
+import forceStir from './forceStir';
 import { sum } from '~/utils/math';
 import vec2 from '~/utils/vec2';
 import useInitRef from '~/hooks/useInitRef';
@@ -76,7 +77,7 @@ export var SimulationProvider = ({ children }) => {
                 r: project.size * scale,
                 index: i
             }) )
-        ).velocityDecay( 0.2 )
+        ).velocityDecay( 0.1 )
     ))
     useEffect( () => {
         simulation.alphaDecay( isMobile ? 0.05 : 0 )
@@ -116,6 +117,13 @@ export var SimulationProvider = ({ children }) => {
             Math.min( windowSize[ 0 ], windowSize[ 1 ] ) * .4
         ),
         [ isMobile, windowSize ]
+    )
+    useForce( simulation, 'stir',
+        () => forceStir(
+            { x: windowSize[ 0 ] / 2, y: windowSize[ 1 ] / 2 },
+            Math.min( windowSize[ 0 ], windowSize[ 1 ] ) * .6
+        ),
+        [ windowSize ]
     )
     return (
         <SimulationContext.Provider value={ simulation }>
