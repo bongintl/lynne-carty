@@ -49869,6 +49869,7 @@ var Credits = function Credits(_ref2) {
 
 var ProjectContents = function ProjectContents(_ref4) {
   var video = _ref4.video,
+      autoplay = _ref4.autoplay,
       mainImage = _ref4.mainImage,
       body = _ref4.body,
       credits = _ref4.credits,
@@ -49876,9 +49877,14 @@ var ProjectContents = function ProjectContents(_ref4) {
   return _react.default.createElement(_react.default.Fragment, null, video ? _react.default.createElement("div", {
     className: (0, _bem.default)('project__image', 'landscape')
   }, _react.default.createElement(_reactVimeo.default, {
+    className: "vimeo",
     video: video,
     responsive: true,
-    className: "vimeo"
+    autoplay: autoplay,
+    background: autoplay,
+    controls: !autoplay,
+    volume: autoplay ? 0 : 1,
+    loop: autoplay
   })) : _react.default.createElement(ProjectImage, {
     srcs: mainImage
   }), _react.default.createElement("div", {

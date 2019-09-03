@@ -8,6 +8,7 @@ echo json_encode([
         ? srcs( $page -> mainImage() -> toFile() )
         : null,
     'video' => (string) $page -> video(),
+    'autoplay' => (bool) $page -> autoplay(),
     'credits' => $page -> credits() -> yaml(),
     'body' => (string) $page -> body() -> kirbytext(),
     'additionalImages' => array_values(

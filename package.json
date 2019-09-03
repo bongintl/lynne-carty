@@ -7,7 +7,7 @@
     "dev": "parcel watch site/src/main.js -d assets --no-hmr",
     "dev-local": "npm run dev & npm start",
     "build": "parcel build site/src/main.js -d assets",
-    "start": "php -S $( ipconfig getifaddr en0 ):8000 kirby/router.php"
+    "start": "php -S $( ipconfig getifaddr en0 ):8000 kirby/router.php -c php.ini"
   },
   "keywords": [],
   "author": "",

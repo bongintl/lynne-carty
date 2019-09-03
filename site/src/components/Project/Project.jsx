@@ -27,11 +27,20 @@ var Credits = ({ credits }) => (
     </ul>
 )
 
-var ProjectContents = ({ video, mainImage, body, credits, additionalImages }) => (
+var ProjectContents = ({ video, autoplay, mainImage, body, credits, additionalImages }) => (
     <>
         { video ? (
             <div className={ bem( 'project__image', 'landscape' ) }>
-                <Vimeo video={ video } responsive={ true } className="vimeo"/>
+                <Vimeo
+                    className="vimeo"
+                    video={ video }
+                    responsive={ true }
+                    autoplay={ autoplay }
+                    background={ autoplay }
+                    controls={ !autoplay }
+                    volume={ autoplay ? 0 : 1 }
+                    loop={ autoplay }
+                />
             </div>
         ) : (
             <ProjectImage srcs={ mainImage }/>

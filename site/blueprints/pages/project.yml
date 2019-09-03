@@ -40,6 +40,12 @@ columns:
           video:
             label: Video
             type: url
+            placeholder: vimeo.com/12345
+            width: 3/4
+          autoplay:
+            label: Autoplay
+            type: toggle
+            width: 1/4
           credits:
             label: Credits
             type: structure
