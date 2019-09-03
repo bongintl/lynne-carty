@@ -65,6 +65,10 @@
     &__image--landscape {
         max-width: 80em;
     }
+    a {
+        text-decoration: underline;
+        text-decoration-color: blue;
+    }
 }
 
 .credits {

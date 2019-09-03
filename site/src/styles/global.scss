@@ -20,13 +20,13 @@ html {
     background: var( --background );
     -webkit-font-smoothing: antialiased;
     line-height: var( --line-height );
-    font-size: 14px;
+    font-size: 12px;
     @include medium {
         font-size: 16px;
     }
 }
 
-.fill {
+.fill, .cover, .contain {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -34,10 +34,17 @@ html {
     left: 0;
 }
 
+.cover {
+    object-fit: cover;
+}
+
+.contain {
+    object-fit: contain;
+}
+
 a {
     color: inherit;
-    // border-bottom: 1px solid blue;
-    text-decoration-color: blue;
+    text-decoration: none;
 }
 
 .dev{outline:1px solid #912eff}

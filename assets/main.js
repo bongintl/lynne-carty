@@ -29621,7 +29621,48 @@ if ("development" !== "production") {
     style: _propTypes.default.object
   });
 }
-},{"@babel/runtime/helpers/esm/inheritsLoose":"../../node_modules/@babel/runtime/helpers/esm/inheritsLoose.js","react":"../../node_modules/react/index.js","react-router":"../../node_modules/react-router/esm/react-router.js","history":"../../node_modules/history/esm/history.js","prop-types":"../../node_modules/prop-types/index.js","tiny-warning":"../../node_modules/tiny-warning/dist/tiny-warning.esm.js","@babel/runtime/helpers/esm/extends":"../../node_modules/@babel/runtime/helpers/esm/extends.js","@babel/runtime/helpers/esm/objectWithoutPropertiesLoose":"../../node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js","tiny-invariant":"../../node_modules/tiny-invariant/dist/tiny-invariant.esm.js"}],"../../node_modules/es6-map/is-implemented.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/esm/inheritsLoose":"../../node_modules/@babel/runtime/helpers/esm/inheritsLoose.js","react":"../../node_modules/react/index.js","react-router":"../../node_modules/react-router/esm/react-router.js","history":"../../node_modules/history/esm/history.js","prop-types":"../../node_modules/prop-types/index.js","tiny-warning":"../../node_modules/tiny-warning/dist/tiny-warning.esm.js","@babel/runtime/helpers/esm/extends":"../../node_modules/@babel/runtime/helpers/esm/extends.js","@babel/runtime/helpers/esm/objectWithoutPropertiesLoose":"../../node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js","tiny-invariant":"../../node_modules/tiny-invariant/dist/tiny-invariant.esm.js"}],"utils/bem.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
+var _default = function _default(be) {
+  for (var _len = arguments.length, ms = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+    ms[_key - 1] = arguments[_key];
+  }
+
+  return [be].concat(_toConsumableArray(ms.reduce(function (classes, modifier) {
+    if (Array.isArray(modifier)) {
+      classes.push.apply(classes, _toConsumableArray(modifier.filter(Boolean)));
+    } else if (_typeof(modifier) === 'object') {
+      classes.push.apply(classes, _toConsumableArray(Object.keys(modifier).filter(function (m) {
+        return modifier[m];
+      })));
+    } else {
+      classes.push(modifier);
+    }
+
+    return classes;
+  }, []).map(function (m) {
+    return "".concat(be, "--").concat(m);
+  }))).join(' ');
+};
+
+exports.default = _default;
+},{}],"../../node_modules/es6-map/is-implemented.js":[function(require,module,exports) {
 'use strict';
 
 module.exports = function () {
@@ -32726,57 +32767,7 @@ Object.keys(_Image).forEach(function (key) {
 });
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
-},{"./Image":"components/Image/Image.jsx"}],"components/Ring/Ring.jsx":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireWildcard(require("react"));
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
-
-var Ring = function Ring(_ref) {
-  var color = _ref.color,
-      radius = _ref.radius;
-  var offset = (0, _react.useMemo)(function () {
-    var x = Math.random() * 2 - 1;
-    var y = Math.random() * 2 - 1;
-    return "\n            translate( -50%, -50% )\n            translate( ".concat(x * 2, "px, ").concat(y * 2, "px )\n        ");
-  }, []);
-  var style = {
-    borderColor: color,
-    transform: offset,
-    width: radius * 2 + 'px',
-    height: radius * 2 + 'px'
-  };
-  return _react.default.createElement("div", {
-    className: "ring",
-    style: style
-  });
-};
-
-var _default = Ring;
-exports.default = _default;
-},{"react":"../../node_modules/react/index.js"}],"components/Ring/index.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-Object.defineProperty(exports, "default", {
-  enumerable: true,
-  get: function () {
-    return _Ring.default;
-  }
-});
-
-var _Ring = _interopRequireDefault(require("./Ring"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-},{"./Ring":"components/Ring/Ring.jsx"}],"../../node_modules/tinycolor2/tinycolor.js":[function(require,module,exports) {
+},{"./Image":"components/Image/Image.jsx"}],"../../node_modules/tinycolor2/tinycolor.js":[function(require,module,exports) {
 var define;
 // TinyColor v1.4.1
 // https://github.com/bgrins/TinyColor
@@ -34203,7 +34194,171 @@ Object.keys(_Data).forEach(function (key) {
 });
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
-},{"./Data":"components/Data/Data.jsx"}],"components/Visited/Visited.jsx":[function(require,module,exports) {
+},{"./Data":"components/Data/Data.jsx"}],"components/Home/HomeMobile.scss":[function(require,module,exports) {
+
+},{}],"components/Home/HomeMobile.jsx":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _bem = _interopRequireDefault(require("../../utils/bem"));
+
+var _reactRouterDom = require("react-router-dom");
+
+var _Image = _interopRequireDefault(require("../Image"));
+
+var _Data = require("../Data");
+
+require("./HomeMobile.scss");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+
+function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+var HomeMobileThumbnail = function HomeMobileThumbnail(_ref) {
+  var project = _ref.project,
+      colors = _ref.colors,
+      _ref$showTags = _ref.showTags,
+      showTags = _ref$showTags === void 0 ? true : _ref$showTags;
+  return _react.default.createElement(_reactRouterDom.Link, {
+    className: "home-mobile-thumbnail",
+    to: project.url
+  }, _react.default.createElement("div", {
+    className: "home-mobile-thumbnail__image"
+  }, _react.default.createElement(_Image.default, {
+    srcs: project.thumbnail,
+    ratio: false,
+    className: "contain"
+  })), _react.default.createElement("div", {
+    className: "home-mobile-thumbnail__title"
+  }, project.title), showTags && _react.default.createElement("div", {
+    className: "home-mobile-thumbnail__tags"
+  }, project.tags.map(function (tag) {
+    return _react.default.createElement("div", {
+      key: tag,
+      className: "home-mobile-thumbnail__tag",
+      style: {
+        '--color': colors[tag]
+      }
+    });
+  })));
+};
+
+var HomeMobile = function HomeMobile() {
+  var data = (0, _Data.useData)();
+  console.log(data);
+
+  var _useState = (0, _react.useState)(null),
+      _useState2 = _slicedToArray(_useState, 2),
+      filter = _useState2[0],
+      setFilter = _useState2[1];
+
+  var about = data.projects[data.projects.length - 1];
+  var projects = data.projects.slice(0, -1);
+  return _react.default.createElement("div", {
+    className: "home-mobile"
+  }, _react.default.createElement("div", {
+    className: "home-mobile__thumbnails"
+  }, _react.default.createElement(HomeMobileThumbnail, {
+    project: about,
+    colors: data.colors,
+    showTags: false
+  })), _react.default.createElement("div", {
+    className: "home-mobile__tags"
+  }, data.tags.filter(function (tag) {
+    return tag !== about.tags[0];
+  }).map(function (tag) {
+    return _react.default.createElement("div", {
+      key: tag,
+      className: (0, _bem.default)('home-mobile__tag', {
+        selected: filter === null || filter === tag
+      }),
+      style: {
+        '--color': data.colors[tag]
+      },
+      onClick: function onClick() {
+        return setFilter(filter === tag ? null : tag);
+      }
+    }, filter === null ? tag : filter === tag ? "".concat(tag, " \xD7") : '');
+  })), _react.default.createElement("div", {
+    className: "home-mobile__thumbnails"
+  }, projects.filter(function (project) {
+    return filter === null || project.tags.includes(filter);
+  }).map(function (project) {
+    return _react.default.createElement(HomeMobileThumbnail, {
+      key: project.i,
+      project: project,
+      colors: data.colors
+    });
+  })));
+};
+
+var _default = HomeMobile;
+exports.default = _default;
+},{"react":"../../node_modules/react/index.js","../../utils/bem":"utils/bem.js","react-router-dom":"../../node_modules/react-router-dom/esm/react-router-dom.js","../Image":"components/Image/index.js","../Data":"components/Data/index.js","./HomeMobile.scss":"components/Home/HomeMobile.scss"}],"components/Ring/Ring.jsx":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+var Ring = function Ring(_ref) {
+  var color = _ref.color,
+      radius = _ref.radius;
+  var offset = (0, _react.useMemo)(function () {
+    var x = Math.random() * 2 - 1;
+    var y = Math.random() * 2 - 1;
+    return "\n            translate( -50%, -50% )\n            translate( ".concat(x * 2, "px, ").concat(y * 2, "px )\n        ");
+  }, []);
+  var style = {
+    borderColor: color,
+    transform: offset,
+    width: radius * 2 + 'px',
+    height: radius * 2 + 'px'
+  };
+  return _react.default.createElement("div", {
+    className: "ring",
+    style: style
+  });
+};
+
+var _default = Ring;
+exports.default = _default;
+},{"react":"../../node_modules/react/index.js"}],"components/Ring/index.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+Object.defineProperty(exports, "default", {
+  enumerable: true,
+  get: function () {
+    return _Ring.default;
+  }
+});
+
+var _Ring = _interopRequireDefault(require("./Ring"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+},{"./Ring":"components/Ring/Ring.jsx"}],"components/Visited/Visited.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -36098,25 +36253,7 @@ var _default = function _default() {
 };
 
 exports.default = _default;
-},{"react":"../../node_modules/react/index.js"}],"hooks/useIsMobile.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _useWindowSize = _interopRequireDefault(require("./useWindowSize"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var useIsMobile = function useIsMobile() {
-  return (0, _useWindowSize.default)()[0] < 768;
-};
-
-var _default = useIsMobile;
-exports.default = _default;
-},{"./useWindowSize":"hooks/useWindowSize.js"}],"utils/math.js":[function(require,module,exports) {
+},{"react":"../../node_modules/react/index.js"}],"utils/math.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -38130,8 +38267,6 @@ var _Data = require("../Data");
 
 var _useWindowSize = _interopRequireDefault(require("~/hooks/useWindowSize"));
 
-var _useIsMobile = _interopRequireDefault(require("~/hooks/useIsMobile"));
-
 var _forceCenter = _interopRequireDefault(require("./forceCenter"));
 
 var _forceSort = _interopRequireDefault(require("./forceSort"));
@@ -38236,24 +38371,20 @@ var SimulationProvider = function SimulationProvider(_ref) {
   var data = (0, _Data.useData)();
   var projects = data.projects;
   var windowSize = (0, _useWindowSize.default)();
-  var isMobile = (0, _useIsMobile.default)();
   var filledArea = (0, _math.sum)(projects.map(function (p) {
     return Math.PI * Math.pow(p.size, 2);
   }));
   var windowArea = Math.PI * Math.pow(Math.min(windowSize[0], windowSize[1]) / 2, 2);
   var targetFilledArea = windowArea / 2.5;
-  var scale = isMobile ? 35 : Math.sqrt(targetFilledArea / filledArea);
+  var scale = Math.sqrt(targetFilledArea / filledArea);
   var simulation = (0, _useInitRef.default)(function () {
     return d3force.forceSimulation(projects.map(function (project, i) {
       return _objectSpread({}, getInitialPosition(project, Object.keys(data.byTag), windowSize), {
         r: project.size * scale,
         index: i
       });
-    })).velocityDecay(0.1);
+    })).velocityDecay(0.1).alphaDecay(0);
   });
-  (0, _react.useEffect)(function () {
-    simulation.alphaDecay(isMobile ? 0.05 : 0);
-  }, [simulation, isMobile]);
   (0, _react.useEffect)(function () {
     var nodes = simulation.nodes();
     nodes.forEach(function (node, i) {
@@ -38262,14 +38393,14 @@ var SimulationProvider = function SimulationProvider(_ref) {
     simulation.nodes(nodes);
   }, [simulation, projects, scale]);
   useForce(simulation, 'sort', function () {
-    return !isMobile && (0, _forceSort.default)(data);
+    return (0, _forceSort.default)(data);
   }, [projects]);
   useForce(simulation, 'center', function () {
-    return !isMobile && (0, _forceCenter.default)({
+    return (0, _forceCenter.default)({
       x: windowSize[0] / 2,
       y: windowSize[1] / 2
     });
-  }, [isMobile, windowSize]);
+  }, [windowSize]);
   useForce(simulation, 'bounds', function () {
     return (0, _forceBounds.default)({
       min: {
@@ -38278,21 +38409,21 @@ var SimulationProvider = function SimulationProvider(_ref) {
       },
       max: {
         x: windowSize[0],
-        y: isMobile ? Infinity : windowSize[1]
+        y: windowSize[1]
       }
     });
-  }, [isMobile, windowSize]);
+  }, [windowSize]);
   useForce(simulation, 'collide', function () {
     return d3force.forceCollide().radius(function (n) {
       return n.r;
     }).strength(1).iterations(5);
   }, []);
   useForce(simulation, 'gather', function () {
-    return !isMobile && (0, _forceGather.default)({
+    return (0, _forceGather.default)({
       x: windowSize[0] / 2,
       y: windowSize[1] / 2
     }, Math.min(windowSize[0], windowSize[1]) * .4);
-  }, [isMobile, windowSize]);
+  }, [windowSize]);
   useForce(simulation, 'stir', function () {
     return (0, _forceStir.default)({
       x: windowSize[0] / 2,
@@ -38305,7 +38436,7 @@ var SimulationProvider = function SimulationProvider(_ref) {
 };
 
 exports.SimulationProvider = SimulationProvider;
-},{"react":"../../node_modules/react/index.js","d3-force":"../../node_modules/d3-force/src/index.js","../Data":"components/Data/index.js","~/hooks/useWindowSize":"hooks/useWindowSize.js","~/hooks/useIsMobile":"hooks/useIsMobile.js","./forceCenter":"components/Simulation/forceCenter.js","./forceSort":"components/Simulation/forceSort.js","./forceBounds":"components/Simulation/forceBounds.js","./forceGather":"components/Simulation/forceGather.js","./forceStir":"components/Simulation/forceStir.js","~/utils/math":"utils/math.js","~/utils/vec2":"utils/vec2.js","~/hooks/useInitRef":"hooks/useInitRef.js"}],"components/Simulation/index.js":[function(require,module,exports) {
+},{"react":"../../node_modules/react/index.js","d3-force":"../../node_modules/d3-force/src/index.js","../Data":"components/Data/index.js","~/hooks/useWindowSize":"hooks/useWindowSize.js","./forceCenter":"components/Simulation/forceCenter.js","./forceSort":"components/Simulation/forceSort.js","./forceBounds":"components/Simulation/forceBounds.js","./forceGather":"components/Simulation/forceGather.js","./forceStir":"components/Simulation/forceStir.js","~/utils/math":"utils/math.js","~/utils/vec2":"utils/vec2.js","~/hooks/useInitRef":"hooks/useInitRef.js"}],"components/Simulation/index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -38470,7 +38601,7 @@ var useDragNode = function useDragNode(_ref2) {
 };
 
 exports.useDragNode = useDragNode;
-},{"react":"../../node_modules/react/index.js","../Simulation":"components/Simulation/index.js","~/utils/vec2":"utils/vec2.js"}],"utils/bem.js":[function(require,module,exports) {
+},{"react":"../../node_modules/react/index.js","../Simulation":"components/Simulation/index.js","~/utils/vec2":"utils/vec2.js"}],"hooks/useIsMobile.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -38478,42 +38609,17 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+var _useWindowSize = _interopRequireDefault(require("./useWindowSize"));
 
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
-
-function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
-
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
-
-var _default = function _default(be) {
-  for (var _len = arguments.length, ms = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-    ms[_key - 1] = arguments[_key];
-  }
-
-  return [be].concat(_toConsumableArray(ms.reduce(function (classes, modifier) {
-    if (Array.isArray(modifier)) {
-      classes.push.apply(classes, _toConsumableArray(modifier.filter(Boolean)));
-    } else if (_typeof(modifier) === 'object') {
-      classes.push.apply(classes, _toConsumableArray(Object.keys(modifier).filter(function (m) {
-        return modifier[m];
-      })));
-    } else {
-      classes.push(modifier);
-    }
-
-    return classes;
-  }, []).map(function (m) {
-    return "".concat(be, "--").concat(m);
-  }))).join(' ');
+var useIsMobile = function useIsMobile() {
+  return (0, _useWindowSize.default)()[0] < 768;
 };
 
+var _default = useIsMobile;
 exports.default = _default;
-},{}],"components/Thumbnail/Thumbnail.scss":[function(require,module,exports) {
-
-},{}],"components/Thumbnail/Thumbnail.jsx":[function(require,module,exports) {
+},{"./useWindowSize":"hooks/useWindowSize.js"}],"components/Thumbnail/Thumbnail.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -38651,74 +38757,7 @@ var Thumbnail = (0, _reactRouterDom.withRouter)(function (_ref2) {
 });
 var _default = Thumbnail;
 exports.default = _default;
-},{"react":"../../node_modules/react/index.js","react-router-dom":"../../node_modules/react-router-dom/esm/react-router-dom.js","../Image":"components/Image/index.js","../Ring":"components/Ring/index.js","../Data":"components/Data/index.js","../Visited":"components/Visited/index.js","../Simulation":"components/Simulation/index.js","./useDrag":"components/Thumbnail/useDrag.js","~/hooks/useIsMobile":"hooks/useIsMobile.js","~/utils/bem":"utils/bem.js","./Thumbnail.scss":"components/Thumbnail/Thumbnail.scss"}],"components/Home/Legend.jsx":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireWildcard(require("react"));
-
-var _bem = _interopRequireDefault(require("~/utils/bem"));
-
-require("./Legend.scss");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
-
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
-
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
-
-function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
-var isTouch = 'ontouchstart' in window;
-
-var Legend = function Legend(_ref) {
-  var tags = _ref.tags,
-      colors = _ref.colors,
-      filter = _ref.filter,
-      setFilter = _ref.setFilter;
-
-  var _useState = (0, _react.useState)(null),
-      _useState2 = _slicedToArray(_useState, 2),
-      selected = _useState2[0],
-      setSelected = _useState2[1];
-
-  return _react.default.createElement("ul", {
-    className: "legend"
-  }, tags.map(function (tag) {
-    return _react.default.createElement("li", {
-      className: (0, _bem.default)("legend__item", {
-        selected: filter === null || filter === tag
-      }),
-      key: tag,
-      style: {
-        '--color': colors[tag]
-      },
-      onMouseEnter: isTouch ? undefined : function () {
-        return setFilter(tag);
-      },
-      onMouseLeave: isTouch ? undefined : function () {
-        return setFilter(selected);
-      },
-      onClick: isTouch ? function () {
-        return setFilter(filter === tag ? null : tag);
-      } : function () {
-        return setSelected(selected === tag ? null : tag);
-      }
-    }, tag, tag === selected && ' ×');
-  }));
-};
-
-var _default = Legend;
-exports.default = _default;
-},{"react":"../../node_modules/react/index.js","~/utils/bem":"utils/bem.js","./Legend.scss":"components/Thumbnail/Thumbnail.scss"}],"components/Venn/GL.jsx":[function(require,module,exports) {
+},{"react":"../../node_modules/react/index.js","react-router-dom":"../../node_modules/react-router-dom/esm/react-router-dom.js","../Image":"components/Image/index.js","../Ring":"components/Ring/index.js","../Data":"components/Data/index.js","../Visited":"components/Visited/index.js","../Simulation":"components/Simulation/index.js","./useDrag":"components/Thumbnail/useDrag.js","~/hooks/useIsMobile":"hooks/useIsMobile.js","~/utils/bem":"utils/bem.js","./Thumbnail.scss":"components/Home/HomeMobile.scss"}],"components/Venn/GL.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -47018,7 +47057,7 @@ Object.defineProperty(exports, "default", {
 var _Venn = _interopRequireDefault(require("./Venn"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-},{"./Venn":"components/Venn/Venn.jsx"}],"components/Home/Home.jsx":[function(require,module,exports) {
+},{"./Venn":"components/Venn/Venn.jsx"}],"components/Home/HomeDesktop.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -47028,21 +47067,17 @@ exports.default = void 0;
 
 var _react = _interopRequireWildcard(require("react"));
 
-var _Thumbnail = _interopRequireDefault(require("../Thumbnail/Thumbnail"));
+var _bem = _interopRequireDefault(require("../../utils/bem"));
 
-var _Legend = _interopRequireDefault(require("./Legend"));
+var _Thumbnail = _interopRequireDefault(require("../Thumbnail/Thumbnail"));
 
 var _Venn = _interopRequireDefault(require("../Venn"));
 
 var _Data = require("../Data");
 
-var _Simulation = require("../Simulation");
-
 var _useWindowSize = _interopRequireDefault(require("~/hooks/useWindowSize"));
 
-var _useIsMobile = _interopRequireDefault(require("~/hooks/useIsMobile"));
-
-require("./Home.scss");
+require("./HomeDesktop.scss");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -47056,52 +47091,68 @@ function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = 
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+var isTouch = 'ontouchstart' in window;
 
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
-
-function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
-
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
-
-var Sizer = function Sizer() {
-  var ref = (0, _react.useRef)();
-  (0, _Simulation.useTick)(function (simulation) {
-    if (!ref.current) return;
-    var max = Math.max.apply(Math, _toConsumableArray(simulation.nodes().map(function (n) {
-      return n.y + n.r;
-    })));
-    ref.current.style.height = max + 20 + 'px';
-  }, [ref]);
-  return _react.default.createElement("div", {
-    ref: ref
-  });
-};
-
-var Home = function Home() {
-  var windowSize = (0, _useWindowSize.default)();
-  var isMobile = (0, _useIsMobile.default)();
-  var data = (0, _Data.useData)();
+var Legend = function Legend(_ref) {
+  var tags = _ref.tags,
+      colors = _ref.colors,
+      filter = _ref.filter,
+      setFilter = _ref.setFilter;
 
   var _useState = (0, _react.useState)(null),
       _useState2 = _slicedToArray(_useState, 2),
-      filter = _useState2[0],
-      setFilter = _useState2[1];
+      selected = _useState2[0],
+      setSelected = _useState2[1];
+
+  return _react.default.createElement("ul", {
+    className: "legend"
+  }, tags.map(function (tag) {
+    return _react.default.createElement("li", {
+      className: (0, _bem.default)("legend__item", {
+        selected: filter === null || filter === tag
+      }),
+      key: tag,
+      style: {
+        '--color': colors[tag]
+      },
+      onMouseEnter: isTouch ? undefined : function () {
+        return setFilter(tag);
+      },
+      onMouseLeave: isTouch ? undefined : function () {
+        return setFilter(selected);
+      },
+      onClick: isTouch ? function () {
+        return setFilter(filter === tag ? null : tag);
+      } : function () {
+        return setSelected(selected === tag ? null : tag);
+      }
+    }, tag, tag === selected && ' ×');
+  }));
+};
+
+var HomeDesktop = function HomeDesktop() {
+  var windowSize = (0, _useWindowSize.default)();
+  var data = (0, _Data.useData)();
 
   var _useState3 = (0, _react.useState)(null),
       _useState4 = _slicedToArray(_useState3, 2),
-      title = _useState4[0],
-      setTitle = _useState4[1];
+      filter = _useState4[0],
+      setFilter = _useState4[1];
+
+  var _useState5 = (0, _react.useState)(null),
+      _useState6 = _slicedToArray(_useState5, 2),
+      title = _useState6[0],
+      setTitle = _useState6[1];
 
   return _react.default.createElement("div", {
-    className: "home"
-  }, !isMobile && _react.default.createElement(_Venn.default, {
+    className: "home-desktop"
+  }, _react.default.createElement(_Venn.default, {
     size: windowSize
-  }), !isMobile && _react.default.createElement("div", {
-    className: "home__title"
+  }), _react.default.createElement("div", {
+    className: "home-desktop__title"
   }, title), _react.default.createElement("div", {
-    className: "home__thumbnails"
-  }, isMobile && _react.default.createElement(Sizer, null), data.projects.map(function (project) {
+    className: "home-desktop__thumbnails"
+  }, data.projects.map(function (project) {
     return _react.default.createElement(_Thumbnail.default, {
       key: project.url,
       project: project,
@@ -47109,7 +47160,7 @@ var Home = function Home() {
       visible: filter === null || project.tags.includes(filter),
       setTitle: setTitle
     });
-  })), _react.default.createElement(_Legend.default, {
+  })), _react.default.createElement(Legend, {
     tags: Object.keys(data.byTag),
     colors: data.colors,
     filter: filter,
@@ -47117,9 +47168,33 @@ var Home = function Home() {
   }));
 };
 
+var _default = HomeDesktop;
+exports.default = _default;
+},{"react":"../../node_modules/react/index.js","../../utils/bem":"utils/bem.js","../Thumbnail/Thumbnail":"components/Thumbnail/Thumbnail.jsx","../Venn":"components/Venn/index.js","../Data":"components/Data/index.js","~/hooks/useWindowSize":"hooks/useWindowSize.js","./HomeDesktop.scss":"components/Home/HomeMobile.scss"}],"components/Home/Home.jsx":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _HomeMobile = _interopRequireDefault(require("./HomeMobile"));
+
+var _HomeDesktop = _interopRequireDefault(require("./HomeDesktop"));
+
+var _useIsMobile = _interopRequireDefault(require("../../hooks/useIsMobile"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Home = function Home() {
+  return (0, _useIsMobile.default)() ? _react.default.createElement(_HomeMobile.default, null) : _react.default.createElement(_HomeDesktop.default, null);
+};
+
 var _default = Home;
 exports.default = _default;
-},{"react":"../../node_modules/react/index.js","../Thumbnail/Thumbnail":"components/Thumbnail/Thumbnail.jsx","./Legend":"components/Home/Legend.jsx","../Venn":"components/Venn/index.js","../Data":"components/Data/index.js","../Simulation":"components/Simulation/index.js","~/hooks/useWindowSize":"hooks/useWindowSize.js","~/hooks/useIsMobile":"hooks/useIsMobile.js","./Home.scss":"components/Thumbnail/Thumbnail.scss"}],"components/Home/index.js":[function(require,module,exports) {
+},{"react":"../../node_modules/react/index.js","./HomeMobile":"components/Home/HomeMobile.jsx","./HomeDesktop":"components/Home/HomeDesktop.jsx","../../hooks/useIsMobile":"hooks/useIsMobile.js"}],"components/Home/index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -49888,7 +49963,7 @@ var Project = function Project(_ref8) {
 
 var _default = Project;
 exports.default = _default;
-},{"react":"../../node_modules/react/index.js","../App":"components/App/index.js","~/hooks/useFetch":"hooks/useFetch.js","../Visited":"components/Visited/index.js","../Image":"components/Image/index.js","@u-wave/react-vimeo":"../../node_modules/@u-wave/react-vimeo/dist/react-vimeo.es.js","~/utils/bem":"utils/bem.js","./Project.scss":"components/Thumbnail/Thumbnail.scss","url-join":"../../node_modules/url-join/lib/url-join.js"}],"components/Project/index.js":[function(require,module,exports) {
+},{"react":"../../node_modules/react/index.js","../App":"components/App/index.js","~/hooks/useFetch":"hooks/useFetch.js","../Visited":"components/Visited/index.js","../Image":"components/Image/index.js","@u-wave/react-vimeo":"../../node_modules/@u-wave/react-vimeo/dist/react-vimeo.es.js","~/utils/bem":"utils/bem.js","./Project.scss":"components/Home/HomeMobile.scss","url-join":"../../node_modules/url-join/lib/url-join.js"}],"components/Project/index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -49969,7 +50044,7 @@ var HomeButton = function HomeButton() {
 
 var _default = HomeButton;
 exports.default = _default;
-},{"react":"../../node_modules/react/index.js","react-router-dom":"../../node_modules/react-router-dom/esm/react-router-dom.js","../Venn":"components/Venn/index.js","../Ring":"components/Ring/index.js","~/hooks/useWindowSize":"hooks/useWindowSize.js","~/hooks/useIsMobile":"hooks/useIsMobile.js","~/hooks/useSize":"hooks/useSize.js","../Data":"components/Data/index.js","./HomeButton.scss":"components/Thumbnail/Thumbnail.scss"}],"../../node_modules/react-spring/web.js":[function(require,module,exports) {
+},{"react":"../../node_modules/react/index.js","react-router-dom":"../../node_modules/react-router-dom/esm/react-router-dom.js","../Venn":"components/Venn/index.js","../Ring":"components/Ring/index.js","~/hooks/useWindowSize":"hooks/useWindowSize.js","~/hooks/useIsMobile":"hooks/useIsMobile.js","~/hooks/useSize":"hooks/useSize.js","../Data":"components/Data/index.js","./HomeButton.scss":"components/Home/HomeMobile.scss"}],"../../node_modules/react-spring/web.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -52490,7 +52565,7 @@ var Projects = function Projects(_ref) {
 
 var _default = Projects;
 exports.default = _default;
-},{"react":"../../node_modules/react/index.js","react-router-dom":"../../node_modules/react-router-dom/esm/react-router-dom.js","../Data":"components/Data/index.js","../Project":"components/Project/index.js","./HomeButton":"components/Projects/HomeButton.jsx","react-spring":"../../node_modules/react-spring/web.js","lodash/range":"../../node_modules/lodash/range.js","~/utils/math":"utils/math.js","./useSwipe":"components/Projects/useSwipe.js","~/hooks/useWindowSize":"hooks/useWindowSize.js","./Projects.scss":"components/Thumbnail/Thumbnail.scss"}],"components/Projects/index.js":[function(require,module,exports) {
+},{"react":"../../node_modules/react/index.js","react-router-dom":"../../node_modules/react-router-dom/esm/react-router-dom.js","../Data":"components/Data/index.js","../Project":"components/Project/index.js","./HomeButton":"components/Projects/HomeButton.jsx","react-spring":"../../node_modules/react-spring/web.js","lodash/range":"../../node_modules/lodash/range.js","~/utils/math":"utils/math.js","./useSwipe":"components/Projects/useSwipe.js","~/hooks/useWindowSize":"hooks/useWindowSize.js","./Projects.scss":"components/Home/HomeMobile.scss"}],"components/Projects/index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -52592,5 +52667,5 @@ require("./styles/global.scss");
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 _reactDom.default.render(_react.default.createElement(_App.default, null), document.querySelector('main'));
-},{"react":"../../node_modules/react/index.js","react-dom":"../../node_modules/react-dom/index.js","./components/App":"components/App/index.js","./styles/global.scss":"components/Thumbnail/Thumbnail.scss"}]},{},["main.js"], null)
+},{"react":"../../node_modules/react/index.js","react-dom":"../../node_modules/react-dom/index.js","./components/App":"components/App/index.js","./styles/global.scss":"components/Home/HomeMobile.scss"}]},{},["main.js"], null)
 //# sourceMappingURL=/main.js.map

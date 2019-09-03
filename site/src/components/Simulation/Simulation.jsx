@@ -2,7 +2,6 @@ import React, { createContext, useEffect, useContext } from 'react';
 import * as d3force from 'd3-force';
 import { useData } from '../Data';
 import useWindowSize from '~/hooks/useWindowSize';
-import useIsMobile from '~/hooks/useIsMobile';
 import forceCenter from './forceCenter';
 import forceSort from './forceSort';
 import forceBounds from './forceBounds';
@@ -65,11 +64,10 @@ export var SimulationProvider = ({ children }) => {
     var data = useData();
     var { projects } = data;
     var windowSize = useWindowSize();
-    var isMobile = useIsMobile();
     var filledArea = sum( projects.map( p => Math.PI * p.size ** 2 ) );
     var windowArea = Math.PI * ( Math.min( windowSize[ 0 ], windowSize[ 1 ] ) / 2 ) ** 2
     var targetFilledArea = windowArea / 2.5;
-    var scale = isMobile ? 35 : Math.sqrt( targetFilledArea / filledArea );
+    var scale = Math.sqrt( targetFilledArea / filledArea );
     var simulation = useInitRef( () => (
         d3force.forceSimulation(
             projects.map( ( project, i ) => ({
@@ -77,11 +75,10 @@ export var SimulationProvider = ({ children }) => {
                 r: project.size * scale,
                 index: i
             }) )
-        ).velocityDecay( 0.1 )
+        )
+        .velocityDecay( 0.1 )
+        .alphaDecay( 0 )
     ))
-    useEffect( () => {
-        simulation.alphaDecay( isMobile ? 0.05 : 0 )
-    }, [ simulation, isMobile ])
     useEffect( () => {
         var nodes = simulation.nodes();
         nodes.forEach( ( node, i ) => {
@@ -90,19 +87,19 @@ export var SimulationProvider = ({ children }) => {
         simulation.nodes( nodes );
     }, [ simulation, projects, scale ] );
     useForce( simulation, 'sort',
-        () => !isMobile && forceSort( data ),
+        () => forceSort( data ),
         [ projects ]
     )
     useForce( simulation, 'center',
-        () => !isMobile && forceCenter({ x: windowSize[ 0 ] / 2, y: windowSize[ 1 ] / 2 }),
-        [ isMobile, windowSize ]
+        () => forceCenter({ x: windowSize[ 0 ] / 2, y: windowSize[ 1 ] / 2 }),
+        [ windowSize ]
     )
     useForce( simulation, 'bounds',
         () => forceBounds({
             min: { x: 0, y: 0 },
-            max: { x: windowSize[ 0 ], y: isMobile ? Infinity : windowSize[ 1 ] }
+            max: { x: windowSize[ 0 ], y: windowSize[ 1 ] }
         }),
-        [ isMobile, windowSize ]
+        [ windowSize ]
     )
     useForce( simulation, 'collide',
         () => d3force.forceCollide()
@@ -112,11 +109,11 @@ export var SimulationProvider = ({ children }) => {
         []
     )
     useForce( simulation, 'gather',
-        () => !isMobile && forceGather(
+        () => forceGather(
             { x: windowSize[ 0 ] / 2, y: windowSize[ 1 ] / 2 },
             Math.min( windowSize[ 0 ], windowSize[ 1 ] ) * .4
         ),
-        [ isMobile, windowSize ]
+        [ windowSize ]
     )
     useForce( simulation, 'stir',
         () => forceStir(
