@@ -1,11 +1,16 @@
 .home-mobile {
     padding-top: var( --line );
+    &__header {
+        display: flex;
+        justify-content: center;
+    }
     &__thumbnails {
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
         padding-left: calc( var( --line ) / 2 );
         padding-right: calc( var( --line ) / 2 );
+        min-height: 100vh;
     }
     &__tags {
         position: sticky;

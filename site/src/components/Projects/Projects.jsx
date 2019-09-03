@@ -8,10 +8,12 @@ import range from 'lodash/range';
 import { clamp } from '~/utils/math';
 import useSwipe from './useSwipe';
 import useWindowSize from '~/hooks/useWindowSize';
+import useIsMobile from '~/hooks/useIsMobile';
 import './Projects.scss';
 
 var Projects = ({ match, history }) => {
     var { projects } = useData();
+    var isMobile = useIsMobile();
     var target = projects.findIndex( p => p.url === match.params.page ) || 0;
     var [ curr, setCurr ] = useState( target );
     var spring = useSpring({ target, onRest: ({ target }) => setCurr( target ) })
@@ -19,9 +21,11 @@ var Projects = ({ match, history }) => {
     var toIdx = Math.min( Math.max( curr, target ) + 1, projects.length - 1 );
     return (
         <div className="projects">
-            <div className="projects__header">
-                <HomeButton/>
-            </div>
+            { !isMobile && (
+                <div className="projects__header">
+                    <HomeButton/>
+                </div>
+            )}
             <div className="projects__body">
                 { range( fromIdx, toIdx + 1 ).map( i => {
                     var project = projects[ i ];

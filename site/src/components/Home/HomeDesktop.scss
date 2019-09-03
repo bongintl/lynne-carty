@@ -56,6 +56,15 @@
     padding: 2em;
     width: auto;
     z-index: 500;
+    @media ( orientation: portrait ) {
+        top: auto;
+        bottom: 0;
+        width: 100%;
+        flex-direction: row;
+        justify-content: center;
+        flex-wrap: wrap;
+        transform: none;
+    }
     &__item {
         color: transparent;
         display: flex;

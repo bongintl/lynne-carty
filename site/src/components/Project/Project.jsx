@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { basename } from '../App';
 import useFetch from '~/hooks/useFetch';
 import { useVisit } from '../Visited';
@@ -91,9 +92,9 @@ var Project = ({ title, url, offset }) => {
     console.log( project)
     return (
         <div className={ className }>
-            <div className="project__header">
+            <Link className="project__header" to="/">
                 <h1>{ title }</h1>
-            </div>
+            </Link>
             <div className="project__content">
                 { project && <Contents { ...project }/> }
             </div>

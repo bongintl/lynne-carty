@@ -31,7 +31,7 @@ var HomeMobile = () => {
     var projects = data.projects.slice( 0, -1 );
     return (
         <div className="home-mobile">
-            <div className="home-mobile__thumbnails">
+            <div className="home-mobile__header">
                 <HomeMobileThumbnail project={ about } colors={ data.colors } showTags={ false }/>
             </div>
             <div className="home-mobile__tags">
