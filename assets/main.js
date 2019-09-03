@@ -38064,7 +38064,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var _default = function _default(center, radius) {
   var nodes;
-  var strength = .002;
+  var strength = .001;
 
   var force = function force() {
     var now = Date.now();
@@ -38077,8 +38077,8 @@ var _default = function _default(center, radius) {
 
       var dist = _vec.default.len(d);
 
-      var f = Math.max(dist - radius, 0);
-      if (f === 0) return;
+      var f = dist - radius;
+      if (f <= 0) return;
 
       var dir = _vec.default.normalize(d);
 
