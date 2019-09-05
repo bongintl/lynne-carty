@@ -8,7 +8,7 @@ var DataContext = createContext();
 
 export var useData = () => useContext( DataContext );
 
-export var DataProvider = ({ children }) => {
+export var DataProvider = ({ children, fallback = null }) => {
     var data = useFetch( urlJoin( basename, 'home.json' ) );
     var transformedData = useMemo(() => {
         if ( data === null ) return null;
@@ -32,7 +32,7 @@ export var DataProvider = ({ children }) => {
     }, [ data ] );
     return (
         <DataContext.Provider value={ transformedData }>
-            { data === null ? null : children }
+            { data === null ? fallback : children }
         </DataContext.Provider>
     )
 }

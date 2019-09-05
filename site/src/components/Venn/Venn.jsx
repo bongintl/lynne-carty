@@ -114,7 +114,7 @@ var VennShader = ({ scale, transparent }) => {
         })
         gl.disable( gl.SCISSOR_TEST );
     }, [ byTag, colors, gl, vennShader, outlineShader, triangle, scale ])
-    useTick( simulation => draw( simulation.nodes() ) )
+    useTick( useCallback( simulation => draw( simulation.nodes() ), [ draw ] ) );
     return null;
 }
 
