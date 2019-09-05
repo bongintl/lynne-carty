@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useContext } from 'react';
+import React, { createContext, useEffect, useCallback, useContext } from 'react';
 import * as d3force from 'd3-force';
 import { useData } from '../Data';
 import useWindowSize from '~/hooks/useWindowSize';
@@ -27,11 +27,15 @@ export var useTick = onUpdate => {
 
 export var useNode = index => useSimulation().nodes()[ index ];
 
-export var useNodeUpdate = ( index, onUpdate, deps ) => {
-    useTick( simulation => {
-        var nodes = simulation.nodes();
-        if ( nodes[ index ] ) onUpdate( nodes[ index ] )
-    }, deps )
+export var useNodeUpdate = ( index, onUpdate ) => {
+    var onTick = useCallback(
+        simulation => {
+            var nodes = simulation.nodes();
+            if ( nodes[ index ] ) onUpdate( nodes[ index ] )
+        },
+        [ index, onUpdate ]
+    )
+    useTick( onTick );
 }
 
 var useForce = ( simulation, name, force, deps = [] ) => {

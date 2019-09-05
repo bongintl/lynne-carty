@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useCallback } from 'react';
 import bem from '../../utils/bem';
 import { Link } from "react-router-dom";
 import Image from '../Image';
@@ -23,32 +23,57 @@ var HomeMobileThumbnail = ({ project, colors, showTags = true }) => (
     </Link>
 )
 
+var Tag = ({ tag, color, filter, setFilter, scrollToTop }) => {
+    var className = bem( 'home-mobile__tag', { selected: filter === null || filter === tag } );
+    var text = filter === null
+        ? tag
+        : filter === tag
+            ? `${ tag } ×`
+            : ''
+    var onClick = useCallback(
+        () => {
+            setFilter( prevFilter => prevFilter === tag ? null : tag );
+            scrollToTop();
+        },
+        [ setFilter, scrollToTop, tag ]
+    )
+    return (
+        <div
+            className={ className }
+            style={{ '--color': color }}
+            onClick={ onClick }
+        >{ text }</div>
+    )
+}
+
 var HomeMobile = () => {
     var data = useData();
-    console.log( data );
     var [ filter, setFilter ] = useState( null );
     var about = data.projects[ data.projects.length - 1 ];
     var projects = data.projects.slice( 0, -1 );
+    var headerRef = useRef();
+    var scrollToTop = useCallback(
+        () => window.scrollTo({
+            top: headerRef.current.getBoundingClientRect().bottom + window.pageYOffset,
+            behavior: 'smooth'
+        }),
+        [ headerRef ]
+    )
     return (
         <div className="home-mobile">
-            <div className="home-mobile__header">
+            <div className="home-mobile__header" ref={ headerRef }>
                 <HomeMobileThumbnail project={ about } colors={ data.colors } showTags={ false }/>
             </div>
             <div className="home-mobile__tags">
                 { data.tags.filter( tag => tag !== about.tags[ 0 ] ).map( tag => (
-                    <div
+                    <Tag
                         key={ tag }
-                        className={ bem( 'home-mobile__tag', { selected: filter === null || filter === tag } )}
-                        style={{ '--color': data.colors[ tag ] }}
-                        onClick={ () => setFilter( filter === tag ? null : tag ) }
-                    >
-                        { filter === null
-                            ? tag
-                            : filter === tag
-                                ? `${ tag } ×`
-                                : ''
-                        }
-                    </div>
+                        tag={ tag }
+                        filter={ filter }
+                        setFilter={ setFilter }
+                        color={ data.colors[ tag ] }
+                        scrollToTop={ scrollToTop }
+                    />
                 )) }
             </div>
             <div className="home-mobile__thumbnails">

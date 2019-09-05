@@ -1,44 +1,40 @@
 @import '~/styles/utils';
 
 .project {
-    display: flex;
-    flex-direction: column;
+    // display: flex;
+    // flex-direction: column;
     height: 100%;
     overflow-x: hidden;
+    @include medium {
+        padding-top: var( --project-header-height );
+    }
     &--current {
         overflow-y: scroll;
         -webkit-overflow-scrolling: touch;
     }
     &__header {
-        text-align: center;
         z-index: 50;
         padding-bottom: line( .5 );
         padding-top: line( .5 );
         display: flex;
         justify-content: center;
+        position: sticky;
+        top: 0;
         @include medium {
-            background: linear-gradient( to bottom, var( --background ) calc( 100% - var( --line ) * .5 ), var( --background-transparent ) 100% );
-            padding-top: 0;
-            position: sticky;
-            top: 0;
+            display: none;
         }
         h1 {
             border: 1px solid black;
             padding: .1rem .6rem;
             border-radius: 100vw;
             background: var( --background );
-            position: sticky;
-            top: 0;
-            @include medium {
-                padding: 0;
-                position: relative;
-                border: none;
-            }
+            text-align: center;
+            display: flex;
+            align-items: center;
             &:after {
-                content: ' ×';
-                @include medium {
-                    content: '';
-                }
+                content: '×';
+                display: block;
+                padding-left: .25rem;
             }
         }
     }

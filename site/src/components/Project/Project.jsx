@@ -11,7 +11,7 @@ import urlJoin from 'url-join';
 
 var orientation = srcs => srcs[ 0 ].w > srcs[ 0 ].h ? 'landscape' : 'portrait';
 
-var ProjectImage = ({ srcs, type }) => (
+var ProjectImage = ({ srcs }) => (
     <div className={ bem( 'project__image', orientation( srcs ) ) }>
         <Image srcs={ srcs }/>
     </div>
@@ -89,7 +89,6 @@ var Project = ({ title, url, offset }) => {
         'off-left': offset < 0,
         'off-right': offset > 0
     })
-    console.log( project)
     return (
         <div className={ className }>
             <Link className="project__header" to="/">

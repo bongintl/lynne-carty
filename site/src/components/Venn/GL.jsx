@@ -2,11 +2,11 @@ import React, { createContext, useRef, useState, useLayoutEffect } from 'react'
 
 export var GLContext = createContext();
 
-var GL = ({ size, children, ...rest }) => {
+var GL = ({ size, alpha, children, ...rest }) => {
     var ref = useRef();
     var [ gl, setGL ] = useState( null );
     useLayoutEffect( () => {
-        setGL( ref.current.getContext( 'webgl' ) );
+        setGL( ref.current.getContext( 'webgl', { alpha } ) );
     }, [ ref.current ] );
     useLayoutEffect( () => {
         if ( !gl ) return;

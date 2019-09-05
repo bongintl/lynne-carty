@@ -16,6 +16,7 @@ var backgroundColor = (() => {
     var { r, g, b } = tinycolor( color ).toRgb();
     return [ r / 255, g / 255, b / 255, 1 ];
 })()
+var transparentColor = [ 0, 0, 0, 0 ];
 
 var vert = `
     precision highp float;
@@ -32,7 +33,7 @@ var groupLayers = ( positions, byTag, colors ) => (
     }))
 )
 
-var VennShader = ({ scale }) => {
+var VennShader = ({ scale, transparent }) => {
     var { byTag, colors } = useData();
     var gl = useContext( GLContext );
     var triangle = useMemo( () => {
@@ -62,7 +63,7 @@ var VennShader = ({ scale }) => {
     var fbo = useMemo( () => createFBO( gl, 1, 1 ), [ gl ] );
     var draw = useCallback( nodes => {
         gl.bindFramebuffer( gl.FRAMEBUFFER, null );
-        gl.clearColor( ...backgroundColor );
+        gl.clearColor( ...( transparent ? transparentColor : backgroundColor ) );
         gl.clear( gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT | gl.STENCIL_BUFFER_BIT );
         gl.disable( gl.DEPTH_TEST );
         gl.blendEquation( gl.FUNC_ADD );
@@ -117,11 +118,15 @@ var VennShader = ({ scale }) => {
     return null;
 }
 
-var Venn = ({ scale = 1, ...rest }) => {
+var Venn = ({ scale = 1, transparent, ...rest }) => {
     var windowSize = useWindowSize();
+    var size = useMemo(
+        () => [ windowSize[ 0 ] * scale, windowSize[ 1 ] * scale ],
+        [ windowSize, size ]
+    );
     return (
-        <GL size={[ windowSize[ 0 ] * scale, windowSize[ 1 ] * scale ]} { ...rest }>
-            <VennShader scale={ scale }/>
+        <GL size={ size } alpha={ transparent } { ...rest }>
+            <VennShader scale={ scale } transparent={ transparent }/>
         </GL>
     )
 }

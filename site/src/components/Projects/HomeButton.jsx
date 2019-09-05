@@ -5,10 +5,10 @@ import Ring from '../Ring';
 import useWindowSize from '~/hooks/useWindowSize';
 import useIsMobile from '~/hooks/useIsMobile';
 import useSize from '~/hooks/useSize';
-import { useData } from '../Data';
 import './HomeButton.scss';
 
-var DesktopHomeButton = () => {
+
+var HomeButton = () => {
     var ref = useRef();
     var size = useSize( ref );
     var windowSize = useWindowSize();
@@ -19,21 +19,5 @@ var DesktopHomeButton = () => {
         </div>
     )
 }
-
-var MobileHomeButton = () => {
-    var { colors } = useData();
-    return (
-        <div className="home-button">
-            { Object.values( colors ).map( ( color, i ) => (
-                <Ring key={ i } color={color}/>
-            )) }
-        </div>
-    )
-}
-
-
-var HomeButton = () => (
-    <Link to="/">{ useIsMobile() ? <MobileHomeButton/> : <DesktopHomeButton/> }</Link>
-)
 
 export default HomeButton;

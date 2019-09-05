@@ -14,6 +14,11 @@ float edge ( vec2 coord ) {
     float down = sample( coord + vec2( 0., -1. ) );
     float left = sample( coord + vec2( -1., 0. ) );
     float right = sample( coord + vec2( 1., 0. ) );
+    float color = 0.;
+    if ( up != center ) color += .25;
+    if ( down != center ) color += .25;
+    if ( left != center ) color += .25;
+    if ( right != center ) color += .25;
     if ( up > center || down > center || right > center || left > center ) {
         return 1.;
     } else {
@@ -22,5 +27,6 @@ float edge ( vec2 coord ) {
 }
 
 void main () {
+    float alpha = edge( gl_FragCoord.xy );
     gl_FragColor = vec4( color, edge( gl_FragCoord.xy ) );
 }

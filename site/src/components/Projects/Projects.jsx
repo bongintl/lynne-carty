@@ -1,17 +1,15 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState } from 'react';
 import { Link } from "react-router-dom";
 import { useData } from '../Data';
 import Project from '../Project';
-import HomeButton from './HomeButton';
 import { useSpring, animated } from 'react-spring';
 import range from 'lodash/range';
 import { clamp } from '~/utils/math';
-import useSwipe from './useSwipe';
-import useWindowSize from '~/hooks/useWindowSize';
+import ProjectsHeader from './ProjectsHeader';
 import useIsMobile from '~/hooks/useIsMobile';
 import './Projects.scss';
 
-var Projects = ({ match, history }) => {
+var Projects = ({ match }) => {
     var { projects } = useData();
     var isMobile = useIsMobile();
     var target = projects.findIndex( p => p.url === match.params.page ) || 0;
@@ -21,11 +19,7 @@ var Projects = ({ match, history }) => {
     var toIdx = Math.min( Math.max( curr, target ) + 1, projects.length - 1 );
     return (
         <div className="projects">
-            { !isMobile && (
-                <div className="projects__header">
-                    <HomeButton/>
-                </div>
-            )}
+            { !isMobile && <ProjectsHeader project={ projects[ target ] }/> }
             <div className="projects__body">
                 { range( fromIdx, toIdx + 1 ).map( i => {
                     var project = projects[ i ];
