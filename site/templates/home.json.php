@@ -6,13 +6,12 @@ $projects = array_values(
         -> listed()
         -> published()
         -> flip()
-        -> filter( function ( $project ) {
-            return (
-                $project -> mainImage() -> isNotEmpty() &&
-                $project -> mainImage() -> toFile() -> extension() !== 'gif'
-            );
-        })
-        // -> limit( 10 )
+        // -> filter( function ( $project ) {
+        //     return (
+        //         $project -> mainImage() -> isNotEmpty() &&
+        //         $project -> mainImage() -> toFile() -> extension() !== 'gif'
+        //     );
+        // })
         -> toArray( function ( $project ) {
             return [
                 'title' => (string) $project -> title(),

@@ -1,7 +1,6 @@
 <?php
 
 return [
-    'debug' => true,
     'thumbs' => [
         'driver' => 'im'
     ],
@@ -10,11 +9,4 @@ return [
             'active' => true
         ]
     ]
-    // 'routes' => [[
-    //     'pattern' => 'image/(:all)',
-    //     'action' => function ( $id ) {
-    //         // return $id;
-    //         return srcs( kirby() -> site() -> index() -> files() -> findById( $id ) );
-    //     }
-    // ]]
 ];
