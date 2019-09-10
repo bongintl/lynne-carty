@@ -6,6 +6,9 @@ $projects = array_values(
         -> listed()
         -> published()
         -> flip()
+        -> filter( function ( $project ) {
+            return $project -> mainImage() -> isNotEmpty();
+        } )
         -> toArray( function ( $project ) {
             return [
                 'title' => (string) $project -> title(),
