@@ -6,19 +6,13 @@ $projects = array_values(
         -> listed()
         -> published()
         -> flip()
-        // -> filter( function ( $project ) {
-        //     return (
-        //         $project -> mainImage() -> isNotEmpty() &&
-        //         $project -> mainImage() -> toFile() -> extension() !== 'gif'
-        //     );
-        // })
         -> toArray( function ( $project ) {
             return [
                 'title' => (string) $project -> title(),
                 'url' => (string) $project -> uri(),
                 'thumbnailId' => $project -> mainImage() -> toFile() -> id(),
                 'thumbnail' => $project -> mainImage() -> isNotEmpty()
-                    ? srcs( $project -> mainImage() -> toFile(), [ 100, 200, 400 ] )
+                    ? srcs( $project -> mainImage() -> toFile(), [ 100, 200, 400 ], 40 )
                     : null,
                 'tags' => $project -> tags() -> split(),
                 "size" => (float) $project -> size() -> value()

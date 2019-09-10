@@ -1,6 +1,6 @@
 <?php
 
-function srcs ( $file, $widths = [ 100, 200, 400, 800, 1000, 1600 ] ) {
+function srcs ( $file, $widths = [ 100, 200, 400, 800, 1000, 1600 ], $quality = 80 ) {
     if ( $file -> extension() === 'gif' ) {
         return [[
             'url' => $file -> url(),
@@ -18,7 +18,7 @@ function srcs ( $file, $widths = [ 100, 200, 400, 800, 1000, 1600 ] ) {
     if ( count( $smallerWidths ) < count( $widths ) ) $smallerWidths []= $originalWidth;
     $srcs = [];
     foreach ( $smallerWidths as $w ) {
-        $f = $file -> thumb([ 'width' => $w, 'quality' => 80 ]);
+        $f = $file -> thumb([ 'width' => $w, 'quality' => $quality ]);
         $srcs []= [
             'url' => $f -> url(),
             'w' => $f -> width(),
