@@ -10,7 +10,6 @@ $projects = array_values(
             return [
                 'title' => (string) $project -> title(),
                 'url' => (string) $project -> uri(),
-                'thumbnailId' => $project -> mainImage() -> toFile() -> id(),
                 'thumbnail' => $project -> mainImage() -> isNotEmpty()
                     ? srcs( $project -> mainImage() -> toFile(), [ 100, 200, 400 ], 40 )
                     : null,
