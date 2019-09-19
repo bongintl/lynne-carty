@@ -31,7 +31,7 @@ var Credits = ({ credits }) => (
 var ProjectContents = ({ video, autoplay, mainImage, body, credits, additionalImages }) => (
     <>
         { video ? (
-            <div className={ bem( 'project__image', 'landscape' ) }>
+            <div className={ bem( 'project__image', 'video' ) }>
                 <Vimeo
                     className="vimeo"
                     video={ video }
